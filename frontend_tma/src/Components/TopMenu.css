@@ -1,1 +1,53 @@
 /* Style for the top menu */
+.nav_top_menu {
+    /* Positioning */
+    position: fixed;
+    top: 0;
+
+    /* Sizing */
+    width: 100%;
+    height: 12%;
+
+    /* Positioning elements inside */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.icons_list_top_menu {
+    list-style: none;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    padding-left: 10%;
+    padding-right: 10%;
+
+    width: 100%;
+}
+
+/* First li in list of icons */
+.icons_list_top_menu li:first-child {
+    width: 100px;
+}
+/* Second li in list of icons */
+.icons_list_top_menu li:last-child {
+    width: 20%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    top: 20%;
+    right: 5%;
+}
+.functional_icons_top_menu {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    height: auto;
+}
+
+.icon {
+    color: white;
+}
