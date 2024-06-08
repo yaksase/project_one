@@ -21,25 +21,21 @@
     justify-content: space-between;
     align-items: center;
 
-    padding-left: 10%;
-    padding-right: 10%;
+    padding-left: 5%;
+    padding-right: 5%;
 
     width: 100%;
 }
 
 /* First li in list of icons */
 .icons_list_top_menu li:first-child {
-    width: 100px;
+    width: 130px;
 }
 /* Second li in list of icons */
 .icons_list_top_menu li:last-child {
-    width: 20%;
+    width: auto;
     display: flex;
     justify-content: center;
-    align-items: center;
-    position: absolute;
-    top: 20%;
-    right: 5%;
 }
 .functional_icons_top_menu {
     display: flex;
@@ -50,4 +46,23 @@
 
 .icon {
     color: white;
+}
+
+.money_section_top_menu {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.balance_top_menu {
+    color: white;
+    font-weight: bold;
+
+    margin-right: 8px;
+}
+.ton_icon_top_menu img {
+    height: 30px;
+    width: auto;
+}
+.ton_icon_top_menu {
+    margin-right: -2px;
 }
