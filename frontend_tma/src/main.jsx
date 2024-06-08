@@ -13,9 +13,11 @@ const router = createBrowserRouter([
     children: []
   }
 ])
+
 document.body.style.backgroundColor = "black"
 WebApp.ready();
 WebApp.setHeaderColor("#000000");
+
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
     <RouterProvider router={router} />
