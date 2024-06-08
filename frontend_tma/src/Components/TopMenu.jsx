@@ -28,7 +28,7 @@ export default function BottomMenu() {
         <li>
           <a className="" href="#wallet" class="money_section_top_menu">
             <div class="balance_top_menu">
-              1234.12
+              1234.5678
             </div>
             <div class="ton_icon_top_menu">
               <img src={TonIcon} />
