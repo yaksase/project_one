@@ -1,6 +1,8 @@
 import { IconContext } from "react-icons/lib";
 import { PiTreasureChestLight, PiHouseLight, PiDesktopLight, PiShoppingCartLight } from "react-icons/pi";
 
+import './BottomMenu.css';
+
 export default function BottomMenu() {
   return (
     <nav className="fixed bottom-0 transform w-full bg-black text-white">
