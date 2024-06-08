@@ -1,15 +1,13 @@
 import { IconContext } from "react-icons/lib";
 import { PiWalletLight, PiUserPlusLight, PiRankingLight } from "react-icons/pi";
 
-import TonIcon from './ton_icon.svg';
+import TonIcon from '../assets/ton_icon.svg';
 
 import './TopMenu.css';
 
 export default function BottomMenu() {
   return (
-    // <nav className="fixed top-0 transform w-full bg-black text-white">
     <nav class="nav_top_menu">
-      {/* <ul className="flex justify-evenly"> */}
       <ul class="icons_list_top_menu">
         <li>
           <div class="functional_icons_top_menu">

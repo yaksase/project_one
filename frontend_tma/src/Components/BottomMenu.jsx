@@ -9,7 +9,7 @@ export default function BottomMenu() {
       <ul class="icons_list_bottom_menu">
         <li>
           <a className="" href="#home">
-            <IconContext.Provider value={{ size:"50"}}>
+            <IconContext.Provider value={{ size: "50" }}>
               <PiHouseLight></PiHouseLight>
             </IconContext.Provider>
           </a>
@@ -17,7 +17,7 @@ export default function BottomMenu() {
         <li class="icon_divider_bottom_menu"></li>
         <li>
           <a className="" href="#inventory">
-            <IconContext.Provider value={{ size:"50"}}>
+            <IconContext.Provider value={{ size: "50" }}>
               <PiDesktopLight></PiDesktopLight>
             </IconContext.Provider>
           </a>
@@ -25,7 +25,7 @@ export default function BottomMenu() {
         <li class="icon_divider_bottom_menu"></li>
         <li>
           <a className="" href="#market">
-            <IconContext.Provider value={{ size:"50"}}>
+            <IconContext.Provider value={{ size: "50" }}>
               <PiShoppingCartLight></PiShoppingCartLight>
             </IconContext.Provider>
           </a>
@@ -33,7 +33,7 @@ export default function BottomMenu() {
         <li class="icon_divider_bottom_menu"></li>
         <li>
           <a className="" href="#crates">
-            <IconContext.Provider value={{ size:"50"}}>
+            <IconContext.Provider value={{ size: "50" }}>
               <PiTreasureChestLight></PiTreasureChestLight>
             </IconContext.Provider>
           </a>
