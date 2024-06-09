@@ -6,34 +6,50 @@ import TonIcon from '../assets/ton_icon.svg';
 import './TopMenu.css';
 
 export default function BottomMenu() {
+  const IconSize = "40";
   return (
-    <nav class="nav_top_menu">
-      <ul class="icons_list_top_menu">
-        <li>
-          <div class="functional_icons_top_menu">
+    <nav className="nav_top_menu">
+      <ul className="icons_list_top_menu">
+        {/* <li>
+          <div className="functional_icons_top_menu">
             <a className="" href="#refferal">
-              <IconContext.Provider value={{ size: "50" }}>
-                <PiUserPlusLight class="icon"></PiUserPlusLight>
+              <IconContext.Provider value={{ size: IconSize }}>
+                <PiUserPlusLight className="icon"></PiUserPlusLight>
               </IconContext.Provider>
             </a>
             <a className="" href="#leaderboard">
-              <IconContext.Provider value={{ size: "50" }}>
-                <PiRankingLight class="icon"></PiRankingLight>
+              <IconContext.Provider value={{ size: IconSize }}>
+                <PiRankingLight className="icon"></PiRankingLight>
               </IconContext.Provider>
             </a>
           </div>
+        </li> */}
+        <li>
+        <a className="" href="#refferal">
+              <IconContext.Provider value={{ size: IconSize }}>
+                <PiUserPlusLight className="icon"></PiUserPlusLight>
+              </IconContext.Provider>
+            </a>
         </li>
         <li>
-          <a className="" href="#wallet" class="money_section_top_menu">
-            <div class="balance_top_menu">
-              1234.5678
-            </div>
-            <div class="ton_icon_top_menu">
-              <img src={TonIcon} />
-            </div>
-            <IconContext.Provider value={{ size: "50" }}>
-              <PiWalletLight class="icon"></PiWalletLight>
+        <a className="" href="#leaderboard">
+              <IconContext.Provider value={{ size: IconSize }}>
+                <PiRankingLight className="icon"></PiRankingLight>
+              </IconContext.Provider>
+            </a>
+        </li>
+        <li>
+          <a className="money_section_top_menu" href="#wallet" >
+            {/* <div className="balance_top_menu">
+              1,2M
+            </div> */}
+            
+            <IconContext.Provider value={{ size: IconSize }}>
+              <PiWalletLight className="icon"></PiWalletLight>
             </IconContext.Provider>
+            {/* <div className="ton_icon_top_menu">
+              <img src={TonIcon} />
+            </div> */}
           </a>
         </li>
       </ul>

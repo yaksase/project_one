@@ -4,36 +4,37 @@ import { PiTreasureChestLight, PiHouseLight, PiDesktopLight, PiShoppingCartLight
 import './BottomMenu.css';
 
 export default function BottomMenu() {
+  const IconSize = "40";
   return (
-    <nav class="nav_bottom_menu">
-      <ul class="icons_list_bottom_menu">
+    <nav className="nav_bottom_menu">
+      <ul className="icons_list_bottom_menu">
         <li>
           <a className="" href="#home">
-            <IconContext.Provider value={{ size: "50" }}>
+            <IconContext.Provider value={{ size: IconSize }}>
               <PiHouseLight></PiHouseLight>
             </IconContext.Provider>
           </a>
         </li>
-        <li class="icon_divider_bottom_menu"></li>
+        <li className="icon_divider_bottom_menu" style={{height:(+IconSize+10) + "px"}}></li>
         <li>
           <a className="" href="#inventory">
-            <IconContext.Provider value={{ size: "50" }}>
+            <IconContext.Provider value={{ size: IconSize }}>
               <PiDesktopLight></PiDesktopLight>
             </IconContext.Provider>
           </a>
         </li>
-        <li class="icon_divider_bottom_menu"></li>
+        <li className="icon_divider_bottom_menu" style={{height:(+IconSize+10) + "px"}}></li>
         <li>
           <a className="" href="#market">
-            <IconContext.Provider value={{ size: "50" }}>
+            <IconContext.Provider value={{ size: IconSize }}>
               <PiShoppingCartLight></PiShoppingCartLight>
             </IconContext.Provider>
           </a>
         </li>
-        <li class="icon_divider_bottom_menu"></li>
+        <li className="icon_divider_bottom_menu" style={{height:(+IconSize+10) + "px"}}></li>
         <li>
           <a className="" href="#crates">
-            <IconContext.Provider value={{ size: "50" }}>
+            <IconContext.Provider value={{ size: IconSize }}>
               <PiTreasureChestLight></PiTreasureChestLight>
             </IconContext.Provider>
           </a>
