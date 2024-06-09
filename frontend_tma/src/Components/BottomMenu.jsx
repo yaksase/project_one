@@ -15,7 +15,7 @@ export default function BottomMenu() {
             </IconContext.Provider>
           </a>
         </li>
-        <li className="icon_divider_bottom_menu" style={{height:(+IconSize+20) + "px"}}></li>
+        <li className="icon_divider_bottom_menu" style={{height:(+IconSize+10) + "px"}}></li>
         <li>
           <a className="" href="#inventory">
             <IconContext.Provider value={{ size: IconSize }}>
@@ -23,7 +23,7 @@ export default function BottomMenu() {
             </IconContext.Provider>
           </a>
         </li>
-        <li className="icon_divider_bottom_menu" style={{height:(+IconSize+20) + "px"}}></li>
+        <li className="icon_divider_bottom_menu" style={{height:(+IconSize+10) + "px"}}></li>
         <li>
           <a className="" href="#market">
             <IconContext.Provider value={{ size: IconSize }}>
@@ -31,7 +31,7 @@ export default function BottomMenu() {
             </IconContext.Provider>
           </a>
         </li>
-        <li className="icon_divider_bottom_menu" style={{height:(+IconSize+20) + "px"}}></li>
+        <li className="icon_divider_bottom_menu" style={{height:(+IconSize+10) + "px"}}></li>
         <li>
           <a className="" href="#crates">
             <IconContext.Provider value={{ size: IconSize }}>

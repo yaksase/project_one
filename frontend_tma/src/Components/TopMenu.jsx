@@ -10,7 +10,7 @@ export default function BottomMenu() {
   return (
     <nav className="nav_top_menu">
       <ul className="icons_list_top_menu">
-        <li>
+        {/* <li>
           <div className="functional_icons_top_menu">
             <a className="" href="#refferal">
               <IconContext.Provider value={{ size: IconSize }}>
@@ -23,19 +23,33 @@ export default function BottomMenu() {
               </IconContext.Provider>
             </a>
           </div>
+        </li> */}
+        <li>
+        <a className="" href="#refferal">
+              <IconContext.Provider value={{ size: IconSize }}>
+                <PiUserPlusLight className="icon"></PiUserPlusLight>
+              </IconContext.Provider>
+            </a>
+        </li>
+        <li>
+        <a className="" href="#leaderboard">
+              <IconContext.Provider value={{ size: IconSize }}>
+                <PiRankingLight className="icon"></PiRankingLight>
+              </IconContext.Provider>
+            </a>
         </li>
         <li>
           <a className="money_section_top_menu" href="#wallet" >
-            <div className="balance_top_menu">
+            {/* <div className="balance_top_menu">
               1,2M
-            </div>
+            </div> */}
             
             <IconContext.Provider value={{ size: IconSize }}>
               <PiWalletLight className="icon"></PiWalletLight>
             </IconContext.Provider>
-            <div className="ton_icon_top_menu">
+            {/* <div className="ton_icon_top_menu">
               <img src={TonIcon} />
-            </div>
+            </div> */}
           </a>
         </li>
       </ul>
