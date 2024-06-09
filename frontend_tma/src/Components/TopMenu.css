@@ -64,9 +64,11 @@
     display: flex;
     justify-content: right;
 
-    position: absolute;
+    font-size: 20px;
+
+    /* position: absolute;
     top: 45px;
-    right: -5px;
+    right: -5px; */
 }
 .ton_icon_top_menu img {
     height: 25px;
