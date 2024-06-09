@@ -7,28 +7,28 @@ import './TopMenu.css';
 
 export default function BottomMenu() {
   return (
-    <nav className="nav_top_menu">
-      <ul className="icons_list_top_menu">
+    <nav class="nav_top_menu">
+      <ul class="icons_list_top_menu">
         <li>
-          <div className="functional_icons_top_menu">
-            <a href="#refferal">
+          <div class="functional_icons_top_menu">
+            <a className="" href="#refferal">
               <IconContext.Provider value={{ size: "50" }}>
-                <PiUserPlusLight className="icon"></PiUserPlusLight>
+                <PiUserPlusLight class="icon"></PiUserPlusLight>
               </IconContext.Provider>
             </a>
-            <a href="#leaderboard">
+            <a className="" href="#leaderboard">
               <IconContext.Provider value={{ size: "50" }}>
-                <PiRankingLight className="icon"></PiRankingLight>
+                <PiRankingLight class="icon"></PiRankingLight>
               </IconContext.Provider>
             </a>
           </div>
         </li>
         <li>
-          <a className="money_section_top_menu" href="#wallet">
-            <div className="balance_top_menu">
+          <a className="" href="#wallet" class="money_section_top_menu">
+            <div class="balance_top_menu">
               1234.5678
             </div>
-            <div className="ton_icon_top_menu">
+            <div class="ton_icon_top_menu">
               <img src={TonIcon} />
             </div>
             <IconContext.Provider value={{ size: "50" }}>

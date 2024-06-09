@@ -5,34 +5,34 @@ import './BottomMenu.css';
 
 export default function BottomMenu() {
   return (
-    <nav className="nav_bottom_menu">
-      <ul className="icons_list_bottom_menu">
+    <nav class="nav_bottom_menu">
+      <ul class="icons_list_bottom_menu">
         <li>
-          <a href="#home">
+          <a className="" href="#home">
             <IconContext.Provider value={{ size: "50" }}>
               <PiHouseLight></PiHouseLight>
             </IconContext.Provider>
           </a>
         </li>
-        <li className="icon_divider_bottom_menu"></li>
+        <li class="icon_divider_bottom_menu"></li>
         <li>
-          <a href="#inventory">
+          <a className="" href="#inventory">
             <IconContext.Provider value={{ size: "50" }}>
               <PiDesktopLight></PiDesktopLight>
             </IconContext.Provider>
           </a>
         </li>
-        <li className="icon_divider_bottom_menu"></li>
+        <li class="icon_divider_bottom_menu"></li>
         <li>
-          <a href="#market">
+          <a className="" href="#market">
             <IconContext.Provider value={{ size: "50" }}>
               <PiShoppingCartLight></PiShoppingCartLight>
             </IconContext.Provider>
           </a>
         </li>
-        <li className="icon_divider_bottom_menu"></li>
+        <li class="icon_divider_bottom_menu"></li>
         <li>
-          <a href="#crates">
+          <a className="" href="#crates">
             <IconContext.Provider value={{ size: "50" }}>
               <PiTreasureChestLight></PiTreasureChestLight>
             </IconContext.Provider>
