@@ -1,1 +1,45 @@
 /* Here you write css for BottomMenu */
+.nav_bottom_menu {
+    /* Positioning realitivly viewport */
+    position: fixed;
+    bottom: 0;
+
+    /* Sizing */
+    width: 100%;
+    height: 12%;
+
+    /* Positioning elements inside */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.icons_list_bottom_menu {
+    /* Reset deafult styles */
+    list-style: none;
+
+    /* Positioning elements inside menu */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    /* Set inner paddings */
+    padding-left: 10%;
+    padding-right: 10%;
+
+    /* Set sizes */
+    width: 100%;   
+}
+
+.icons_list_bottom_menu svg {
+    color: white; 
+} 
+
+.icon_divider_bottom_menu {
+    /* Set sizes of lines */
+    width: 1px;
+    height: 70px;
+
+    /* Set color of lines */
+    background-color: white;
+}

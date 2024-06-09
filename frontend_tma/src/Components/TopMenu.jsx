@@ -1,30 +1,38 @@
 import { IconContext } from "react-icons/lib";
 import { PiWalletLight, PiUserPlusLight, PiRankingLight } from "react-icons/pi";
 
+import TonIcon from '../assets/ton_icon.svg';
+
 import './TopMenu.css';
 
 export default function BottomMenu() {
   return (
-    <nav className="fixed top-0 transform w-full bg-black text-white">
-      <ul className="flex justify-evenly">
+    <nav class="nav_top_menu">
+      <ul class="icons_list_top_menu">
         <li>
-          <a className="" href="#refferal">
-            <IconContext.Provider value={{ size:"30"}}>
-              <PiUserPlusLight></PiUserPlusLight>
-            </IconContext.Provider>
-          </a>
+          <div class="functional_icons_top_menu">
+            <a className="" href="#refferal">
+              <IconContext.Provider value={{ size: "50" }}>
+                <PiUserPlusLight class="icon"></PiUserPlusLight>
+              </IconContext.Provider>
+            </a>
+            <a className="" href="#leaderboard">
+              <IconContext.Provider value={{ size: "50" }}>
+                <PiRankingLight class="icon"></PiRankingLight>
+              </IconContext.Provider>
+            </a>
+          </div>
         </li>
         <li>
-          <a className="" href="#leaderboard">
-            <IconContext.Provider value={{ size:"30"}}>
-              <PiRankingLight></PiRankingLight>
-            </IconContext.Provider>
-          </a>
-        </li>
-        <li>
-          <a className="" href="#wallet">
-            <IconContext.Provider value={{ size:"30"}}>
-              <PiWalletLight></PiWalletLight>
+          <a className="" href="#wallet" class="money_section_top_menu">
+            <div class="balance_top_menu">
+              1234.5678
+            </div>
+            <div class="ton_icon_top_menu">
+              <img src={TonIcon} />
+            </div>
+            <IconContext.Provider value={{ size: "50" }}>
+              <PiWalletLight class="icon"></PiWalletLight>
             </IconContext.Provider>
           </a>
         </li>
