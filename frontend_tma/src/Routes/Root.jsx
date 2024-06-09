@@ -7,7 +7,7 @@ export default function Root() {
     <>
       <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
       <TopMenu></TopMenu>
-      <main style={{ marginTop: "10vh", marginBottom: "12vh" }}>
+      <main className="mainContent">
         <div style={{ overflowX: 'hidden' }}>
           <h1 style={{ color: "white" }}> 1 строsas334546787uyutdfgt76tydfxdfdtfr7yfyytyt78ytfcyt7tfxgt7fygytfgytytfcgtytfgchgytgfchgdfdsfsdfsdfsdfsdfsdfsdfsdfsdfка </h1>
           <h1 style={{ color: "white" }}> Govno </h1>
@@ -47,7 +47,7 @@ export default function Root() {
           <h1 style={{ color: "white" }}> Govno </h1>
           <h1 style={{ color: "white" }}> Govno </h1>
           <h1 style={{ color: "white" }}> Govno </h1>
-          <h1 style={{ color: "white" }}> Govno </h1>
+          <h1 style={{ color: "white" }}> last string </h1>
         </div>
       </main>
       <BottomMenu></BottomMenu>

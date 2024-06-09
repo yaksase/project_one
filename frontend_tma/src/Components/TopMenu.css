@@ -1,4 +1,7 @@
 /* Style for the top menu */
+:root {
+  --height-of-top-menu: max(10vh, 60px);
+}
 .nav_top_menu {
   /* Positioning */
   position: fixed;
@@ -6,8 +9,8 @@
 
   /* Sizing */
   width: 100%;
-  height: 10vh;
-  min-height: 60px;
+  
+  height: var(--height-of-top-menu);
 
   /* Positioning elements inside */
   display: flex;
@@ -73,10 +76,6 @@
   justify-content: right;
 
   font-size: 20px;
-
-  /* position: absolute;
-    top: 45px;
-    right: -5px; */
 }
 
 .icons_list_top_menu li:last-child {
@@ -113,4 +112,9 @@
     flex-direction: row;
     column-gap: 10px;
   }
+}
+
+.mainContent {
+  background-color: red;
+  margin-top: var(--height-of-top-menu);
 }
