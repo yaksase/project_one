@@ -1,5 +1,6 @@
 import { IconContext } from "react-icons/lib";
 import { PiTreasureChestLight, PiHouseLight, PiDesktopLight, PiShoppingCartLight } from "react-icons/pi";
+import { Link } from "react-router-dom";
 
 import './BottomMenu.css';
 
@@ -9,11 +10,11 @@ export default function BottomMenu() {
     <nav className="nav_bottom_menu">
       <ul className="icons_list_bottom_menu">
         <li>
-          <a href="#home">
+          <Link to={'/'}>
             <IconContext.Provider value={{ size: IconSize }}>
               <PiHouseLight></PiHouseLight>
             </IconContext.Provider>
-          </a>
+          </Link>
         </li>
         <li className="icon_divider_bottom_menu" style={{height:(+IconSize+10) + "px"}}></li>
         <li>
