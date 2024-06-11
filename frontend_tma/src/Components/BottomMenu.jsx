@@ -11,34 +11,34 @@ export default function BottomMenu() {
       <ul className="icons_list_bottom_menu">
         <li>
           <Link to={'/'}>
-            <IconContext.Provider value={{ size: IconSize }}>
+            <IconContext.Provider value={{ size: IconSize, className: "glowing_icon" }}>
               <PiHouseLight></PiHouseLight>
             </IconContext.Provider>
           </Link>
         </li>
         <li className="icon_divider_bottom_menu" style={{height:(+IconSize+10) + "px"}}></li>
         <li>
-          <a href="#inventory">
+          <Link to={'/inventory'}>
             <IconContext.Provider value={{ size: IconSize }}>
               <PiDesktopLight></PiDesktopLight>
             </IconContext.Provider>
-          </a>
+          </Link>
         </li>
         <li className="icon_divider_bottom_menu" style={{height:(+IconSize+10) + "px"}}></li>
         <li>
-          <a href="#market">
+          <Link to={'/market'}>
             <IconContext.Provider value={{ size: IconSize }}>
               <PiShoppingCartLight></PiShoppingCartLight>
             </IconContext.Provider>
-          </a>
+          </Link>
         </li>
         <li className="icon_divider_bottom_menu" style={{height:(+IconSize+10) + "px"}}></li>
         <li>
-          <a href="#crates">
+          <Link to={'/mint'}>
             <IconContext.Provider value={{ size: IconSize }}>
               <PiTreasureChestLight></PiTreasureChestLight>
             </IconContext.Provider>
-          </a>
+          </Link>
         </li>
       </ul>
     </nav>
