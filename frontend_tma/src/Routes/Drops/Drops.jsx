@@ -1,12 +1,16 @@
 import { useState } from 'react';
 import AiMint from './assets/ai_mint.png';
 import PcMint from './assets/pc_mint.png';
+import RandomPicPc from './assets/7-2.png';
+import RandomPicAi from './assets/6.png';
 
 import './Drops.css'
 
 export default function Home() {
   const [isPopUpVisible, setPopUpVisible] = useState(false);
   const [currentPic, setCurrentPic] = useState(null);
+  const [isStyleActive, setStyleActive] = useState(false);
+  const [isItemUnlock, setItemLock] = useState(false);
 
   function showPopUp(pic) {
     setCurrentPic(pic)
@@ -18,22 +22,32 @@ export default function Home() {
   function preventClosingPopUp(e) {
     e.stopPropagation();
   }
+  function showNewItem() {
+    setStyleActive(true);
+    setItemLock(true);
+    if (currentPic === PcMint) {
+      setCurrentPic(RandomPicPc);
+    }
+    else {
+      setCurrentPic(RandomPicAi);
+    }
+  }
   return (
     <div className="container">
       {isPopUpVisible && (
         <div id="PopUpOverlay" onClick={hidePopUp}>
-          <div className="PopUp" id="PopUp" onClick={preventClosingPopUp}>
+          <div className={`PopUp ${isStyleActive ? 'greenHighlight' : ''}`} id="PopUp" onClick={preventClosingPopUp}>
             <div className="PopUpContent">
               <img src={currentPic} alt="Mint Pc"></img>
               <div className="PopUpDescription">
-                Price: <br></br>
-                Case content
+                Price: 1.123M<br></br>
+                Case content: Cool stuff can run doom on iron
               </div>
-              <button className="MintButton">Mint</button>
+              <button className="MintButton" onClick={showNewItem}>{isItemUnlock ? "Confirm" : "Mint"}</button>
             </div>
           </div>
         </div>
-      )}
+      )} 
 
       <div className="item">
         <img src={PcMint} alt="Mint PC" className="image" />
