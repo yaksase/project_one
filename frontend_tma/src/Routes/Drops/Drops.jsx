@@ -1,45 +1,19 @@
+import AiMint from './assets/ai_mint.png';
+import PcMint from './assets/pc_mint.png';
+
+import './Drops.css'
+
 export default function Home() {
   return (
-    <div style={{ overflowX: 'hidden' }}>
-      <h1 style={{ color: "white" }}> 1 строsas334546787uyutdfgt76tydfxdfdtfr7yfyytyt78ytfcyt7tfxgt7fygytfgytytfcgtytfgchgytgfchgdfdsfsdfsdfsdfsdfsdfsdfsdfsdfка </h1>
-      <h1 style={{ color: "white" }}> Mint </h1>
-      <h1 style={{ color: "white" }}> Mint </h1>
-      <h1 style={{ color: "white" }}> Mint </h1>
-      <h1 style={{ color: "white" }}> Mint </h1>
-      <h1 style={{ color: "white" }}> Mint </h1>
-      <h1 style={{ color: "white" }}> Mint </h1>
-      <h1 style={{ color: "white" }}> Mint </h1>
-      <h1 style={{ color: "white" }}> Mint </h1>
-      <h1 style={{ color: "white" }}> Mint </h1>
-      <h1 style={{ color: "white" }}> Mint </h1>
-      <h1 style={{ color: "white" }}> Mint </h1>
-      <h1 style={{ color: "white" }}> Mint </h1>
-      <h1 style={{ color: "white" }}> Mint </h1>
-      <h1 style={{ color: "white" }}> Mint </h1>
-      <h1 style={{ color: "white" }}> Mint </h1>
-      <h1 style={{ color: "white" }}> Mint </h1>
-      <h1 style={{ color: "white" }}> Mint </h1>
-      <h1 style={{ color: "white" }}> Mint </h1>
-      <h1 style={{ color: "white" }}> Mint </h1>
-      <h1 style={{ color: "white" }}> Mint </h1>
-      <h1 style={{ color: "white" }}> Mint </h1>
-      <h1 style={{ color: "white" }}> Mint </h1>
-      <h1 style={{ color: "white" }}> 123 </h1>
-      <h1 style={{ color: "white" }}> Mint </h1>
-      <h1 style={{ color: "white" }}> Mint </h1>
-      <h1 style={{ color: "white" }}> Mint </h1>
-      <h1 style={{ color: "white" }}> Mint </h1>
-      <h1 style={{ color: "white" }}> Mint </h1>
-      <h1 style={{ color: "white" }}> Mint </h1>
-      <h1 style={{ color: "white" }}> Mint </h1>
-      <h1 style={{ color: "white" }}> Mint </h1>
-      <h1 style={{ color: "white" }}> Mint </h1>
-      <h1 style={{ color: "white" }}> Mint </h1>
-      <h1 style={{ color: "white" }}> Mint </h1>
-      <h1 style={{ color: "white" }}> Mint </h1>
-      <h1 style={{ color: "white" }}> Mint </h1>
-      <h1 style={{ color: "white" }}> Mint </h1>
-      <h1 style={{ color: "white" }}> last string </h1>
-    </div>
+      <div className="container">
+        <div className="item">
+          <img src={PcMint} alt="Mint PC" className="image" />
+          <button className="button">Mint PC</button>
+        </div>
+        <div className="item">
+          <img src={AiMint} alt="Mint Ai" className="image" />
+          <button className="button">Mint Ai</button>
+        </div>
+      </div>
   )
 }
