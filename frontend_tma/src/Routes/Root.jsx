@@ -1,6 +1,6 @@
 import { Outlet } from "react-router-dom";
-import BottomMenu from "../Components/BottomMenu";
-import TopMenu from "../Components/TopMenu";
+import BottomMenu from "../Components/BottomMenu/BottomMenu";
+import TopMenu from "../Components/TopMenu/TopMenu";
 
 export default function Root() {
   return (

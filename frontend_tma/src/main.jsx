@@ -7,7 +7,7 @@ import Root from './Routes/Root.jsx'
 import Home from './Routes/Home.jsx'
 import Inventory from './Routes/Inventory.jsx'
 import Market from './Routes/Market.jsx'
-import Mint from './Routes/Mint.jsx'
+import Drops from './Routes/Drops/Drops.jsx'
 
 import './index.css'
 
@@ -29,8 +29,8 @@ const router = createBrowserRouter([
         element: <Market></Market>
       },
       {
-        path: 'mint',
-        element: <Mint></Mint>
+        path: 'drops',
+        element: <Drops></Drops>
       }
     ]
   }
