@@ -18,6 +18,8 @@
   align-items: center;
 
   background-color: black;
+
+  z-index: 5;
 }
 
 .icons_list_top_menu {
