@@ -29,7 +29,7 @@ const router = createBrowserRouter([
         element: <Market></Market>
       },
       {
-        path: 'mint',
+        path: 'drops',
         element: <Drops></Drops>
       }
     ]

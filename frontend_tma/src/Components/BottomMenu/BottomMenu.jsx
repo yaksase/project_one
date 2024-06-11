@@ -34,7 +34,7 @@ export default function BottomMenu() {
         </li>
         <li className="icon_divider_bottom_menu" style={{height:(+IconSize+10) + "px"}}></li>
         <li>
-          <Link to={'/mint'}>
+          <Link to={'/drops'}>
             <IconContext.Provider value={{ size: IconSize }}>
               <PiTreasureChestLight></PiTreasureChestLight>
             </IconContext.Provider>
