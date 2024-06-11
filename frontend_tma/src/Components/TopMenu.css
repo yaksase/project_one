@@ -9,7 +9,7 @@
 
   /* Sizing */
   width: 100%;
-  
+
   height: var(--height-of-top-menu);
 
   /* Positioning elements inside */
@@ -115,6 +115,5 @@
 }
 
 .mainContent {
-  background-color: red;
   margin-top: var(--height-of-top-menu);
 }
