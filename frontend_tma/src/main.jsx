@@ -1,8 +1,13 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
 import WebApp from '@twa-dev/sdk'
-import Root from './Routes/Root.jsx'
 import { RouterProvider, createBrowserRouter  } from 'react-router-dom'
+
+import Root from './Routes/Root.jsx'
+import Home from './Routes/Home.jsx'
+import Inventory from './Routes/Inventory.jsx'
+import Market from './Routes/Market.jsx'
+import Mint from './Routes/Mint.jsx'
 
 import './index.css'
 
@@ -10,7 +15,24 @@ const router = createBrowserRouter([
   {
     path: "/",
     element: <Root></Root>,
-    children: []
+    children: [
+      {
+        index: true,
+        element: <Home></Home>
+      },
+      {
+        path: 'inventory',
+        element: <Inventory></Inventory>
+      },
+      {
+        path: 'market',
+        element: <Market></Market>
+      },
+      {
+        path: 'mint',
+        element: <Mint></Mint>
+      }
+    ]
   }
 ])
 
