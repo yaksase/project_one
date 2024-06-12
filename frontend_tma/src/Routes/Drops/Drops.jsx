@@ -45,7 +45,7 @@ export default function Home() {
                 Price: 1.123M<br></br>
                 Case content: Cool stuff can run doom on iron
               </div>
-              <PositiveButton></PositiveButton>
+              <PositiveButton>Mint</PositiveButton>
             </div>
           </div>
         </div>

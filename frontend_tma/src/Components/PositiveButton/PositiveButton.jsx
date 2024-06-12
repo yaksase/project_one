@@ -1,7 +1,7 @@
 import './PositiveButton.css'
 
-export default function PositiveButton() {
+export default function PositiveButton({ children }) {
   return (
-    <button className="PositiveButton">Mint</button>
+    <button className="PositiveButton">{children}</button>
   )
 }
