@@ -1,4 +1,6 @@
 import { useState } from 'react';
+import PositiveButton from '../../Components/PositiveButton/PositiveButton';
+
 import AiMint from './assets/ai_mint.png';
 import PcMint from './assets/pc_mint.png';
 import RandomPicPc from './assets/7-2.png';
@@ -43,7 +45,7 @@ export default function Home() {
                 Price: 1.123M<br></br>
                 Case content: Cool stuff can run doom on iron
               </div>
-              <button className="MintButton" onClick={showNewItem}>{isItemUnlock ? "Confirm" : "Mint"}</button>
+              <PositiveButton></PositiveButton>
             </div>
           </div>
         </div>
