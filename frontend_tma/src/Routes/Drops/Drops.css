@@ -21,6 +21,10 @@
   margin-left: auto;
 }
 
+.item:first-of-type {
+  margin-top: 4vh;
+}
+
 .item {
   margin: 20px 0;
   text-align: center;
@@ -58,7 +62,7 @@
 
   margin-top: 5px;
   background-color: #3EAF07;
-  border: 3px solid #01E71A;
+  /* border: 3px solid #01E71A; */
 
   color: white;
   text-align: center;
