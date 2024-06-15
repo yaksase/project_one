@@ -3,4 +3,9 @@ html, body {
     margin: 0;
 
     font-family: sans-serif;
+    color: white;
+}
+
+::-webkit-scrollbar {
+    display: none;
 }
