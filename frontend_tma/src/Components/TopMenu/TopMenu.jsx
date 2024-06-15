@@ -1,8 +1,8 @@
 import { IconContext } from "react-icons/lib";
 import { PiWalletLight, PiUserPlusLight, PiRankingLight } from "react-icons/pi";
 
-import TonIcon from './assets/ton_icon.svg';
-import TokenIcon from './assets/token_icon.png';
+import TonIcon from '../../assets/ton_icon.svg';
+import TokenIcon from '../../assets/token_icon.png';
 
 import './TopMenu.css';
 

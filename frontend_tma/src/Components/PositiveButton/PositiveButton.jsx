@@ -1,7 +1,8 @@
 import './PositiveButton.css'
 
-export default function PositiveButton({ children }) {
+// eslint-disable-next-line react/prop-types
+export default function PositiveButton({ onClick, children }) {
   return (
-    <button className="PositiveButton">{children}</button>
+    <button className="PositiveButton" onClick={() => onClick()}>{children}</button>
   )
 }

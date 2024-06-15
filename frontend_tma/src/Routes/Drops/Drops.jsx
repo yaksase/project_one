@@ -1,63 +1,106 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import useImagePreloader from '../../hooks/imgPreloader';
+
+import PopUp from '../../Components/PopUp/PopUp';
 import PositiveButton from '../../Components/PositiveButton/PositiveButton';
 
 import AiMint from './assets/ai_mint.png';
 import PcMint from './assets/pc_mint.png';
-import RandomPicPc from './assets/7-2.png';
-import RandomPicAi from './assets/6.png';
+
+import UltraAi from './assets/6.png';
+import MythicPc from './assets/7-2.png';
+
+import TonIcon from '../../assets/ton_icon.svg';
 
 import './Drops.css'
 
-export default function Home() {
-  const [isPopUpVisible, setPopUpVisible] = useState(false);
-  const [currentPic, setCurrentPic] = useState(null);
-  const [isStyleActive, setStyleActive] = useState(false);
-  const [isItemUnlock, setItemLock] = useState(false);
+const preloadSrcList = [ AiMint, PcMint, UltraAi, MythicPc ];
 
-  function showPopUp(pic) {
-    setCurrentPic(pic)
-    setPopUpVisible(true);
+export default function Drops() {
+  const [mintActive, setMintActive] = useState(false);
+  const [confirmActive, setConfirmActive] = useState(false);
+  const [selectedMint, setSelectedMint] = useState(null);
+
+  function openPcMint() {
+    setSelectedMint('pc');
+    setMintActive(true);
   }
-  function hidePopUp() {
-    setPopUpVisible(false);
+
+  function openAiMint() {
+    setSelectedMint('ai');
+    setMintActive(true);
   }
-  function preventClosingPopUp(e) {
-    e.stopPropagation();
+
+  function closeMint() {
+    setMintActive(false);
   }
-  function showNewItem() {
-    setStyleActive(true);
-    setItemLock(true);
-    if (currentPic === PcMint) {
-      setCurrentPic(RandomPicPc);
-    }
-    else {
-      setCurrentPic(RandomPicAi);
-    }
+
+  function activateConfirm() {
+    setMintActive(false);
+    setConfirmActive(true);
   }
+
+  function closeConfirm() {
+    setConfirmActive(false);
+  }
+
+  let casePic;
+  let dropPic;
+  let rarity = 'common';
+  if (selectedMint === 'pc') {
+    casePic = PcMint;
+    dropPic = MythicPc;
+    rarity = 'Mythic';
+  } else if (selectedMint === 'ai') {
+    casePic = AiMint;
+    dropPic = UltraAi;
+    rarity = 'Ultra';
+  }
+
   return (
     <div className="container">
-      {isPopUpVisible && (
-        <div id="PopUpOverlay" onClick={hidePopUp}>
-          <div className={`PopUp ${isStyleActive ? 'greenHighlight' : ''}`} id="PopUp" onClick={preventClosingPopUp}>
-            <div className="PopUpContent">
-              <img src={currentPic} alt="Mint Pc"></img>
-              <div className="PopUpDescription">
-                Price: 1.123M<br></br>
-                Case content: Cool stuff can run doom on iron
-              </div>
-              <PositiveButton>Mint</PositiveButton>
-            </div>
+      {/* Case Mint */}
+      <PopUp isActive={mintActive} onClose={closeMint}>
+        <div className="popUpContent">
+          <img src={casePic} alt="case pic" className='image image-mint'></img>
+          <div className="popUpDescription">
+            Price: 1.5<span className='tonIconPrice'><img src={TonIcon} /></span><br></br>
+            Case content:<br></br>
+            <span className='text-common'>Common </span>
+            <span className='text-uncommon'>Uncommon </span>
+            <span className='text-rare'>Rare </span>
+            <span className='text-epic'>Epic </span>
+            <span className='text-legendary'>Legendary </span>
+            <span className='text-ultra'>Ultra </span>
+            <span className='text-mythic'>Mythic</span>
+          </div>
+          <div className="popUpButtonContainer">
+            <PositiveButton onClick={activateConfirm}>Mint</PositiveButton>
           </div>
         </div>
-      )} 
+      </PopUp>
+
+      {/* Case Drops */}
+      <PopUp isActive={confirmActive} onClose={closeConfirm}>
+        <div className="popUpContent">
+          <img src={dropPic} alt="drop pic" className={`image glow-${rarity.toLowerCase()} image-drops`}></img>
+          <div className="popUpDescription">
+            Rarity: <span className={`text-${rarity.toLowerCase()}`}>{rarity}</span><br></br>
+            Description:
+          </div>
+          <div className="popUpButtonContainer">
+            <PositiveButton onClick={closeConfirm}>Confirm</PositiveButton>
+          </div>
+        </div>
+      </PopUp>
 
       <div className="item">
         <img src={PcMint} alt="Mint PC" className="image" />
-        <button className="button" onClick={() => showPopUp(PcMint)}>Mint PC</button>
+        <button className="button" onClick={() => openPcMint()}>Mint PC</button>
       </div>
       <div className="item">
         <img src={AiMint} alt="Mint Ai" className="image" />
-        <button className="button" onClick={() => showPopUp(AiMint)}>Mint Ai</button>
+        <button className="button" onClick={() => openAiMint()}>Mint Ai</button>
       </div>
     </div>
   )
