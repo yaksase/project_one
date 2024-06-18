@@ -36,7 +36,6 @@ const router = createBrowserRouter([
   }
 ])
 
-document.body.style.backgroundColor = "black"
 WebApp.ready();
 WebApp.setHeaderColor("#000000");
 
