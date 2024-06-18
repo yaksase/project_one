@@ -103,11 +103,12 @@ html, body {
     text-shadow: 0 0 1vh var(--textColor);
 }
 
-.priceIcon {
-    margin-left: 0.2em;
-    vertical-align: middle;
+.priceWrapper {
+    display: flex;
 }
-.priceIcon img {
+
+.priceWrapper img {
+    margin-left: 0.2em;
     width: 1em;
     height: 1em;
     font-size: 1em;

@@ -64,7 +64,9 @@ export default function Drops() {
         <div className="popUpContent">
           <img src={casePic} alt="case pic" className='image image-mint'></img>
           <div className="popUpDescription">
-            Price: 1.5<span className='priceIcon'><img src={TonIcon} /></span><br/><br/>
+            <span className='priceWrapper'>
+              Price: 1.5<img src={TonIcon} /><br/><br/>
+            </span>
             Case content:<br></br>
             <span className='text-common'>Common </span>
             <span className='text-uncommon'>Uncommon </span>

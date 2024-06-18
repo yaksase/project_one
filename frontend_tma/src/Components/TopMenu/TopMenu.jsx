@@ -35,12 +35,17 @@ export default function TopMenu() {
         <li>
           <div className="balance_container_top_menu">
             <div className="balance_top_menu">
-              12.356
-              <span className='priceIcon'><img src={TonIcon}/></span>
+              <span className="priceWrapper">
+                12.356
+                <img src={TonIcon}/>
+              </span>
+              
             </div>
             <div className="balance_top_menu">
-              1.546M
-              <span className='priceIcon'><img src={TokenIcon}/></span>
+              <span className="priceWrapper">
+                1.546M
+                <img src={TokenIcon}/>
+              </span>
             </div>
           </div>
         </li>
