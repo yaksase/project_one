@@ -1,3 +1,15 @@
+/* This makes background to be black even when scrolling on ios */
+body::before {
+    content: '';
+    position: fixed;
+    top: -100px;
+    left: 0;
+    right: 0;
+    bottom: -100px;
+    background-color: #000000;
+    z-index: -1;
+}
+
 :root {
     --mythic-color: #ba00ff;
     --ultra-color: #ff0000;
