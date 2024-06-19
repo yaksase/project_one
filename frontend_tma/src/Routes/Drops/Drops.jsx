@@ -88,7 +88,7 @@ export default function Drops() {
           <img src={dropPic} alt="drop pic" className={`image glow-${rarity.toLowerCase()} image-drops`}></img>
           <div className="popUpDescription">
             Rarity: <span className={`text-${rarity.toLowerCase()}`}>{rarity}</span><br></br>
-            Description:
+            Description: Lorem ipsum, dolor sit amet consectetur adipisicing elit. Magnam mollitia eligendi consequatur itaque esse aut officiis sapiente? Aut itaque mollitia consequuntur tempore repellat inventore amet distinctio aperiam magni, molestias quisquam.
           </div>
           <div className="popUpButtonContainer">
             <PositiveButton onClick={closeConfirm}>Confirm</PositiveButton>

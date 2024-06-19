@@ -16,18 +16,30 @@
   filter: drop-shadow(0px 0px 1vh #ffffff);
 }
 
+.popUpContent {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 0 5vw 0 5vw;
+}
+
+.popUpDescription {
+  padding-bottom: 25px;
+}
+
+.popUpButtonContainer {
+  position: sticky;
+  bottom: 10px;
+}
+
 .image-mint {
-  width: 95%;
-  margin-left: auto;
-  margin-right: auto;
+  margin-bottom: 0.5em;
 }
 
 .image-drops {
   max-width: 80%;
   max-height: 60%;
-  margin-right: auto;
-  margin-left: auto;
-  margin-bottom: 10px;
+  margin-bottom: 0.5em;
 }
 
 .button {
@@ -67,5 +79,9 @@
 
   .image {
     filter: drop-shadow(0px 0px 1vw #ffffff);
+  }
+
+  .popUpContent {
+    margin: 0 10vw 0 10vw;
   }
 }
