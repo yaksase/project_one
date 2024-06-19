@@ -1,3 +1,14 @@
+/* Reset all default styles */
+* {
+    background: none repeat scroll 0 0 transparent;
+    border: medium none;
+    border-spacing: 0;
+    list-style: none outside none;
+    margin: 0;
+    padding: 0;
+    text-decoration: none;
+  }
+
 /* This makes background to be black even when scrolling on ios */
 body::before {
     content: '';
@@ -103,10 +114,10 @@ html, body {
     text-shadow: 0 0 1vh var(--textColor);
 }
 
+/* You should wrap prices or token counts in this */
 .priceWrapper {
     display: flex;
 }
-
 .priceWrapper img {
     margin-left: 0.2em;
     width: 1em;
