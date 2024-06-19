@@ -68,7 +68,6 @@ export default function Drops() {
               Price: 1.5<img src={TonIcon} /><br/><br/>
             </span>
             Case content:<br></br>
-            <span className='text-common'>Common </span>
             <span className='text-uncommon'>Uncommon </span>
             <span className='text-rare'>Rare </span>
             <span className='text-epic'>Epic </span>
