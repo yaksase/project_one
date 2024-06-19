@@ -1,5 +1,4 @@
-import { useState, useEffect } from 'react';
-import useImagePreloader from '../../hooks/imgPreloader';
+import { useState } from 'react';
 
 import PopUp from '../../Components/PopUp/PopUp';
 import PositiveButton from '../../Components/PositiveButton/PositiveButton';
@@ -12,9 +11,7 @@ import MythicPc from '../../assets/pc/pc_mythic.png';
 
 import TonIcon from '../../assets/ton_icon.svg';
 
-import './Drops.css'
-
-const preloadSrcList = [ AiMint, PcMint, UltraAi, MythicPc ];
+import s from './Drops.module.css'
 
 export default function Drops() {
   const [mintActive, setMintActive] = useState(false);
@@ -58,12 +55,12 @@ export default function Drops() {
   }
 
   return (
-    <div className="container">
+    <div className={s.container}>
       {/* Case Mint */}
       <PopUp isActive={mintActive} onClose={closeMint}>
-        <div className="popUpContent">
-          <img src={casePic} alt="case pic" className='image image-mint'></img>
-          <div className="popUpDescription">
+        <div className={s.popUpContent}>
+          <img src={casePic} alt="case pic" className={`${s.image} ${s.imageMint}`}></img>
+          <div className={s.popUpDescription}>
             <span className='priceWrapper'>
               Price: 1.5<img src={TonIcon} /><br/><br/>
             </span>
@@ -75,7 +72,7 @@ export default function Drops() {
             <span className='text-ultra'>Ultra </span>
             <span className='text-mythic'>Mythic</span>
           </div>
-          <div className="popUpButtonContainer">
+          <div className={s.popUpButtonContainer}>
             <PositiveButton onClick={activateConfirm}>Mint</PositiveButton>
           </div>
         </div>
@@ -83,25 +80,25 @@ export default function Drops() {
 
       {/* Case Drops */}
       <PopUp isActive={confirmActive} onClose={closeConfirm}>
-        <div className="popUpContent">
-          <img src={dropPic} alt="drop pic" className={`image glow-${rarity.toLowerCase()} image-drops`}></img>
-          <div className="popUpDescription">
+        <div className={s.popUpContent}>
+          <img src={dropPic} className={`s.image glow-${rarity.toLowerCase()} ${s.imageDrops}`}></img>
+          <div className={s.popUpDescription}>
             Rarity: <span className={`text-${rarity.toLowerCase()}`}>{rarity}</span><br></br>
             Description: Lorem ipsum, dolor sit amet consectetur adipisicing elit. Magnam mollitia eligendi consequatur itaque esse aut officiis sapiente? Aut itaque mollitia consequuntur tempore repellat inventore amet distinctio aperiam magni, molestias quisquam.
           </div>
-          <div className="popUpButtonContainer">
+          <div className={s.popUpButtonContainer}>
             <PositiveButton onClick={closeConfirm}>Confirm</PositiveButton>
           </div>
         </div>
       </PopUp>
 
-      <div className="item">
-        <img src={PcMint} alt="Mint PC" className="image" />
-        <button className="button" onClick={() => openPcMint()}>Mint PC</button>
+      <div className={s.item}>
+        <img src={PcMint} alt="Mint PC" className={s.image} />
+        <button className={s.button} onClick={() => openPcMint()}>Mint PC</button>
       </div>
-      <div className="item">
-        <img src={AiMint} alt="Mint Ai" className="image" />
-        <button className="button" onClick={() => openAiMint()}>Mint Ai</button>
+      <div className={s.item}>
+        <img src={AiMint} alt="Mint Ai" className={s.image} />
+        <button className={s.button} onClick={() => openAiMint()}>Mint Ai</button>
       </div>
     </div>
   )
