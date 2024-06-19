@@ -38,6 +38,7 @@ const router = createBrowserRouter([
 
 WebApp.ready();
 WebApp.setHeaderColor("#000000");
+WebApp.setBackgroundColor("#000000");
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>

@@ -44,74 +44,73 @@ html, body {
 }
 
 .glow-common {
-    filter: drop-shadow(0 0 2vh var(--common-color));
+    filter: drop-shadow(0 0 1rem var(--common-color));
 }
 
 .glow-uncommon {
-    filter: drop-shadow(0 0 2vh var(--uncommon-color));
+    filter: drop-shadow(0 0 1rem var(--uncommon-color));
 }
 
 .glow-rare {
-    filter: drop-shadow(0 0 2vh var(--rare-color));
+    filter: drop-shadow(0 0 1rem var(--rare-color));
 }
 
 .glow-epic {
-    filter: drop-shadow(0 0 2vh var(--epic-color));
+    filter: drop-shadow(0 0 1rem var(--epic-color));
 }
 
 .glow-legendary {
-    filter: drop-shadow(0 0 2vh var(--legendary-color));
+    filter: drop-shadow(0 0 1rem var(--legendary-color));
 }
 
 .glow-ultra {
-    filter: drop-shadow(0 0 2vh var(--ultra-color));
+    filter: drop-shadow(0 0 1rem var(--ultra-color));
 }
 
 .glow-mythic {
-    filter: drop-shadow(0 0 2vh var(--mythic-color));
+    filter: drop-shadow(0 0 1rem var(--mythic-color));
 }
 
 .text-common {
     --textColor: var(--common-color);
     color: var(--textColor);
-    text-shadow: 0 0 1vh var(--textColor);
+    text-shadow: 0 0 0.5em var(--textColor);
 }
 
 .text-uncommon {
     --textColor: var(--uncommon-color);
     color: var(--textColor);
-    text-shadow: 0 0 1vh var(--textColor);
+    text-shadow: 0 0 0.5em var(--textColor);
 }
 
 .text-rare {
     --textColor: var(--rare-color);
     color: var(--textColor);
-    text-shadow: 0 0 1vh var(--textColor);
+    text-shadow: 0 0 0.5em var(--textColor);
 }
 
 .text-epic {
     --textColor: var(--epic-color);
     color: var(--textColor);
-    text-shadow: 0 0 1vh var(--textColor);
+    text-shadow: 0 0 0.5em var(--textColor);
 }
 
 .text-legendary {
     --textColor: var(--legendary-color);
     color: var(--textColor);
-    text-shadow: 0 0 1vh var(--textColor);
+    text-shadow: 0 0 0.5em var(--textColor);
 }
-
 
 .text-ultra {
     --textColor: var(--ultra-color);
     color: var(--textColor);
-    text-shadow: 0 0 1vh var(--textColor);
+    text-shadow: 0 0 0.5em var(--textColor);
 }
 
 .text-mythic {
     --textColor: var(--mythic-color);
     color: var(--textColor);
-    text-shadow: 0 0 1vh var(--textColor);
+    text-shadow: 0 0 0.5em var(--textColor);
 }
 
 /* You should wrap prices or token counts in this */
