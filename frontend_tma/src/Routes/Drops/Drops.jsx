@@ -7,8 +7,8 @@ import PositiveButton from '../../Components/PositiveButton/PositiveButton';
 import AiMint from './assets/ai_mint.png';
 import PcMint from './assets/pc_mint.png';
 
-import UltraAi from './assets/6.png';
-import MythicPc from './assets/7-2.png';
+import UltraAi from '../../assets/ai/ai_ultra.png';
+import MythicPc from '../../assets/pc/pc_mythic.png';
 
 import TonIcon from '../../assets/ton_icon.svg';
 
