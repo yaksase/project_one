@@ -1,6 +1,125 @@
+/* Reset all default styles */
+* {
+    background: none repeat scroll 0 0 transparent;
+    border: medium none;
+    border-spacing: 0;
+    list-style: none outside none;
+    margin: 0;
+    padding: 0;
+    text-decoration: none;
+  }
+
+/* This makes background to be black even when scrolling on ios */
+body::before {
+    content: '';
+    position: fixed;
+    top: -100px;
+    left: 0;
+    right: 0;
+    bottom: -100px;
+    background-color: #000000;
+    z-index: -1;
+}
+
+:root {
+    --mythic-color: #ba00ff;
+    --ultra-color: #ff0000;
+    --legendary-color: #ff00e4;
+    --epic-color: #ffcc00;
+    --rare-color: #eaff00;
+    --uncommon-color: #06ff00;
+    --common-color: #505050;
+}
+
 html, body {
     padding: 0;
     margin: 0;
 
-    font-family: sans-serif;
+    font-family: 'Courier New', Courier, monospace;
+    color: white;
+}
+
+::-webkit-scrollbar {
+    display: none;
+}
+
+.glow-common {
+    filter: drop-shadow(0 0 1rem var(--common-color));
+}
+
+.glow-uncommon {
+    filter: drop-shadow(0 0 1rem var(--uncommon-color));
+}
+
+.glow-rare {
+    filter: drop-shadow(0 0 1rem var(--rare-color));
+}
+
+.glow-epic {
+    filter: drop-shadow(0 0 1rem var(--epic-color));
+}
+
+.glow-legendary {
+    filter: drop-shadow(0 0 1rem var(--legendary-color));
+}
+
+.glow-ultra {
+    filter: drop-shadow(0 0 1rem var(--ultra-color));
+}
+
+.glow-mythic {
+    filter: drop-shadow(0 0 1rem var(--mythic-color));
+}
+
+.text-common {
+    --textColor: var(--common-color);
+    color: var(--textColor);
+    text-shadow: 0 0 0.5em var(--textColor);
+}
+
+.text-uncommon {
+    --textColor: var(--uncommon-color);
+    color: var(--textColor);
+    text-shadow: 0 0 0.5em var(--textColor);
+}
+
+.text-rare {
+    --textColor: var(--rare-color);
+    color: var(--textColor);
+    text-shadow: 0 0 0.5em var(--textColor);
+}
+
+.text-epic {
+    --textColor: var(--epic-color);
+    color: var(--textColor);
+    text-shadow: 0 0 0.5em var(--textColor);
+}
+
+.text-legendary {
+    --textColor: var(--legendary-color);
+    color: var(--textColor);
+    text-shadow: 0 0 0.5em var(--textColor);
+}
+
+.text-ultra {
+    --textColor: var(--ultra-color);
+    color: var(--textColor);
+    text-shadow: 0 0 0.5em var(--textColor);
+}
+
+.text-mythic {
+    --textColor: var(--mythic-color);
+    color: var(--textColor);
+    text-shadow: 0 0 0.5em var(--textColor);
+}
+
+/* You should wrap prices or token counts in this */
+.priceWrapper {
+    display: flex;
+}
+.priceWrapper img {
+    margin-left: 0.2em;
+    width: 1em;
+    height: 1em;
+    font-size: 1em;
 }

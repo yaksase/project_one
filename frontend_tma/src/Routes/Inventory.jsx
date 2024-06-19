@@ -1,4 +1,4 @@
-export default function Home() {
+export default function Inventory() {
   return (
     <div style={{ overflowX: 'hidden' }}>
       <h1 style={{ color: "white" }}> 1 строsas334546787uyutdfgt76tydfxdfdtfr7yfyytyt78ytfcyt7tfxgt7fygytfgytytfcgtytfgchgytgfchgdfdsfsdfsdfsdfsdfsdfsdfsdfsdfка </h1>

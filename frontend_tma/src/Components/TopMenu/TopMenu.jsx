@@ -1,8 +1,8 @@
 import { IconContext } from "react-icons/lib";
 import { PiWalletLight, PiUserPlusLight, PiRankingLight } from "react-icons/pi";
 
-import TonIcon from './assets/ton_icon.svg';
-import TokenIcon from './assets/token_icon.png';
+import TonIcon from '../../assets/ton_icon.svg';
+import TokenIcon from '../../assets/token_icon.png';
 
 import './TopMenu.css';
 
@@ -35,16 +35,17 @@ export default function TopMenu() {
         <li>
           <div className="balance_container_top_menu">
             <div className="balance_top_menu">
-              12.356
-              <div className="coin_icon_top_menu">
-                <img src={TonIcon} />
-              </div>
+              <span className="priceWrapper">
+                12.356
+                <img src={TonIcon}/>
+              </span>
+              
             </div>
             <div className="balance_top_menu">
-              1.546M
-              <div className="coin_icon_top_menu">
-                <img src={TokenIcon} />
-              </div>
+              <span className="priceWrapper">
+                1.546M
+                <img src={TokenIcon}/>
+              </span>
             </div>
           </div>
         </li>

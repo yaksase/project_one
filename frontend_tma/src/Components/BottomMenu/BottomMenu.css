@@ -1,7 +1,7 @@
 /* Here you write css for BottomMenu */
 :root {
     --height-of-bottom-menu: max(12vh, 65px);
-  }
+}
 .nav_bottom_menu {
     /* Positioning realitivly viewport */
     position: fixed;
@@ -35,12 +35,12 @@
     padding-right: 10%;
 
     /* Set sizes */
-    width: 100%;   
+    width: 100%;
 }
 
 .icons_list_bottom_menu svg {
-    color: white; 
-} 
+    color: white;
+}
 
 .icon_divider_bottom_menu {
     /* Set sizes of lines */
