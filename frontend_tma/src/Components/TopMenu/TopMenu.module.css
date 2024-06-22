@@ -90,7 +90,3 @@
     column-gap: 10px;
   }
 }
-
-.mainContent {
-  margin-top: var(--height-of-top-menu);
-}

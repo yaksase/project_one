@@ -29,11 +29,19 @@ body::before {
     --rare-color: #eaff00;
     --uncommon-color: #06ff00;
     --common-color: #505050;
+
+    --height-of-top-menu: max(10vh, 60px);
+    --height-of-bottom-menu: max(12vh, 65px);
 }
 
 html, body {
     font-family: 'Courier New', Courier, monospace;
     color: white;
+}
+
+.mainContent {
+    margin-top: var(--height-of-top-menu);
+    margin-bottom: var(--height-of-bottom-menu);
 }
 
 ::-webkit-scrollbar {
