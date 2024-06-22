@@ -42,6 +42,9 @@ html, body {
 .mainContent {
     margin-top: var(--height-of-top-menu);
     margin-bottom: var(--height-of-bottom-menu);
+
+    padding-top: 1rem;
+    padding-bottom: 1rem;
 }
 
 ::-webkit-scrollbar {

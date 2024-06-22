@@ -1,0 +1,118 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.container img {
+  filter: brightness(0%) drop-shadow(0 0 0.3em #01E71A);
+}
+
+.freeDropsCount {
+  width: 80%;
+  padding: 0.3em;
+  font-size: x-large;
+  text-align: center;
+  border-radius: 0.5em;
+  border: solid white;
+  border-width: 0.1rem;
+  margin-bottom: 5vh;
+}
+
+/* Horizontal container is used because it can change claim pc and claim ai
+to row direction while the free drops count stays at the top */
+.horizontalContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
+.claimPc {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 50vw;
+  margin-bottom: 3vh;
+  font-size: x-large;
+}
+
+.claimPc img {
+  width: 100%;
+  margin-bottom: 1em;  
+}
+
+.aiContainer {
+  width: 80%;
+  display: flex;
+  flex-direction: row;
+  border: solid white;
+  border-width: 0.1rem;
+  border-radius: 0.5em;
+  padding: 0.5em;
+}
+
+.aiData {
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  border-right: 0.01rem solid white;
+  font-size: x-large;
+}
+
+/* Added flex to the span so that icons would be in line with the text */
+.aiData span {
+  display: flex;
+  margin-top: 0.2rem;
+  margin-bottom: 0.2rem;
+}
+
+.aiShow {
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-evenly;
+  font-size: small;
+}
+
+.aiShow img {
+  max-width: 3rem;
+  margin-bottom: 0.7rem;
+  width: 100%;
+}
+
+@media (orientation: landscape) {
+  .horizontalContainer {
+    width: 80%;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items:start;
+  }
+
+  .claimPc {
+    max-width: 40vw;
+    margin-bottom: 0;
+  }
+
+  .claimPc img {
+    width: 70%;
+  }
+
+  .aiContainer {
+    max-width: 30vw;
+    flex-direction: column;
+  }
+
+  .aiData {
+    width: 100%;
+    border-right: 0;
+    border-bottom: 0.01rem solid white;
+  }
+
+  .aiShow {
+    width: 100%;
+    padding: 0.5rem 0 0.5rem 0;
+  }
+}

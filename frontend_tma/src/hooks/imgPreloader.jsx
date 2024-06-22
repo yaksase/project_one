@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 
 function preloadImage (src) {
   return new Promise((resolve, reject) => {
-    const img = new Image()
+    const img = new dropsImage()
     img.onload = function() {
       resolve(img)
     }

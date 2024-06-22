@@ -1,16 +1,14 @@
 .PositiveButton {
-  padding-top: 2vh;
-  padding-bottom: 2vh;
-  padding-left: 3vh;
-  padding-right: 3vh;
+  padding-top: 0.5em;
+  padding-bottom: 0.5em;
+  padding-left: 0.8em;
+  padding-right: 0.8em;
 
-  border-radius: 10px;
-  border: none;
-
+  border-radius: 0.5em;
   background-color: #000000;
 
   color: #01E71A;
-  font-size: x-large;
+  font-size: 1em;
   font-family: 'Courier New', Courier, monospace;
   box-shadow: 0px 0px 0.6em #01E71A;
 }
