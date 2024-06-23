@@ -1,0 +1,24 @@
+.claimedNotif {
+  display: flex;
+  align-items: center;
+}
+
+.claimedNotif img {
+  max-width: 15vw;
+  margin-right: 10vw;
+}
+
+.claimedNotif span {
+  display: flex;
+  font-size: xx-large;
+  font-weight: bold;
+  color: var(--positive-color);
+  text-shadow: 0 0 0.5em var(--positive-color);
+}
+
+@media (orientation: landscape) {
+  .claimedNotif img {
+    max-width: 10vw;
+    margin-right: 5vw;
+  }
+}
