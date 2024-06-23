@@ -45,7 +45,7 @@
 .button {
   margin-top: 5px;
   background-color: #3EAF07;
-  border: 3px solid #01E71A;
+  border: 3px solid var(--positive-color);
 
   color: white;
   text-align: center;

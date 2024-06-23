@@ -5,7 +5,7 @@
 }
 
 .container img {
-  filter: brightness(0%) drop-shadow(0 0 0.3em #01E71A);
+  filter: brightness(0%) drop-shadow(0 0 0.3em var(--positive-color));
 }
 
 .freeDropsCount {

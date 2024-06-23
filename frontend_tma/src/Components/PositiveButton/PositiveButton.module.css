@@ -7,14 +7,14 @@
   border-radius: 0.5em;
   background-color: #000000;
 
-  color: #01E71A;
+  color: var(--positive-color);
   font-size: 1em;
   font-family: 'Courier New', Courier, monospace;
-  box-shadow: 0px 0px 0.6em #01E71A;
+  box-shadow: 0px 0px 0.6em var(--positive-color);
 }
 
 .PositiveButton:active {
-  background-color: #01E71A;
+  background-color: var(--positive-color);
   color: #000000;
   box-shadow: 0px 0px 0.6em white;
 }

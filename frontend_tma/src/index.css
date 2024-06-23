@@ -28,7 +28,9 @@ body::before {
     --epic-color: #ffcc00;
     --rare-color: #eaff00;
     --uncommon-color: #06ff00;
-    --common-color: #505050;
+    --common-color: aqua;
+
+    --positive-color: #01E71A;
 
     --height-of-top-menu: max(10vh, 60px);
     --height-of-bottom-menu: max(12vh, 65px);
