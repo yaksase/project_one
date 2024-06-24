@@ -42,6 +42,10 @@
     color: white;
 }
 
+.glowingIcon {
+    filter: drop-shadow(0 0 0.2rem white);
+}
+
 .icon_divider_bottom_menu {
     /* Set sizes of lines */
     width: 1px;
