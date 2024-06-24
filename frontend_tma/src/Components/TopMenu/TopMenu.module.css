@@ -1,7 +1,4 @@
 /* Style for the top menu */
-:root {
-  --height-of-top-menu: max(10vh, 60px);
-}
 .nav_top_menu {
   /* Positioning */
   position: fixed;
