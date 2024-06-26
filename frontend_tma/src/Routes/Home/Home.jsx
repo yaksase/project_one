@@ -16,11 +16,13 @@ import notifStyle from './HomeNotifcation.module.css';
 export default function Home() {
   const [claimPc, showClaimPc] = useState(false);
   const [claimAi, showClaimAi] = useState(false);
+  const [pcClaimed, getPc] = useState(false);
+  const [aiClaimed, getAi] = useState(false);
 
   return (
     <>
       {/* Free Pc Claim */}
-      <Notification isActive={claimPc} onClose={() => showClaimPc(false)}>
+      <Notification isActive={claimPc} onClose={() => {showClaimPc(false); getPc(true)}}>
         <div className={notifStyle.claimedNotif}>
           <img src={CommonPc} className='glow-common'></img>
           <span>
@@ -31,7 +33,7 @@ export default function Home() {
       </Notification>
 
       {/* Free Ai Claim */}
-      <Notification isActive={claimAi} onClose={() => showClaimAi(false)}>
+      <Notification isActive={claimAi} onClose={() => {showClaimAi(false); getAi(true)}}>
         <div className={notifStyle.claimedNotif}>
           <img src={CommonAi} className='glow-common'></img>
           <span>
@@ -43,7 +45,7 @@ export default function Home() {
 
       <div className={homeStyle.container}>
         <div className={homeStyle.freeDropsCount}>
-          1000 free PCs left
+          {pcClaimed ? '999 free PCs left' : '1000 free PCs left'}
         </div>
         <div className={homeStyle.horizontalContainer}>
           <div className={homeStyle.claimPc}>
