@@ -2,7 +2,7 @@ import { useState } from 'react';
 
 import CommonAi from '../../assets/ai/ai_common.png';
 
-import PositiveButton from '../../Components/PositiveButton/PositiveButton';
+import GlowingButton from '../../Components/GlowingButton/GlowingButton';
 
 import s from './Inventory.module.css';
 
@@ -20,16 +20,16 @@ export default function Inventory() {
         </div>
         <div className={s.buttonsContainer}>
           <div className={s.button}>
-            <PositiveButton>Use AI</PositiveButton>
+            <GlowingButton>Use AI</GlowingButton>
           </div>
           <div className={s.button}>
-            <PositiveButton>Sell</PositiveButton>
+            <GlowingButton>Sell</GlowingButton>
           </div>
           <div className={s.button}>
-            <PositiveButton>Ne ebu</PositiveButton>
+            <GlowingButton>Ne ebu</GlowingButton>
           </div>
           <div className={s.button}>
-            <PositiveButton>Ne ebu</PositiveButton>
+            <GlowingButton>Ne ebu</GlowingButton>
           </div>
         </div>
       </div>
