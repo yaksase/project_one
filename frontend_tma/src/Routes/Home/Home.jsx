@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { PiCoinsLight, PiClockLight, PiDesktopLight, PiCheckBold } from 'react-icons/pi';
 
-import PositiveButton from '../../Components/PositiveButton/PositiveButton';
+import GlowingButton from '../../Components/GlowingButton/GlowingButton';
 import Notification from '../../Components/Notification/Notification';
 
 import UnknownPc from '../../assets/pc/pc_unknown.png';
@@ -48,7 +48,7 @@ export default function Home() {
         <div className={homeStyle.horizontalContainer}>
           <div className={homeStyle.claimPc}>
             <img src={UnknownPc}></img>
-            <PositiveButton onClick={() => showClaimPc(true)}>Claim PC</PositiveButton>
+            <GlowingButton onClick={() => showClaimPc(true)}>Claim PC</GlowingButton>
           </div>
           <div className={homeStyle.aiContainer}>
             <div className={homeStyle.aiData}>
@@ -58,7 +58,7 @@ export default function Home() {
             </div>
             <div className={homeStyle.aiShow}>
               <img src={UnknownAi}></img>
-              <PositiveButton onClick={() => showClaimAi(true)}>Claim Ai</PositiveButton>
+              <GlowingButton onClick={() => showClaimAi(true)} >Claim Ai</GlowingButton>
             </div>
           </div>
         </div>

@@ -1,7 +1,7 @@
 import { useState } from 'react';
 
 import PopUp from '../../Components/PopUp/PopUp';
-import PositiveButton from '../../Components/PositiveButton/PositiveButton';
+import GlowingButton from '../../Components/GlowingButton/GlowingButton';
 
 import AiMint from './assets/ai_mint.png';
 import PcMint from './assets/pc_mint.png';
@@ -73,7 +73,7 @@ export default function Drops() {
             <span className='text-mythic'>Mythic</span>
           </div>
           <div className={s.popUpButtonContainer}>
-            <PositiveButton onClick={activateConfirm}>Mint</PositiveButton>
+            <GlowingButton onClick={activateConfirm}>Mint</GlowingButton>
           </div>
         </div>
       </PopUp>
@@ -87,7 +87,7 @@ export default function Drops() {
             Description: Lorem ipsum, dolor sit amet consectetur adipisicing elit. Magnam mollitia eligendi consequatur itaque esse aut officiis sapiente? Aut itaque mollitia consequuntur tempore repellat inventore amet distinctio aperiam magni, molestias quisquam.
           </div>
           <div className={s.popUpButtonContainer}>
-            <PositiveButton onClick={closeConfirm}>Confirm</PositiveButton>
+            <GlowingButton onClick={closeConfirm}>Confirm</GlowingButton>
           </div>
         </div>
       </PopUp>
