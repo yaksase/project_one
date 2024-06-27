@@ -31,6 +31,7 @@ body::before {
     --common-color: #03c9e4;
 
     --positive-color: #01E71A;
+    --negative-color: red;
 
     --height-of-top-menu: max(10vh, 60px);
     --height-of-bottom-menu: max(12vh, 65px);
