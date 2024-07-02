@@ -1,0 +1,24 @@
+.progressBarWrapper {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  align-items: end;
+  font-size: smaller;
+  font-weight: bold;
+}
+
+.progressBar {
+  box-sizing: border-box;
+  width: 100%;
+  border-radius: 20px;
+  border: solid;
+  border-width: 2px;
+  overflow: hidden;
+  margin: 5px 0;
+}
+
+.filler {
+  height: 20px;
+  border-radius: inherit;
+  transition: width 0.2s ease-in;
+}

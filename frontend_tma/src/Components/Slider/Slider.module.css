@@ -1,0 +1,40 @@
+.main {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 100%;
+}
+
+.controlsWrapper {
+  width: 90%;
+  z-index: 1;
+  display: flex;
+  justify-content: space-between;
+  position: absolute;
+  font-size: 3em;
+}
+
+.controlsWrapper svg {
+  opacity: 80%;
+}
+
+.controlsWrapper svg:active {
+  opacity: 60%;
+}
+
+.window {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+.allPages {
+  display: flex;
+  align-items: center;
+
+  transition: translate;
+  transition-property: transform;
+  transition-duration: 300ms;
+  transition-timing-function: ease-out;
+}
