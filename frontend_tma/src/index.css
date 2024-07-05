@@ -67,31 +67,31 @@ html, body {
 }
 
 .glow-common {
-    filter: drop-shadow(0 0 1rem var(--common-color));
+    filter: drop-shadow(0 0 1em var(--common-color));
 }
 
 .glow-uncommon {
-    filter: drop-shadow(0 0 1rem var(--uncommon-color));
+    filter: drop-shadow(0 0 1em var(--uncommon-color));
 }
 
 .glow-rare {
-    filter: drop-shadow(0 0 1rem var(--rare-color));
+    filter: drop-shadow(0 0 1em var(--rare-color));
 }
 
 .glow-epic {
-    filter: drop-shadow(0 0 1rem var(--epic-color));
+    filter: drop-shadow(0 0 1em var(--epic-color));
 }
 
 .glow-legendary {
-    filter: drop-shadow(0 0 1rem var(--legendary-color));
+    filter: drop-shadow(0 0 1em var(--legendary-color));
 }
 
 .glow-ultra {
-    filter: drop-shadow(0 0 1rem var(--ultra-color));
+    filter: drop-shadow(0 0 1em var(--ultra-color));
 }
 
 .glow-mythic {
-    filter: drop-shadow(0 0 1rem var(--mythic-color));
+    filter: drop-shadow(0 0 1em var(--mythic-color));
 }
 
 .text-common {
