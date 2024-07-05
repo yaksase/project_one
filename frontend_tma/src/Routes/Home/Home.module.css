@@ -20,16 +20,7 @@
   border-radius: 0.5em;
   border: solid white;
   border-width: 0.1rem;
-  margin-bottom: 5vh;
-}
-
-/* Horizontal container is used because it can change claim pc and claim ai
-to row direction while the free drops count stays at the top */
-.horizontalContainer {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: 100%;
+  margin-bottom: 2rem;
 }
 
 .pcContainer {
@@ -37,7 +28,7 @@ to row direction while the free drops count stays at the top */
   flex-direction: column;
   align-items: center;
   max-width: 60vw;
-  margin-bottom: 3vh;
+  margin-bottom: 2rem;
   font-size: x-large;
 }
 
@@ -109,44 +100,10 @@ to row direction while the free drops count stays at the top */
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-bottom: 3vh;
+  margin-bottom: 2rem;
 }
 
 .healthBar {
   margin-top: 1rem;
   width: 85%;
-}
-
-@media (orientation: landscape) {
-  .horizontalContainer {
-    width: 80%;
-    flex-direction: row;
-    justify-content: space-around;
-    align-items:start;
-  }
-
-  .pcContainer {
-    max-width: 40vw;
-    margin-bottom: 0;
-  }
-
-  .pcContainer img {
-    width: 70%;
-  }
-
-  .aiContainer {
-    max-width: 30vw;
-    flex-direction: column;
-  }
-
-  .aiData {
-    width: 100%;
-    border-right: 0;
-    border-bottom: 0.01rem solid white;
-  }
-
-  .aiClaim {
-    width: 100%;
-    padding: 0.5rem 0 0.5rem 0;
-  }
 }

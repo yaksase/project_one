@@ -3,7 +3,8 @@ import { PiCoinsLight, PiClockLight, PiDesktopLight, PiCheckBold } from 'react-i
 
 import GlowingButton from '../../Components/GlowingButton/GlowingButton';
 import Notification from '../../Components/Notification/Notification';
-import Slider from '../../Components/Slider/Slider';
+import PcSlider from '../../Components/PcSlider/PcSlider';
+import AiSlider from '../../Components/AiSlider/AiSlider';
 import HealthBar from '../../Components/HealthBar/HealthBar';
 
 import getPcImage from '../../utils/getPcImage';
@@ -80,6 +81,69 @@ const payload = [
         health: 98
       }
     ]
+  },
+  {
+    id: 4444444,
+    rarity: 'legendary',
+    pc: [
+      {
+        id: 55,
+        rarity: 'legendary',
+        health: 70
+      },
+      {
+        id: 991,
+        rarity: 'ultra',
+        health: 10
+      },
+      {
+        id: 11100,
+        rarity: 'mythic',
+        health: 98
+      }
+    ]
+  },
+  {
+    id: 123314124,
+    rarity: 'legendary',
+    pc: [
+      {
+        id: 55,
+        rarity: 'legendary',
+        health: 70
+      },
+      {
+        id: 991,
+        rarity: 'ultra',
+        health: 10
+      },
+      {
+        id: 11100,
+        rarity: 'mythic',
+        health: 98
+      }
+    ]
+  },
+  {
+    id: 8484,
+    rarity: 'legendary',
+    pc: [
+      {
+        id: 55,
+        rarity: 'legendary',
+        health: 70
+      },
+      {
+        id: 991,
+        rarity: 'ultra',
+        health: 10
+      },
+      {
+        id: 11100,
+        rarity: 'mythic',
+        health: 98
+      }
+    ]
   }
 ];
 
@@ -120,7 +184,7 @@ export default function Home() {
     return (
       <div className={homeStyle.container}>
         {payload.map((ai, index) =>
-          <Slider key={ai.id} hidden={curAi === index ? false : true}>
+          <PcSlider key={ai.id} hidden={curAi === index ? false : true}>
             {ai.pc.map((pc) =>
               <div key={pc.id} className={homeStyle.pcHealth}>
                 {getPcImageComponent(pc.rarity)}
@@ -128,9 +192,9 @@ export default function Home() {
                   <HealthBar percentage={pc.health}></HealthBar>
                 </div>
               </div>)}
-          </Slider>
+          </PcSlider>
         )}
-        <Slider curPageHook={setCurAi}>
+        <AiSlider curPageHook={setCurAi}>
           {payload.map((ai) =>
             <div key={ai.id} className={homeStyle.aiSlideWrapper}>
               <div className={homeStyle.aiContainer}>
@@ -145,7 +209,7 @@ export default function Home() {
               </div>
             </div>
           )}
-        </Slider>
+        </AiSlider>
       </div>
     )
   } else {
@@ -177,38 +241,37 @@ export default function Home() {
           <div className={homeStyle.freeDropsCount}>
             {pcClaimed ? '999 free PCs left' : '1000 free PCs left'}
           </div>
-          <div className={homeStyle.horizontalContainer}>
-            <div className={homeStyle.pcContainer}>
-              {
-                pcClaimed ?
-                  <>
-                    <img className='glow-common' src={getPcImage('common')}></img>
-                    <span className={homeStyle.claimedText}>Pc Claimed <PiCheckBold></PiCheckBold></span>
-                  </>
-                  :
-                  <>
-                    <img className='glow-positive' src={UnknownPc}></img>
-                    <GlowingButton onClick={() => showClaimPc(true)}>Claim PC</GlowingButton>
-                  </>}
+          <div className={homeStyle.pcContainer}>
+            {
+              pcClaimed ?
+                <>
+                  <img className='glow-common' src={getPcImage('common')}></img>
+                  <span className={homeStyle.claimedText}>Pc Claimed <PiCheckBold></PiCheckBold></span>
+                </>
+                :
+                <>
+                  <img className='glow-positive' src={UnknownPc}></img>
+                  <GlowingButton onClick={() => showClaimPc(true)}>Claim PC</GlowingButton>
+                </>
+            }
+          </div>
+          <div className={homeStyle.aiContainer}>
+            <div className={homeStyle.aiData}>
+              <span><PiCoinsLight></PiCoinsLight> Shit</span>
+              <span><PiClockLight></PiClockLight> Piss</span>
+              <span><PiDesktopLight></PiDesktopLight> Cum</span>
             </div>
-            <div className={homeStyle.aiContainer}>
-              <div className={homeStyle.aiData}>
-                <span><PiCoinsLight></PiCoinsLight> Shit</span>
-                <span><PiClockLight></PiClockLight> Piss</span>
-                <span><PiDesktopLight></PiDesktopLight> Cum</span>
-              </div>
-              {
-                aiClaimed ?
-                  <div className={homeStyle.aiShow}>
-                    <img className='glow-common' src={CommonAi}></img>
-                  </div>
-                  :
-                  <div className={homeStyle.aiClaim}>
-                    <img className='glow-positive' src={UnknownAi}></img>
-                    <GlowingButton onClick={() => showClaimAi(true)} >Claim Ai</GlowingButton>
-                  </div>
-              }
-            </div>
+            {
+              aiClaimed ?
+                <div className={homeStyle.aiShow}>
+                  <img className='glow-common' src={CommonAi}></img>
+                </div>
+                :
+                <div className={homeStyle.aiClaim}>
+                  <img className='glow-positive' src={UnknownAi}></img>
+                  <GlowingButton onClick={() => showClaimAi(true)} >Claim Ai</GlowingButton>
+                </div>
+            }
           </div>
         </div>
       </>

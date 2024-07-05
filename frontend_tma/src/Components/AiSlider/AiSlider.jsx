@@ -1,10 +1,10 @@
 import { useState, useEffect, cloneElement, Children, useRef } from 'react';
-import { PiCaretCircleLeftFill, PiCaretCircleRightFill } from 'react-icons/pi';
+import { PiCaretLeftBold, PiCaretRightBold } from 'react-icons/pi';
 
-import s from './Slider.module.css';
+import s from './AiSlider.module.css';
 
 // eslint-disable-next-line react/prop-types
-export default function Slider({ curPageHook, hidden = false, children }) {
+export default function AiSlider({ curPageHook, hidden = false, children }) {
   const [pages, setPages] = useState([]);
   const [curPage, setCurPage] = useState(0);
   const [width, setWidth] = useState(300);
@@ -68,11 +68,11 @@ export default function Slider({ curPageHook, hidden = false, children }) {
     <div className={s.main} style={hidden ? {visibility: 'hidden', height: 0} : {}}>
       <div className={s.controlsWrapper}>
         {curPage > 0 ? 
-          <PiCaretCircleLeftFill onClick={handleLeft}></PiCaretCircleLeftFill> : 
-          <PiCaretCircleLeftFill onClick={handleLeft} style={{ visibility: 'hidden' }}></PiCaretCircleLeftFill>}
+          <PiCaretLeftBold onClick={handleLeft}></PiCaretLeftBold> : 
+          <PiCaretLeftBold onClick={handleLeft} style={{ visibility: 'hidden' }}></PiCaretLeftBold>}
         {curPage < pages.length - 1 ?
-          <PiCaretCircleRightFill onClick={handleRight}></PiCaretCircleRightFill> :
-          <PiCaretCircleRightFill onClick={handleRight} style={{ visibility: 'hidden' }}></PiCaretCircleRightFill>}
+          <PiCaretRightBold onClick={handleRight}></PiCaretRightBold> :
+          <PiCaretRightBold onClick={handleRight} style={{ visibility: 'hidden' }}></PiCaretRightBold>}
       </div>
 
       <div className={s.window} ref={windowElRef}>
