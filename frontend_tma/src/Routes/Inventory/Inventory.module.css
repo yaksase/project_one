@@ -1,42 +1,26 @@
-/* Gray lighted border */
-.uncommonBorder {
-    border-color: rgb(96, 96, 96);
-    border-style: solid;
-    border-width: 1px;
-    border-radius: 5px;
-    box-shadow: 0px 0px 1px 1px rgba(255, 255, 255, 0.5)
-}
-/* Main block of content */
-.blockOfContent {
-    width: auto;
-    height: 100%;
-
-    padding-top: 30px;
-    padding-bottom: 30px;
-
-    background-color: red;
-
+.container {
     display: flex;
-    justify-content: center;
-
-    min-height: calc(100vh - var(--height-of-bottom-menu) - var(--height-of-top-menu));
+    flex-direction: column;
 }
-/* Separate block for every item ( should be component ) */
-.inventoryItemComponent {
-    background-color: black;
 
-    width: 95%;
+.activatedSelector {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    margin-bottom: 1.5rem;
+}
+
+.item {
+    width: 100%;
     height: 150px;
-
-    padding-top: 10px;
-    padding-bottom: 10px;
-
+    padding-top: 1rem;
+    padding-bottom: 1rem;
     display: flex;
-    justify-content: center;
+    justify-content: space-evenly;
 }
-/* Container of the left part of item ( image + status of stuff ) */
-.imageStatusContainer {
-    width: 30%;
+
+.itemIcon {
+    width: 25%;
     height: 100%;
 
     display: flex;
@@ -45,44 +29,67 @@
 
     justify-content: space-between;
 }
-/* Container for image of stuff */
-.imageContainer {
-    width: 80%;
+
+.itemImage {
+    width: 90%;
     height: 65%;
 
     display: flex;
     justify-content: center;
     align-items: center;
 }
-.imageContainer img {
+
+.itemImage img {
+    overflow: hidden;
+    font-size: 0.3em;
     height: 50%;
 }
-/* Status of stuff bottom of the image */
-.statusDescription {
+
+.itemRarity {
     height: 25%;
-    width: 80%;
+    width: 90%;
+    font-weight: bold;
     display: flex;
     align-items: center;
     justify-content: center;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 
+.border {
+    border-color: rgb(96, 96, 96);
+    border-style: solid;
+    border-width: 1px;
+    border-radius: 0.5rem;
+    box-shadow: 0px 0px 0.3rem white;
+}
 
-.buttonsContainer {
-    width: 70%;
-    height: 100%;
-    background-color: lightblue;
-
+.itemMenu {
+    width: 65%;
     display: flex;
+    flex-direction: column;
+}
+
+.itemMenu span {
+    display: flex;
+    justify-content: center;
+}
+
+.buttonsRow {
+    display: flex;
+    flex-direction: row;
     justify-content: space-between;
-    align-content: space-between;
-    flex-wrap: wrap;
+    margin-bottom: 1rem;
 }
 
-.button {
-    width: 35%;
-    height: 40%;
+.infoWrapper {
+    padding-top: 0.5em;
+    padding-bottom: 0.5em;
+    padding-left: 0.8em;
+    padding-right: 0.8em;
+}
 
-    display: flex;
-    align-items: center;
-    justify-content: center;
+.infoWrapper img {
+    margin-right: 0.2em;
 }

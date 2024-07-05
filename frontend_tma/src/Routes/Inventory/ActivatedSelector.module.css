@@ -1,0 +1,23 @@
+.button {
+  --button-color: white;
+  padding-top: 0.5em;
+  padding-bottom: 0.5em;
+  padding-left: 0.8em;
+  padding-right: 0.8em;
+  width: 45vw;
+
+  border-radius: 0.5em;
+  background-color: #000000;
+  opacity: 70%;
+
+  color: var(--button-color);
+  font-size: 1em;
+  font-family: 'Courier New', Courier, monospace;
+  font-weight: bold;
+  box-shadow: 0px 0px 0.3em;
+}
+
+.active {
+  --button-color: var(--positive-color);
+  opacity: 100%;
+}
