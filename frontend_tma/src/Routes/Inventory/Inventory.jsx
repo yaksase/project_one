@@ -1,8 +1,9 @@
 /* eslint-disable react/prop-types */
 import { useState } from 'react';
-import { PiCoinVerticalLight, PiInfoLight, PiPercentLight, PiDesktopLight, PiArrowsClockwiseLight, PiClockLight } from 'react-icons/pi';
+import { PiCoinVerticalLight, PiInfoLight, PiPercentLight, PiDesktopLight, PiArrowsClockwiseLight, PiClockLight, PiClockBold, PiDesktopBold } from 'react-icons/pi';
 
 import GlowingButton from '../../Components/GlowingButton/GlowingButton';
+import PopUp from '../../Components/PopUp/PopUp';
 
 import getAiImage from '../../utils/getAiImage';
 import getPcImage from '../../utils/getPcImage';
@@ -12,6 +13,7 @@ import tokenIcon from '../../assets/token_icon.png';
 import s from './Inventory.module.css';
 import actSelStyle from './ActivatedSelector.module.css';
 import typeSelStyle from './TypeSelector.module.css';
+import infoPopUpStyle from './InfoPopUp.module.css';
 
 // 1 is activated 0 is not activated
 const aiData = [
@@ -186,12 +188,12 @@ function TypeSelector({ showPc, setShowPc, showAi, setShowAi }) {
   )
 }
 
-function ItemAi({ ai }) {
+function ItemAi({ ai, onInfoClick }) {
   return (
     <div className={s.item}>
       <div className={s.itemIcon}>
         <div className={`${s.itemImage} ${s.border}`}>
-          <img className={`glow-${ai.rarity}`} src={getAiImage(ai.rarity)}></img>
+          <img className={ai.state ? `glow-${ai.rarity}` : ''} src={getAiImage(ai.rarity)}></img>
         </div>
         <div className={`${s.itemRarity} ${s.border} text-${ai.rarity}`}>
           {ai.rarity}
@@ -240,7 +242,7 @@ function ItemAi({ ai }) {
                 </span>
               </GlowingButton>
             </div>
-            <GlowingButton glowSize={'0.3rem'} buttonColor={'white'} width={'50%'}>
+            <GlowingButton glowSize={'0.3rem'} buttonColor={'white'} width={'50%'} onClick={onInfoClick}>
               <span>
                 <PiInfoLight></PiInfoLight>
                 Info
@@ -253,12 +255,12 @@ function ItemAi({ ai }) {
   )
 }
 
-function ItemPc({ pc }) {
+function ItemPc({ pc, onInfoClick }) {
   return (
     <div className={s.item}>
       <div className={s.itemIcon}>
         <div className={`${s.itemImage} ${s.border}`}>
-          <img className={`glow-${pc.rarity}`} src={getPcImage(pc.rarity)}></img>
+          <img className={pc.state ? `glow-${pc.rarity}` : ''} src={getPcImage(pc.rarity)}></img>
         </div>
         <div className={`${s.itemRarity} ${s.border} text-${pc.rarity}`}>
           {pc.rarity}
@@ -292,7 +294,7 @@ function ItemPc({ pc }) {
             </div>
           </> :
           <div className={s.buttonsRow}>
-            <GlowingButton glowSize={'0.3rem'} buttonColor={'white'} width={'50%'}>
+            <GlowingButton glowSize={'0.3rem'} buttonColor={'white'} width={'50%'} onClick={onInfoClick}>
               <span>
                 <PiInfoLight></PiInfoLight>
                 Info
@@ -318,36 +320,169 @@ export default function Inventory() {
   const [showPc, setShowPc] = useState(false);
   const [showAi, setShowAi] = useState(false);
 
+  const [showAiInfo, setShowAiInfo] = useState(false);
+  const [aiInfo, setAiInfo] = useState({});
+
+  const [showPcInfo, setShowPcInfo] = useState(false);
+  const [pcInfo, setPcInfo] = useState({});
+
+  function closeAiInfo() {
+    setShowAiInfo(false);
+    setAiInfo({});
+  }
+
+  function closePcInfo() {
+    setShowPcInfo(false);
+    setPcInfo({});
+  }
+
   return (
-    <div className={s.container}>
-      <ActivatedSelector active={active} setActive={setActive} notActive={notActive} setNotActive={setNotActive}></ActivatedSelector>
-      <TypeSelector showPc={showPc} setShowPc={setShowPc} showAi={showAi} setShowAi={setShowAi}></TypeSelector>
-      {
-        showAi || showAi == showPc ?
-        aiData.map((ai) => {
-          if (active && !ai.state) {
-            return <></>
-          }
-          if (notActive && ai.state) {
-            return <></>
-          }
-          return <ItemAi key={ai.id} ai={ai}></ItemAi>
-        }) :
-        <></>
-      }
-      {
-        showPc || showAi == showPc ?
-        pcData.map((pc) => {
-          if (active && !pc.state) {
-            return <></>
-          }
-          if (notActive && pc.state) {
-            return <></>
-          }
-          return <ItemPc key={pc.id} pc={pc}></ItemPc>
-        }) :
-        <></>
-      }
-    </div>
+    <>
+      <PopUp isActive={showAiInfo} onClose={closeAiInfo}>
+        <div className={infoPopUpStyle.container}>
+          <div className={infoPopUpStyle.image}>
+            <img src={getAiImage(aiInfo.rarity)} className={`glow-${aiInfo.rarity}`}></img>
+          </div>
+          <div className={infoPopUpStyle.centeredText}>
+            Rarity: <span className={`text-${aiInfo.rarity}`} style={{fontWeight: 'bold', fontSize: 'large'}}>{aiInfo.rarity}</span>
+          </div>
+          <div className={infoPopUpStyle.centeredText}>
+            This <span className={infoPopUpStyle.greenHighlight}>AI</span> has not been used yet. <span className={infoPopUpStyle.greenHighlight}>Connect PC</span> to it to start using. Then the AI will start to bring you profit
+          </div>
+          Every PC connected to this AI will be farming tokens during this time:<br />
+          <span className={`${infoPopUpStyle.iconWrapper} ${infoPopUpStyle.greenHighlight}`}>
+            <PiClockBold></PiClockBold>
+            {aiInfo.timer} Hours
+          </span>
+          <br />
+          You can link this many PCs to the AI:
+          <span className={`${infoPopUpStyle.iconWrapper} text-common`}>
+            <PiDesktopBold></PiDesktopBold>
+            N Common PCs
+          </span>
+          <span className={`${infoPopUpStyle.iconWrapper} text-uncommon`}>
+            <PiDesktopBold></PiDesktopBold>
+            N Uncommon PCs
+          </span>
+          <span className={`${infoPopUpStyle.iconWrapper} text-rare`}>
+            <PiDesktopBold></PiDesktopBold>
+            N Rare PCs
+          </span>
+          <span className={`${infoPopUpStyle.iconWrapper} text-epic`}>
+            <PiDesktopBold></PiDesktopBold>
+            N Epic PCs
+          </span>
+          <span className={`${infoPopUpStyle.iconWrapper} text-legendary`}>
+            <PiDesktopBold></PiDesktopBold>
+            N Legendary PCs
+          </span>
+          <span className={`${infoPopUpStyle.iconWrapper} text-ultra`}>
+            <PiDesktopBold></PiDesktopBold>
+            N Ultra PCs
+          </span>
+          <span className={`${infoPopUpStyle.iconWrapper} text-mythic`}>
+            <PiDesktopBold></PiDesktopBold>
+            N Mythic PCs
+          </span>
+          
+        </div>
+        <div className={infoPopUpStyle.buttonContainer}>
+          <GlowingButton>Connect PC</GlowingButton>
+        </div>
+      </PopUp>
+
+      <PopUp isActive={showPcInfo} onClose={closePcInfo}>
+        <div className={infoPopUpStyle.container}>
+          <div className={infoPopUpStyle.image}>
+            <img src={getPcImage(pcInfo.rarity)} className={`glow-${pcInfo.rarity}`}></img>
+          </div>
+          <div className={infoPopUpStyle.centeredText}>
+            Rarity: <span className={`text-${pcInfo.rarity}`} style={{fontWeight: 'bold', fontSize: 'large'}}>{pcInfo.rarity}</span>
+          </div>
+          <div className={infoPopUpStyle.centeredText}>
+            While the <span className={infoPopUpStyle.greenHighlight}>PC is not activated</span>, you can sell it. As soon as you start using it, you will not be able to list it on the market
+          </div>
+          Earnings per hour:<br />
+          <span className={`priceWrapper ${infoPopUpStyle.greenHighlight}`} style={{fontSize: 'x-large'}}>
+            <img src={tokenIcon} style={{marginRight: '0.2em', marginLeft: '0em'}}></img>
+            {pcInfo.tokenCount}/hour
+          </span>
+          <br />
+          PC duration:<br />
+          <span className={`${infoPopUpStyle.iconWrapper} ${infoPopUpStyle.greenHighlight}`}>
+            <PiClockBold></PiClockBold>
+            N Hours
+          </span>
+          <br />
+          This PC takes up this many slots for each AI:
+          <span className={`${infoPopUpStyle.aiSlotsWrapper} text-common`}>
+            <img src={getAiImage('common')} className='glow-common'></img>
+            N for common AI
+          </span>
+          <span className={`${infoPopUpStyle.aiSlotsWrapper} text-uncommon`}>
+            <img src={getAiImage('uncommon')} className='glow-uncommon'></img>
+            N for uncommon AI
+          </span>
+          <span className={`${infoPopUpStyle.aiSlotsWrapper} text-rare`}>
+            <img src={getAiImage('rare')} className='glow-rare'></img>
+            N for rare AI
+          </span>
+          <span className={`${infoPopUpStyle.aiSlotsWrapper} text-epic`}>
+            <img src={getAiImage('epic')} className='glow-epic'></img>
+            N for epic AI
+          </span>
+          <span className={`${infoPopUpStyle.aiSlotsWrapper} text-legendary`}>
+            <img src={getAiImage('legendary')} className='glow-legendary'></img>
+            N for legendary AI
+          </span>
+          <span className={`${infoPopUpStyle.aiSlotsWrapper} text-ultra`}>
+            <img src={getAiImage('ultra')} className='glow-ultra'></img>
+            N for ultra AI
+          </span>
+          <span className={`${infoPopUpStyle.aiSlotsWrapper} text-mythic`}>
+            <img src={getAiImage('mythic')} className='glow-mythic'></img>
+            N for mythic AI
+          </span>
+          
+        </div>
+      </PopUp>
+
+      <div className={s.container}>
+        <ActivatedSelector active={active} setActive={setActive} notActive={notActive} setNotActive={setNotActive}></ActivatedSelector>
+        <TypeSelector showPc={showPc} setShowPc={setShowPc} showAi={showAi} setShowAi={setShowAi}></TypeSelector>
+        {
+          showAi || showAi == showPc ?
+          aiData.map((ai) => {
+            if (active && !ai.state) {
+              return <></>
+            }
+            if (notActive && ai.state) {
+              return <></>
+            }
+            return <ItemAi key={ai.id} ai={ai} onInfoClick={() => {
+              setAiInfo(ai);
+              setShowAiInfo(true);
+            }}></ItemAi>
+          }) :
+          <></>
+        }
+        {
+          showPc || showAi == showPc ?
+          pcData.map((pc) => {
+            if (active && !pc.state) {
+              return <></>
+            }
+            if (notActive && pc.state) {
+              return <></>
+            }
+            return <ItemPc key={pc.id} pc={pc} onInfoClick={() => {
+              setPcInfo(pc);
+              setShowPcInfo(true);
+            }}></ItemPc>
+          }) :
+          <></>
+        }
+      </div>
+    </>
   )
 }
