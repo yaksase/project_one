@@ -100,10 +100,18 @@ html, body {
     text-shadow: 0 0 0.5em var(--textColor);
 }
 
+.text-common svg {
+    filter: drop-shadow(0 0 0.5em var(--common-color));
+}
+
 .text-uncommon {
     --textColor: var(--uncommon-color);
     color: var(--textColor);
     text-shadow: 0 0 0.5em var(--textColor);
+}
+
+.text-uncommon svg {
+    filter: drop-shadow(0 0 0.5em var(--uncommon-color));
 }
 
 .text-rare {
@@ -112,10 +120,18 @@ html, body {
     text-shadow: 0 0 0.5em var(--textColor);
 }
 
+.text-rare svg {
+    filter: drop-shadow(0 0 0.5em var(--rare-color));
+}
+
 .text-epic {
     --textColor: var(--epic-color);
     color: var(--textColor);
     text-shadow: 0 0 0.5em var(--textColor);
+}
+
+.text-epic svg {
+    filter: drop-shadow(0 0 0.5em var(--epic-color));
 }
 
 .text-legendary {
@@ -124,16 +140,28 @@ html, body {
     text-shadow: 0 0 0.5em var(--textColor);
 }
 
+.text-legendary svg {
+    filter: drop-shadow(0 0 0.5em var(--legendary-color));
+}
+
 .text-ultra {
     --textColor: var(--ultra-color);
     color: var(--textColor);
     text-shadow: 0 0 0.5em var(--textColor);
 }
 
+.text-ultra svg {
+    filter: drop-shadow(0 0 0.5em var(--ultra-color));
+}
+
 .text-mythic {
     --textColor: var(--mythic-color);
     color: var(--textColor);
     text-shadow: 0 0 0.5em var(--textColor);
+}
+
+.text-mythic svg {
+    filter: drop-shadow(0 0 0.5em var(--mythic-color));
 }
 
 /* You should wrap prices or token counts in this */
