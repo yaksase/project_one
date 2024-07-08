@@ -5,6 +5,7 @@
   padding-bottom: 0.5em;
   padding-left: 0.8em;
   padding-right: 0.8em;
+  overflow: hidden;
 
   border-radius: 0.5em;
   background-color: #000000;
