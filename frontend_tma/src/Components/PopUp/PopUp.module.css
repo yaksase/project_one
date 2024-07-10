@@ -40,10 +40,3 @@
     opacity: 1;
   }
 }
-
-@media (orientation: landscape) {
-  .popUp {
-    max-width: 60vw;
-    max-height: 80vh;
-  }
-}
