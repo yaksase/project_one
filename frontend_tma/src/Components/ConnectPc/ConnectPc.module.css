@@ -1,0 +1,131 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 2rem;
+}
+
+.image {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 1rem;
+}
+
+.image img {
+  width: 25%;
+}
+
+.centeredText {
+  width: 100%;
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
+.selectedPcRow {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1vw;
+  width: 70vw;
+}
+
+.selectedPc {
+  --border-color: lightgray;
+  height: 10vw;
+  width: 10vw;
+  border: solid var(--border-color);
+  box-shadow: 0 0 0.1em var(--border-color);
+  border-width: 1px;
+  border-radius: 0.3rem;
+  margin: 0 0.5vw;
+  
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.selectedPc img {
+  width: 90%;
+  overflow: hidden;
+}
+
+.greenHighlight {
+  font-weight: bold;
+  color: var(--positive-color);
+  text-shadow: 0 0 0.5em var(--positive-color);
+}
+
+.greenHighlight svg {
+  filter: drop-shadow(0 0 0.5em var(--positive-color));
+}
+
+.buttonContainer {
+  display: flex;
+  justify-content: center;
+  font-size: x-large;
+  position: sticky;
+  bottom: 1rem;
+}
+
+.availablePc {
+  box-sizing: border-box;
+  margin: 0 1vw;
+}
+
+.availablePcImage {
+  box-sizing: border-box;
+  --border-color: lightgray;
+  max-width: 18vw;
+  min-width: 18vw;
+  height: 18vw;
+  border: solid var(--border-color);
+  box-shadow: 0 0 0.3em var(--border-color);
+  border-width: 1px;
+  border-radius: 0.3rem;
+  margin-bottom: 0.4rem;
+  
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.availablePcImage:active {
+  border: solid white;
+  box-shadow: 0 0 0.3em white;
+}
+
+.availablePcImage img {
+  width: 60%;
+  overflow: hidden;
+}
+
+.availablePcSlots {
+  box-sizing: border-box;
+  border: solid rgba(255, 255, 255, 0.5);
+  border-width: 1px;
+  max-width: 18vw;
+  min-width: 18vw;
+  border-radius: 0.3rem;
+  padding: 0.1rem 0;
+  font-size: smaller;
+
+  text-align: center;
+}
+
+.selectedPcControl {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-size: xx-large;
+  margin: auto; 
+}
+
+.selectedPcControl span {
+  font-size: x-small;
+}
+
+.selectedPcControl:active {
+  opacity: 60%;
+}

@@ -14,6 +14,7 @@ import s from './Inventory.module.css';
 import actSelStyle from './ActivatedSelector.module.css';
 import typeSelStyle from './TypeSelector.module.css';
 import infoPopUpStyle from './InfoPopUp.module.css';
+import ConnectPc from '../../Components/ConnectPc/ConnectPc';
 
 // 1 is activated 0 is not activated
 const aiData = [
@@ -188,7 +189,7 @@ function TypeSelector({ showPc, setShowPc, showAi, setShowAi }) {
   )
 }
 
-function ItemAi({ ai, onInfoClick }) {
+function ItemAi({ ai, onInfoClick, onConnectClick }) {
   return (
     <div className={s.item}>
       <div className={s.itemIcon}>
@@ -204,7 +205,7 @@ function ItemAi({ ai, onInfoClick }) {
           ai.state ?
           <>
             <div className={s.buttonsRow}>
-              <GlowingButton glowSize={'0.3rem'} buttonColor={'white'} width={'50%'}>
+              <GlowingButton glowSize={'0.3rem'} buttonColor={'white'} width={'50%'} onClick={onConnectClick}>
                 <span>
                   <PiArrowsClockwiseLight></PiArrowsClockwiseLight>
                   Replace
@@ -234,7 +235,7 @@ function ItemAi({ ai, onInfoClick }) {
           </> :
           <>
             <div className={s.buttonsRow}>
-              <GlowingButton glowSize={'0.3rem'} width={'50%'}>Connect PC</GlowingButton>
+              <GlowingButton glowSize={'0.3rem'} width={'50%'} onClick={onConnectClick}>Connect PC</GlowingButton>
               <GlowingButton glowSize={'0.3rem'} buttonColor={'red'} width={'40%'}>
                 <span>
                   <PiCoinVerticalLight></PiCoinVerticalLight>
@@ -326,6 +327,9 @@ export default function Inventory() {
   const [showPcInfo, setShowPcInfo] = useState(false);
   const [pcInfo, setPcInfo] = useState({});
 
+  const [connectAi, setConnectAi] = useState(false);
+  const [aiConnectionData, setAiConnectionData] = useState({});
+
   function closeAiInfo() {
     setShowAiInfo(false);
     setAiInfo({});
@@ -336,8 +340,14 @@ export default function Inventory() {
     setPcInfo({});
   }
 
+  function closeAiConnection() {
+    setConnectAi(false);
+    setAiConnectionData({});
+  }
+
   return (
     <>
+      <ConnectPc isActive={connectAi} onClose={closeAiConnection} curAi={aiConnectionData}></ConnectPc>
       <PopUp isActive={showAiInfo} onClose={closeAiInfo}>
         <div className={infoPopUpStyle.container}>
           <div className={infoPopUpStyle.image}>
@@ -459,7 +469,12 @@ export default function Inventory() {
             if (notActive && ai.state) {
               return <></>
             }
-            return <ItemAi key={ai.id} ai={ai} onInfoClick={() => {
+            return <ItemAi key={ai.id} ai={ai} 
+            onConnectClick={() => {
+              setAiConnectionData(ai);
+              setConnectAi(true);
+            }} 
+            onInfoClick={() => {
               setAiInfo(ai);
               setShowAiInfo(true);
             }}></ItemAi>
