@@ -4,6 +4,7 @@ import { PiCoinVerticalLight, PiInfoLight, PiPercentLight, PiDesktopLight, PiArr
 
 import GlowingButton from '../../Components/GlowingButton/GlowingButton';
 import PopUp from '../../Components/PopUp/PopUp';
+import ListAi from '../../Components/List/ListAi';
 
 import getAiImage from '../../utils/getAiImage';
 import getPcImage from '../../utils/getPcImage';
@@ -15,6 +16,7 @@ import actSelStyle from './ActivatedSelector.module.css';
 import typeSelStyle from './TypeSelector.module.css';
 import infoPopUpStyle from './InfoPopUp.module.css';
 import ConnectPc from '../../Components/ConnectPc/ConnectPc';
+import ListPc from '../../Components/List/ListPc';
 
 // 1 is activated 0 is not activated
 const aiData = [
@@ -189,7 +191,7 @@ function TypeSelector({ showPc, setShowPc, showAi, setShowAi }) {
   )
 }
 
-function ItemAi({ ai, onInfoClick, onConnectClick }) {
+function ItemAi({ ai, onInfoClick, onConnectClick, onSellClick }) {
   return (
     <div className={s.item}>
       <div className={s.itemIcon}>
@@ -211,7 +213,7 @@ function ItemAi({ ai, onInfoClick, onConnectClick }) {
                   Replace
                 </span>
               </GlowingButton>
-              <GlowingButton glowSize={'0.3rem'} buttonColor={'red'} width={'40%'}>
+              <GlowingButton glowSize={'0.3rem'} buttonColor={'red'} width={'40%'} onClick={onSellClick}>
                 <span>
                   <PiCoinVerticalLight></PiCoinVerticalLight>
                   Sell
@@ -236,7 +238,7 @@ function ItemAi({ ai, onInfoClick, onConnectClick }) {
           <>
             <div className={s.buttonsRow}>
               <GlowingButton glowSize={'0.3rem'} width={'50%'} onClick={onConnectClick}>Connect PC</GlowingButton>
-              <GlowingButton glowSize={'0.3rem'} buttonColor={'red'} width={'40%'}>
+              <GlowingButton glowSize={'0.3rem'} buttonColor={'red'} width={'40%'} onClick={onSellClick}>
                 <span>
                   <PiCoinVerticalLight></PiCoinVerticalLight>
                   Sell
@@ -256,7 +258,7 @@ function ItemAi({ ai, onInfoClick, onConnectClick }) {
   )
 }
 
-function ItemPc({ pc, onInfoClick }) {
+function ItemPc({ pc, onInfoClick, onSellClick }) {
   return (
     <div className={s.item}>
       <div className={s.itemIcon}>
@@ -301,7 +303,7 @@ function ItemPc({ pc, onInfoClick }) {
                 Info
               </span>
             </GlowingButton>
-            <GlowingButton glowSize={'0.3rem'} buttonColor={'red'} width={'40%'}>
+            <GlowingButton glowSize={'0.3rem'} buttonColor={'red'} width={'40%'} onClick={onSellClick}>
               <span>
                 <PiCoinVerticalLight></PiCoinVerticalLight>
                 Sell
@@ -330,6 +332,12 @@ export default function Inventory() {
   const [connectAi, setConnectAi] = useState(false);
   const [aiConnectionData, setAiConnectionData] = useState({});
 
+  const [sellAi, setSellAi] = useState(false);
+  const [listingAi, setListingAi] = useState({});
+
+  const [sellPc, setSellPc] = useState(false);
+  const [listingPc, setListingPc] = useState({});
+
   function closeAiInfo() {
     setShowAiInfo(false);
     setAiInfo({});
@@ -343,6 +351,16 @@ export default function Inventory() {
   function closeAiConnection() {
     setConnectAi(false);
     setAiConnectionData({});
+  }
+
+  function closeAiSell() {
+    setSellAi(false);
+    setListingAi({});
+  }
+
+  function closePcSell() {
+    setSellPc(false);
+    setListingPc({});
   }
 
   return (
@@ -457,6 +475,10 @@ export default function Inventory() {
         </div>
       </PopUp>
 
+      <ListAi ai={listingAi} isActive={sellAi} onClose={closeAiSell}></ListAi>
+
+      <ListPc pc={listingPc} isActive={sellPc} onClose={closePcSell}></ListPc>
+
       <div className={s.container}>
         <ActivatedSelector active={active} setActive={setActive} notActive={notActive} setNotActive={setNotActive}></ActivatedSelector>
         <TypeSelector showPc={showPc} setShowPc={setShowPc} showAi={showAi} setShowAi={setShowAi}></TypeSelector>
@@ -473,10 +495,14 @@ export default function Inventory() {
             onConnectClick={() => {
               setAiConnectionData(ai);
               setConnectAi(true);
-            }} 
+            }}
             onInfoClick={() => {
               setAiInfo(ai);
               setShowAiInfo(true);
+            }}
+            onSellClick={() => {
+              setListingAi(ai);
+              setSellAi(true);
             }}></ItemAi>
           }) :
           <></>
@@ -490,9 +516,14 @@ export default function Inventory() {
             if (notActive && pc.state) {
               return <></>
             }
-            return <ItemPc key={pc.id} pc={pc} onInfoClick={() => {
+            return <ItemPc key={pc.id} pc={pc} 
+            onInfoClick={() => {
               setPcInfo(pc);
               setShowPcInfo(true);
+            }}
+            onSellClick={() => {
+              setListingPc(pc);
+              setSellPc(true);
             }}></ItemPc>
           }) :
           <></>
