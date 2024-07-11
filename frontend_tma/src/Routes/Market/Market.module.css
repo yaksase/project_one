@@ -1,0 +1,44 @@
+.container {
+  display: flex;
+  flex-direction: column;
+}
+
+.topSelector {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  margin-bottom: 1rem;
+}
+
+.topSelector button {
+  margin: 0 2vw;
+}
+
+.itemSelector {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.itemSelector button {
+  margin: 0 2vw;
+}
+
+.dropdownItem {
+  --glow-color: white;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: start;
+  width: 100%;
+  height: 2rem;
+}
+
+.dropdownItem img {
+  margin-right: 0.2rem;
+}
+
+.dropdownItem span {
+  font-size: large;
+  font-weight: bold;
+}
