@@ -13,4 +13,4 @@ export default function PopUp({ isActive, onClose, children }) {
       )}
     </>
   )
-} 
+}
