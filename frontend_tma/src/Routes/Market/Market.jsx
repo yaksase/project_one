@@ -1,6 +1,6 @@
 /* eslint-disable react/prop-types */
 import { useEffect, useRef, useState } from 'react';
-import { PiCaretDownBold, PiCaretUp, PiCaretUpBold } from 'react-icons/pi';
+import { PiCaretDownBold, PiCaretUpBold } from 'react-icons/pi';
 
 import getAiImage from '../../utils/getAiImage';
 import getPcImage from '../../utils/getPcImage';
@@ -16,9 +16,7 @@ const raritiesData = [
   'common', 'uncommon', 'rare', 'epic', 'legendary', 'ultra', 'mythic'
 ];
 
-function RarityDropdown({ imgSrc, children }) {
-  const [showDropdown, setShowDropdown] = useState(false);
-
+function RarityDropdown({ imgSrc, children, showDropdown, setShowDropdown }) {
   const dropdownRef = useRef();
 
   useEffect(() => {
@@ -27,8 +25,6 @@ function RarityDropdown({ imgSrc, children }) {
         setShowDropdown(false);
       }
     }
-
-    console.log('hey');
 
     document.addEventListener('click', handler);
 
@@ -44,15 +40,15 @@ function RarityDropdown({ imgSrc, children }) {
       }}>
         <img src={imgSrc}></img>
         <div className={itemSelectorStyle.iconsWrapper}>
-          <PiCaretUpBold style={showDropdown ? {visibility: 'visible'} : {visibility: 'hidden', height: 0}}></PiCaretUpBold>
-          <PiCaretDownBold style={showDropdown ? {visibility: 'hidden', height: 0} : {visibility: 'visible'}}></PiCaretDownBold>
-        </div>       
+          <PiCaretUpBold style={showDropdown ? { visibility: 'visible' } : { visibility: 'hidden', height: 0 }}></PiCaretUpBold>
+          <PiCaretDownBold style={showDropdown ? { visibility: 'hidden', height: 0 } : { visibility: 'visible' }}></PiCaretDownBold>
+        </div>
       </button>
       <div className={`${dropdownStyle.content} ${showDropdown ? dropdownStyle.contentOpen : ''}`}>
         {children}
       </div>
     </div>
-    
+
   )
 }
 
@@ -67,6 +63,9 @@ export default function Market() {
 
   const [showToken, setShowToken] = useState(false);
 
+  const [showAiDropdown, setShowAiDropdown] = useState(false);
+  const [showPcDropdown, setShowPcDropdown] = useState(false);
+
   return (
     <div className={s.container}>
       <div className={s.topSelector}>
@@ -80,44 +79,50 @@ export default function Market() {
       <div className={s.itemSelector}>
         {
           showAi ?
-          <RarityDropdown imgSrc={getAiImage(curAi)}>
-            {raritiesData.map((rarity) => {
-              return(
-                <div key={rarity} className={s.dropdownItem} >
-                  <img src={getAiImage(rarity)} style={{width: '1rem'}}></img>
-                  <span className={`text-${rarity}`}>{rarity}</span>
-                </div>
-              )
-            })}
-          </RarityDropdown> :
-          <button className={itemSelectorStyle.button} onClick={() => {
-            setShowAi(true);
-            setShowPc(false);
-            setShowToken(false);
-          }}>
-            <img src={getAiImage(curAi)}></img>
-          </button>
+            <RarityDropdown imgSrc={getAiImage(curAi)} showDropdown={showAiDropdown} setShowDropdown={setShowAiDropdown}>
+              {raritiesData.map((rarity) => {
+                return (
+                  <div key={rarity} className={s.dropdownItem} onClick={() => {
+                    setCurAi(rarity);
+                    setShowAiDropdown(false);
+                  }}>
+                    <img src={getAiImage(rarity)} style={{ width: '1rem' }}></img>
+                    <span className={`text-${rarity}`}>{rarity}</span>
+                  </div>
+                )
+              })}
+            </RarityDropdown> :
+            <button className={itemSelectorStyle.button} onClick={() => {
+              setShowAi(true);
+              setShowPc(false);
+              setShowToken(false);
+            }}>
+              <img src={getAiImage(curAi)}></img>
+            </button>
         }
         {
           showPc ?
-          <RarityDropdown imgSrc={getPcImage(curPc)}>
-            {raritiesData.map((rarity) => {
-              return(
-                <div key={rarity} className={s.dropdownItem}>
-                  <img src={getPcImage(rarity)} style={{width: '1.5rem'}}></img>
-                  <span className={`text-${rarity}`}>{rarity}</span>
-                </div>
-              )
-            })}
-          </RarityDropdown> :
-          <button className={itemSelectorStyle.button} onClick={() => {
-            setShowPc(true);
-            setShowAi(false);
-            setShowToken(false);
-          }}>
-            <img src={getPcImage(curPc)}></img>
-            {showPc ? <PiCaretDownBold></PiCaretDownBold> : <></>}
-          </button>
+            <RarityDropdown imgSrc={getPcImage(curPc)} showDropdown={showPcDropdown} setShowDropdown={setShowPcDropdown}>
+              {raritiesData.map((rarity) => {
+                return (
+                  <div key={rarity} className={s.dropdownItem} onClick={() => {
+                    setCurPc(rarity);
+                    setShowPcDropdown(false);
+                  }}>
+                    <img src={getPcImage(rarity)} style={{ width: '1.5rem' }}></img>
+                    <span className={`text-${rarity}`}>{rarity}</span>
+                  </div>
+                )
+              })}
+            </RarityDropdown> :
+            <button className={itemSelectorStyle.button} onClick={() => {
+              setShowPc(true);
+              setShowAi(false);
+              setShowToken(false);
+            }}>
+              <img src={getPcImage(curPc)}></img>
+              {showPc ? <PiCaretDownBold></PiCaretDownBold> : <></>}
+            </button>
         }
         <button className={`${itemSelectorStyle.button} ${showToken ? itemSelectorStyle.active : ''}`} onClick={() => {
           setShowToken(true);
