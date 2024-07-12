@@ -28,6 +28,8 @@ function RarityDropdown({ imgSrc, children }) {
       }
     }
 
+    console.log('hey');
+
     document.addEventListener('click', handler);
 
     return () => {
@@ -41,11 +43,10 @@ function RarityDropdown({ imgSrc, children }) {
         setShowDropdown((prevState) => !prevState);
       }}>
         <img src={imgSrc}></img>
-        {
-          showDropdown ?
-          <PiCaretUpBold></PiCaretUpBold> :
-          <PiCaretDownBold></PiCaretDownBold>
-        }
+        <div className={itemSelectorStyle.iconsWrapper}>
+          <PiCaretUpBold style={showDropdown ? {visibility: 'visible'} : {visibility: 'hidden', height: 0}}></PiCaretUpBold>
+          <PiCaretDownBold style={showDropdown ? {visibility: 'hidden', height: 0} : {visibility: 'visible'}}></PiCaretDownBold>
+        </div>       
       </button>
       <div className={`${dropdownStyle.content} ${showDropdown ? dropdownStyle.contentOpen : ''}`}>
         {children}

@@ -23,6 +23,17 @@
   height: 100%;
 }
 
+.iconsWrapper {
+  width: 18px;
+  height: 18px;
+  display: flex;
+}
+
+.iconsWrapper svg {
+  right: 4;
+  position: absolute;
+}
+
 .active {
   --button-color: var(--positive-color);
   opacity: 100%;
