@@ -378,7 +378,7 @@ export default function Inventory() {
             This <span className={infoPopUpStyle.greenHighlight}>AI</span> has not been used yet. <span className={infoPopUpStyle.greenHighlight}>Connect PC</span> to it to start using. Then the AI will start to bring you profit
           </div>
           Every PC connected to this AI will be farming tokens during this time:<br />
-          <span className={`${infoPopUpStyle.iconWrapper} ${infoPopUpStyle.greenHighlight}`}>
+          <span className={`${infoPopUpStyle.iconWrapper} ${infoPopUpStyle.greenHighlight}`} style={{fontSize: 'x-large'}}>
             <PiClockBold></PiClockBold>
             {aiInfo.timer} Hours
           </span>
