@@ -9,10 +9,25 @@ import s from './List.module.css';
 export default function ListPc({ pc, isActive, onClose }) {
   // function for checking validity of input
   const [price, setPrice] = useState('');
+
   const handlePriceChange = (e) => {
-    const input = e.target.value;
-    if (/^\d*$/gm.test(input)) {
+    let input = e.target.value.replace(',', '.');
+
+    const validChar = /^([1-9]\d*|0)?(\.\d*)?$/;
+
+    if (validChar.test(input) || input === '') {
+      const parts = input.split('.');
+      if (parts[0].length > 1 && parts[0].startsWith('0') && !parts[0].startsWith('0.')) {
+        parts[0] = '0';
+      }
+      input = parts.join('.');
       setPrice(input);
+    }
+  };
+
+  const handleBlur = () => {
+    if (price.endsWith('.')) {
+      setPrice(price.slice(0, -1));
     }
   };
 
@@ -24,7 +39,13 @@ export default function ListPc({ pc, isActive, onClose }) {
           <span className={`text-${pc.rarity}`}>{pc.rarity}</span>
         </div>
         <div className={s.controlsContainer}>
-          <input className={s.price} placeholder='Price' type='text' value={price} onChange={handlePriceChange}></input>
+          <input className={s.price}
+            placeholder='Price'
+            type='text'
+            value={price}
+            inputMode='decimal'
+            onChange={handlePriceChange}
+            onBlur={handleBlur} />
           <div className={s.buttonContainer}>
             <GlowingButton width={'40vw'} glowSize={'0.2em'} buttonColor={'red'}>List</GlowingButton>
           </div>
