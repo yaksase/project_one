@@ -1,19 +1,24 @@
 /* eslint-disable react/prop-types */
 import { useEffect, useRef, useState } from 'react';
-import { PiCaretDownBold, PiCaretUpBold } from 'react-icons/pi';
+import { PiCaretDownBold, PiCaretUpBold, PiDesktopBold, PiClockBold, PiCheckBold } from 'react-icons/pi';
 
 import GlowingButton from '../../Components/GlowingButton/GlowingButton';
+import PopUp from '../../Components/PopUp/PopUp';
+import NotificationBase from '../../Components/NotificationBase/NotificationBase';
 
 import getAiImage from '../../utils/getAiImage';
 import getPcImage from '../../utils/getPcImage';
 
 import tokenImage from '../../assets/token_icon.png';
+import tonImage from '../../assets/ton_icon.svg';
 
 import s from './Market.module.css';
 import topSelectorStyle from './TopSelector.module.css';
 import itemSelectorStyle from './ItemSelector.module.css';
 import dropdownStyle from './RarityDropdown.module.css';
 import sellingItemStyle from './SellingItem.module.css';
+import buyPopUpStyle from './BuyPopUp.module.css';
+import notifStyle from './MarketNotif.module.css';
 
 const aiItems = {
   'common': [
@@ -569,6 +574,24 @@ const pcItems = {
   ],
 };
 
+const listedTokens = [
+  {
+    id: 0,
+    price: 0.2,
+    quantity: 5500
+  },
+  {
+    id: 1,
+    price: 0.22,
+    quantity: 130
+  },
+  {
+    id: 2,
+    price: 0.23,
+    quantity: 98000
+  },
+]
+
 const raritiesData = [
   'common', 'uncommon', 'rare', 'epic', 'legendary', 'ultra', 'mythic'
 ];
@@ -609,15 +632,19 @@ function RarityDropdown({ imgSrc, children, showDropdown, setShowDropdown }) {
   )
 }
 
-function SellingItem({ onBuyClick, imgSrc, price }) {
+function SellingItem({ onBuyClick, imgSrc, price, rarity, isToken = false }) {
   return (
     <div className={sellingItemStyle.container}>
-      <img src={imgSrc}></img>
+      <img src={imgSrc} className={rarity ? `glow-${rarity}` : ''}></img>
       <span className='priceWrapper'>
         {price}
-        <img src={tokenImage}></img>
+        {
+          isToken ?
+          <img src={tonImage}></img> :
+          <img src={tokenImage}></img>
+        }
       </span>
-      <GlowingButton glowSize={'0.3rem'} width={'100%'} verticalPadding='0.2em'>Buy</GlowingButton>
+      <GlowingButton glowSize={'0.3rem'} width={'100%'} verticalPadding='0.2em' onClick={onBuyClick}>Buy</GlowingButton>
     </div>
   )
 }
@@ -636,8 +663,235 @@ export default function Market() {
   const [showAiDropdown, setShowAiDropdown] = useState(false);
   const [showPcDropdown, setShowPcDropdown] = useState(false);
 
+  const [buyAi, setBuyAi] = useState(false);
+  const [aiPurchaseNotif, setAiPurchaseNotif] = useState(false);
+  const [aiBid, setAiBid] = useState({});
+
+  const [buyPc, setBuyPc] = useState(false);
+  const [pcPurchaseNotif, setPcPurchaseNotif] = useState(false);
+  const [pcBid, setPcBid] = useState({});
+
+  const [buyToken, setBuyToken] = useState(false);
+  const [tokenPurchaseNotif, setTokenPurchaseNotif] = useState(false);
+  const [tokenBid, setTokenBid] = useState({});
+
   return (
     <>
+      <NotificationBase isActive={aiPurchaseNotif} onClose={() => {
+        setAiPurchaseNotif(false);
+        setAiBid({});
+      }}>
+        <div className={notifStyle.claimedNotif}>
+          <img src={getAiImage(aiBid.rarity)} className={`glow-${aiBid.rarity}`}></img>
+          <span>
+            Purchased
+            <PiCheckBold></PiCheckBold>
+          </span>
+        </div>
+      </NotificationBase>
+      
+      <NotificationBase isActive={pcPurchaseNotif} onClose={() => {
+        setPcPurchaseNotif(false);
+        setPcBid({});
+      }}>
+        <div className={notifStyle.claimedNotif}>
+          <img src={getPcImage(pcBid.rarity)} className={`glow-${pcBid.rarity}`}></img>
+          <span>
+            Purchased
+            <PiCheckBold></PiCheckBold>
+          </span>
+        </div>
+      </NotificationBase>
+
+      <PopUp isActive={buyAi} onClose={() => setBuyAi(false)}>
+        <div className={buyPopUpStyle.container}>
+          <div className={buyPopUpStyle.image}>
+            <img src={getAiImage(aiBid.rarity)} className={`glow-${aiBid.rarity}`}></img>
+          </div>
+          <div className={buyPopUpStyle.centeredText}>
+            Rarity: <span className={`text-${aiBid.rarity}`} style={{fontWeight: 'bold', fontSize: 'large'}}>{aiBid.rarity}</span>
+          </div>
+          <div className={buyPopUpStyle.centeredText}>
+            This <span className={buyPopUpStyle.greenHighlight}>AI</span> has not been used yet. <span className={buyPopUpStyle.greenHighlight}>Connect PC</span> to it to start using. Then the AI will start to bring you profit
+          </div>
+          Every PC connected to this AI will be farming tokens during this time:<br />
+          <span className={`${buyPopUpStyle.iconWrapper} ${buyPopUpStyle.greenHighlight}`} style={{fontSize: 'x-large'}}>
+            <PiClockBold></PiClockBold>
+            N Hours
+          </span>
+          <br />
+          You can link this many PCs to the AI:
+          <span className={`${buyPopUpStyle.iconWrapper} text-common`}>
+            <PiDesktopBold></PiDesktopBold>
+            N Common PCs
+          </span>
+          <span className={`${buyPopUpStyle.iconWrapper} text-uncommon`}>
+            <PiDesktopBold></PiDesktopBold>
+            N Uncommon PCs
+          </span>
+          <span className={`${buyPopUpStyle.iconWrapper} text-rare`}>
+            <PiDesktopBold></PiDesktopBold>
+            N Rare PCs
+          </span>
+          <span className={`${buyPopUpStyle.iconWrapper} text-epic`}>
+            <PiDesktopBold></PiDesktopBold>
+            N Epic PCs
+          </span>
+          <span className={`${buyPopUpStyle.iconWrapper} text-legendary`}>
+            <PiDesktopBold></PiDesktopBold>
+            N Legendary PCs
+          </span>
+          <span className={`${buyPopUpStyle.iconWrapper} text-ultra`}>
+            <PiDesktopBold></PiDesktopBold>
+            N Ultra PCs
+          </span>
+          <span className={`${buyPopUpStyle.iconWrapper} text-mythic`}>
+            <PiDesktopBold></PiDesktopBold>
+            N Mythic PCs
+          </span>
+          <span className='priceWrapper' style={{justifyContent: 'center', fontSize: 'x-large', marginTop: '1rem'}}>
+            Price: {aiBid.price}
+            <img src={tokenImage}></img>
+          </span>
+        </div>
+        <div className={buyPopUpStyle.buttonContainer}>
+          <GlowingButton onClick={() => {
+            setBuyAi(false);
+            setAiPurchaseNotif(true);
+          }}>Purchase AI</GlowingButton>
+        </div>
+      </PopUp>
+
+      <PopUp isActive={buyPc} onClose={() => setBuyPc(false)}>
+        <div className={buyPopUpStyle.container}>
+          <div className={buyPopUpStyle.image}>
+            <img src={getPcImage(pcBid.rarity)} className={`glow-${pcBid.rarity}`}></img>
+          </div>
+          <div className={buyPopUpStyle.centeredText}>
+            Rarity: <span className={`text-${pcBid.rarity}`} style={{fontWeight: 'bold', fontSize: 'large'}}>{pcBid.rarity}</span>
+          </div>
+          <div className={buyPopUpStyle.centeredText}>
+            While the <span className={buyPopUpStyle.greenHighlight}>PC is not activated</span>, you can sell it. As soon as you start using it, you will not be able to list it on the market
+          </div>
+          Earnings per hour:<br />
+          <span className={`priceWrapper ${buyPopUpStyle.greenHighlight}`} style={{fontSize: 'x-large'}}>
+            <img src={tokenImage} style={{marginRight: '0.2em', marginLeft: '0em'}}></img>
+            N/hour
+          </span>
+          <br />
+          PC duration:<br />
+          <span className={`${buyPopUpStyle.iconWrapper} ${buyPopUpStyle.greenHighlight}`}>
+            <PiClockBold></PiClockBold>
+            N Hours
+          </span>
+          <br />
+          This PC takes up this many slots for each AI:
+          <span className={`${buyPopUpStyle.aiSlotsWrapper} text-common`}>
+            <img src={getAiImage('common')} className='glow-common'></img>
+            N for common AI
+          </span>
+          <span className={`${buyPopUpStyle.aiSlotsWrapper} text-uncommon`}>
+            <img src={getAiImage('uncommon')} className='glow-uncommon'></img>
+            N for uncommon AI
+          </span>
+          <span className={`${buyPopUpStyle.aiSlotsWrapper} text-rare`}>
+            <img src={getAiImage('rare')} className='glow-rare'></img>
+            N for rare AI
+          </span>
+          <span className={`${buyPopUpStyle.aiSlotsWrapper} text-epic`}>
+            <img src={getAiImage('epic')} className='glow-epic'></img>
+            N for epic AI
+          </span>
+          <span className={`${buyPopUpStyle.aiSlotsWrapper} text-legendary`}>
+            <img src={getAiImage('legendary')} className='glow-legendary'></img>
+            N for legendary AI
+          </span>
+          <span className={`${buyPopUpStyle.aiSlotsWrapper} text-ultra`}>
+            <img src={getAiImage('ultra')} className='glow-ultra'></img>
+            N for ultra AI
+          </span>
+          <span className={`${buyPopUpStyle.aiSlotsWrapper} text-mythic`}>
+            <img src={getAiImage('mythic')} className='glow-mythic'></img>
+            N for mythic AI
+          </span>
+          <span className='priceWrapper' style={{justifyContent: 'center', fontSize: 'x-large', marginTop: '1rem'}}>
+            Price: {pcBid.price}
+            <img src={tokenImage}></img>
+          </span>
+        </div>
+        <div className={buyPopUpStyle.buttonContainer}>
+          <GlowingButton onClick={() => {
+            setBuyPc(false);
+            setPcPurchaseNotif(true);
+          }}>Purchase PC</GlowingButton>
+        </div>
+      </PopUp>
+
+      <PopUp isActive={buyToken} onClose={() => setBuyToken(false)}>
+        <div className={buyPopUpStyle.container}>
+          <div className={buyPopUpStyle.image}>
+            <img src={getPcImage(pcBid.rarity)} className={`glow-${pcBid.rarity}`}></img>
+          </div>
+          <div className={buyPopUpStyle.centeredText}>
+            Rarity: <span className={`text-${pcBid.rarity}`} style={{fontWeight: 'bold', fontSize: 'large'}}>{pcBid.rarity}</span>
+          </div>
+          <div className={buyPopUpStyle.centeredText}>
+            While the <span className={buyPopUpStyle.greenHighlight}>PC is not activated</span>, you can sell it. As soon as you start using it, you will not be able to list it on the market
+          </div>
+          Earnings per hour:<br />
+          <span className={`priceWrapper ${buyPopUpStyle.greenHighlight}`} style={{fontSize: 'x-large'}}>
+            <img src={tokenImage} style={{marginRight: '0.2em', marginLeft: '0em'}}></img>
+            N/hour
+          </span>
+          <br />
+          PC duration:<br />
+          <span className={`${buyPopUpStyle.iconWrapper} ${buyPopUpStyle.greenHighlight}`}>
+            <PiClockBold></PiClockBold>
+            N Hours
+          </span>
+          <br />
+          This PC takes up this many slots for each AI:
+          <span className={`${buyPopUpStyle.aiSlotsWrapper} text-common`}>
+            <img src={getAiImage('common')} className='glow-common'></img>
+            N for common AI
+          </span>
+          <span className={`${buyPopUpStyle.aiSlotsWrapper} text-uncommon`}>
+            <img src={getAiImage('uncommon')} className='glow-uncommon'></img>
+            N for uncommon AI
+          </span>
+          <span className={`${buyPopUpStyle.aiSlotsWrapper} text-rare`}>
+            <img src={getAiImage('rare')} className='glow-rare'></img>
+            N for rare AI
+          </span>
+          <span className={`${buyPopUpStyle.aiSlotsWrapper} text-epic`}>
+            <img src={getAiImage('epic')} className='glow-epic'></img>
+            N for epic AI
+          </span>
+          <span className={`${buyPopUpStyle.aiSlotsWrapper} text-legendary`}>
+            <img src={getAiImage('legendary')} className='glow-legendary'></img>
+            N for legendary AI
+          </span>
+          <span className={`${buyPopUpStyle.aiSlotsWrapper} text-ultra`}>
+            <img src={getAiImage('ultra')} className='glow-ultra'></img>
+            N for ultra AI
+          </span>
+          <span className={`${buyPopUpStyle.aiSlotsWrapper} text-mythic`}>
+            <img src={getAiImage('mythic')} className='glow-mythic'></img>
+            N for mythic AI
+          </span>
+          <span className='priceWrapper' style={{justifyContent: 'center', fontSize: 'x-large', marginTop: '1rem'}}>
+            Price: {pcBid.price}
+            <img src={tokenImage}></img>
+          </span>
+        </div>
+        <div className={buyPopUpStyle.buttonContainer}>
+          <GlowingButton onClick={() => {
+            setBuyPc(false);
+            setPcPurchaseNotif(true);
+          }}>Purchase PC</GlowingButton>
+        </div>
+      </PopUp>
+
       <div className={s.container}>
         <div className={s.topSelector}>
           <button className={`${topSelectorStyle.button} ${showMarket ? topSelectorStyle.active : ''}`} onClick={() => {
@@ -708,7 +962,10 @@ export default function Market() {
             showAi ?
             aiItems[curAi].map((ai) => {
               return (
-                <SellingItem key={ai.id} imgSrc={getAiImage(ai.rarity)} price={ai.price}></SellingItem>
+                <SellingItem key={ai.id} imgSrc={getAiImage(ai.rarity)} price={ai.price} rarity={ai.rarity} onBuyClick={() => {
+                  setAiBid(ai);
+                  setBuyAi(true);
+                }}></SellingItem>
               )
             }) :
             <></>
@@ -717,7 +974,19 @@ export default function Market() {
             showPc ?
             pcItems[curPc].map((pc) => {
               return (
-                <SellingItem key={pc.id} imgSrc={getPcImage(pc.rarity)} price={pc.price}></SellingItem>
+                <SellingItem key={pc.id} imgSrc={getPcImage(pc.rarity)} price={pc.price} rarity={pc.rarity} onBuyClick={() => {
+                  setPcBid(pc);
+                  setBuyPc(true);
+                }}></SellingItem>
+              )
+            }) :
+            <></>
+          }
+          {
+            showToken ?
+            listedTokens.map((token) => {
+              return (
+                <SellingItem key={token.id} imgSrc={tokenImage} price={token.price} isToken={true} rarity={'rare'}></SellingItem>
               )
             }) :
             <></>
