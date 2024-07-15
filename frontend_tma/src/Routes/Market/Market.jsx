@@ -640,8 +640,8 @@ function SellingItem({ onBuyClick, imgSrc, price, rarity, isToken = false }) {
         {price}
         {
           isToken ?
-          <img src={tonImage}></img> :
-          <img src={tokenImage}></img>
+            <img src={tonImage}></img> :
+            <img src={tokenImage}></img>
         }
       </span>
       <GlowingButton glowSize={'0.3rem'} width={'100%'} verticalPadding='0.2em' onClick={onBuyClick}>Buy</GlowingButton>
@@ -674,6 +674,37 @@ export default function Market() {
   const [buyToken, setBuyToken] = useState(false);
   const [tokenPurchaseNotif, setTokenPurchaseNotif] = useState(false);
   const [tokenBid, setTokenBid] = useState({});
+  const [tokenAmount, setTokenAmount] = useState(0);
+
+  let tokenButton;
+  if (buyToken) {
+    if (tokenAmount > tokenBid.quantity) {
+      tokenButton =
+        <GlowingButton disabled={true} buttonColor={'red'}>
+          Not Enough Tokens
+        </GlowingButton>;
+    } else if (tokenAmount == 0) {
+      tokenButton =
+        <GlowingButton disabled={true}>
+          Purchase Tokens
+        </GlowingButton>;
+    } else if (tokenAmount * tokenBid.price > 12.356) {
+      tokenButton =
+        <GlowingButton disabled={true} buttonColor={'red'}>
+          Not Enough TON
+        </GlowingButton>;
+    } else {
+      tokenButton =
+        <GlowingButton
+        onClick={() => {
+          setBuyToken(false);
+          setTokenPurchaseNotif(true);
+          setTokenAmount(0);
+        }}>Purchase Tokens</GlowingButton>;
+    }
+  }
+
+  console.log(tokenAmount);
 
   return (
     <>
@@ -689,7 +720,7 @@ export default function Market() {
           </span>
         </div>
       </NotificationBase>
-      
+
       <NotificationBase isActive={pcPurchaseNotif} onClose={() => {
         setPcPurchaseNotif(false);
         setPcBid({});
@@ -703,19 +734,32 @@ export default function Market() {
         </div>
       </NotificationBase>
 
+      <NotificationBase isActive={tokenPurchaseNotif} onClose={() => {
+        setTokenPurchaseNotif(false);
+        setTokenBid({});
+      }}>
+        <div className={notifStyle.claimedNotif}>
+          <img src={tokenImage} className={`glow-rare`}></img>
+          <span>
+            Purchased
+            <PiCheckBold></PiCheckBold>
+          </span>
+        </div>
+      </NotificationBase>
+
       <PopUp isActive={buyAi} onClose={() => setBuyAi(false)}>
         <div className={buyPopUpStyle.container}>
           <div className={buyPopUpStyle.image}>
             <img src={getAiImage(aiBid.rarity)} className={`glow-${aiBid.rarity}`}></img>
           </div>
           <div className={buyPopUpStyle.centeredText}>
-            Rarity: <span className={`text-${aiBid.rarity}`} style={{fontWeight: 'bold', fontSize: 'large'}}>{aiBid.rarity}</span>
+            Rarity: <span className={`text-${aiBid.rarity}`} style={{ fontWeight: 'bold', fontSize: 'large' }}>{aiBid.rarity}</span>
           </div>
           <div className={buyPopUpStyle.centeredText}>
             This <span className={buyPopUpStyle.greenHighlight}>AI</span> has not been used yet. <span className={buyPopUpStyle.greenHighlight}>Connect PC</span> to it to start using. Then the AI will start to bring you profit
           </div>
           Every PC connected to this AI will be farming tokens during this time:<br />
-          <span className={`${buyPopUpStyle.iconWrapper} ${buyPopUpStyle.greenHighlight}`} style={{fontSize: 'x-large'}}>
+          <span className={`${buyPopUpStyle.iconWrapper} ${buyPopUpStyle.greenHighlight}`} style={{ fontSize: 'x-large' }}>
             <PiClockBold></PiClockBold>
             N Hours
           </span>
@@ -749,16 +793,22 @@ export default function Market() {
             <PiDesktopBold></PiDesktopBold>
             N Mythic PCs
           </span>
-          <span className='priceWrapper' style={{justifyContent: 'center', fontSize: 'x-large', marginTop: '1rem'}}>
+          <span className='priceWrapper' style={{ justifyContent: 'center', fontSize: 'x-large', marginTop: '1rem' }}>
             Price: {aiBid.price}
             <img src={tokenImage}></img>
           </span>
         </div>
         <div className={buyPopUpStyle.buttonContainer}>
-          <GlowingButton onClick={() => {
-            setBuyAi(false);
-            setAiPurchaseNotif(true);
-          }}>Purchase AI</GlowingButton>
+          {
+            aiBid.price > 500 ?
+              <GlowingButton disabled={true} buttonColor={'red'}>
+                Not enough tokens
+              </GlowingButton> :
+              <GlowingButton onClick={() => {
+                setBuyAi(false);
+                setAiPurchaseNotif(true);
+              }}>Purchase AI</GlowingButton>
+          }
         </div>
       </PopUp>
 
@@ -768,14 +818,14 @@ export default function Market() {
             <img src={getPcImage(pcBid.rarity)} className={`glow-${pcBid.rarity}`}></img>
           </div>
           <div className={buyPopUpStyle.centeredText}>
-            Rarity: <span className={`text-${pcBid.rarity}`} style={{fontWeight: 'bold', fontSize: 'large'}}>{pcBid.rarity}</span>
+            Rarity: <span className={`text-${pcBid.rarity}`} style={{ fontWeight: 'bold', fontSize: 'large' }}>{pcBid.rarity}</span>
           </div>
           <div className={buyPopUpStyle.centeredText}>
             While the <span className={buyPopUpStyle.greenHighlight}>PC is not activated</span>, you can sell it. As soon as you start using it, you will not be able to list it on the market
           </div>
           Earnings per hour:<br />
-          <span className={`priceWrapper ${buyPopUpStyle.greenHighlight}`} style={{fontSize: 'x-large'}}>
-            <img src={tokenImage} style={{marginRight: '0.2em', marginLeft: '0em'}}></img>
+          <span className={`priceWrapper ${buyPopUpStyle.greenHighlight}`} style={{ fontSize: 'x-large' }}>
+            <img src={tokenImage} style={{ marginRight: '0.2em', marginLeft: '0em' }}></img>
             N/hour
           </span>
           <br />
@@ -814,81 +864,63 @@ export default function Market() {
             <img src={getAiImage('mythic')} className='glow-mythic'></img>
             N for mythic AI
           </span>
-          <span className='priceWrapper' style={{justifyContent: 'center', fontSize: 'x-large', marginTop: '1rem'}}>
+          <span className='priceWrapper' style={{ justifyContent: 'center', fontSize: 'x-large', marginTop: '1rem' }}>
             Price: {pcBid.price}
             <img src={tokenImage}></img>
           </span>
         </div>
         <div className={buyPopUpStyle.buttonContainer}>
-          <GlowingButton onClick={() => {
-            setBuyPc(false);
-            setPcPurchaseNotif(true);
-          }}>Purchase PC</GlowingButton>
+          {
+            pcBid.price > 500 ?
+              <GlowingButton disabled={true} buttonColor={'red'}>
+                Not enough tokens
+              </GlowingButton> :
+              <GlowingButton onClick={() => {
+                setBuyPc(false);
+                setPcPurchaseNotif(true);
+              }}>Purchase PC</GlowingButton>
+          }
         </div>
       </PopUp>
 
-      <PopUp isActive={buyToken} onClose={() => setBuyToken(false)}>
+      <PopUp isActive={buyToken} onClose={() => {
+        setBuyToken(false);
+        setTokenAmount(0);
+      }}>
         <div className={buyPopUpStyle.container}>
           <div className={buyPopUpStyle.image}>
-            <img src={getPcImage(pcBid.rarity)} className={`glow-${pcBid.rarity}`}></img>
+            <img src={tokenImage} className={`glow-rare`}></img>
           </div>
-          <div className={buyPopUpStyle.centeredText}>
-            Rarity: <span className={`text-${pcBid.rarity}`} style={{fontWeight: 'bold', fontSize: 'large'}}>{pcBid.rarity}</span>
-          </div>
-          <div className={buyPopUpStyle.centeredText}>
-            While the <span className={buyPopUpStyle.greenHighlight}>PC is not activated</span>, you can sell it. As soon as you start using it, you will not be able to list it on the market
-          </div>
-          Earnings per hour:<br />
-          <span className={`priceWrapper ${buyPopUpStyle.greenHighlight}`} style={{fontSize: 'x-large'}}>
-            <img src={tokenImage} style={{marginRight: '0.2em', marginLeft: '0em'}}></img>
-            N/hour
-          </span>
-          <br />
-          PC duration:<br />
-          <span className={`${buyPopUpStyle.iconWrapper} ${buyPopUpStyle.greenHighlight}`}>
-            <PiClockBold></PiClockBold>
-            N Hours
-          </span>
-          <br />
-          This PC takes up this many slots for each AI:
-          <span className={`${buyPopUpStyle.aiSlotsWrapper} text-common`}>
-            <img src={getAiImage('common')} className='glow-common'></img>
-            N for common AI
-          </span>
-          <span className={`${buyPopUpStyle.aiSlotsWrapper} text-uncommon`}>
-            <img src={getAiImage('uncommon')} className='glow-uncommon'></img>
-            N for uncommon AI
-          </span>
-          <span className={`${buyPopUpStyle.aiSlotsWrapper} text-rare`}>
-            <img src={getAiImage('rare')} className='glow-rare'></img>
-            N for rare AI
-          </span>
-          <span className={`${buyPopUpStyle.aiSlotsWrapper} text-epic`}>
-            <img src={getAiImage('epic')} className='glow-epic'></img>
-            N for epic AI
-          </span>
-          <span className={`${buyPopUpStyle.aiSlotsWrapper} text-legendary`}>
-            <img src={getAiImage('legendary')} className='glow-legendary'></img>
-            N for legendary AI
-          </span>
-          <span className={`${buyPopUpStyle.aiSlotsWrapper} text-ultra`}>
-            <img src={getAiImage('ultra')} className='glow-ultra'></img>
-            N for ultra AI
-          </span>
-          <span className={`${buyPopUpStyle.aiSlotsWrapper} text-mythic`}>
-            <img src={getAiImage('mythic')} className='glow-mythic'></img>
-            N for mythic AI
-          </span>
-          <span className='priceWrapper' style={{justifyContent: 'center', fontSize: 'x-large', marginTop: '1rem'}}>
-            Price: {pcBid.price}
+          <span style={{ fontSize: 'x-large', textAlign: 'center' }}>Available:</span>
+          <span className={`priceWrapper ${buyPopUpStyle.greenHighlight}`} style={{ fontSize: 'x-large', justifyContent: 'center' }}>
+            {tokenBid.quantity}
             <img src={tokenImage}></img>
           </span>
+          <br />
+          <span style={{ fontSize: 'x-large', textAlign: 'center' }}>Price:</span>
+          <span className={`priceWrapper ${buyPopUpStyle.greenHighlight}`} style={{ fontSize: 'x-large', justifyContent: 'center' }}>
+            {tokenBid.price}
+            <img src={tonImage} style={{ marginRight: '1rem' }}></img>
+            for 1
+            <img src={tokenImage}></img>
+          </span><br />
+          <div style={{ display: 'flex', justifyContent: 'center' }}>
+            <input className={buyPopUpStyle.amountPurchased} placeholder='Amount' onChange={(e) => setTokenAmount(e.target.value)}></input>
+          </div>
+          {
+            tokenAmount ?
+              <>
+                <span style={{ fontSize: 'x-large', textAlign: 'center' }}>Total:</span>
+                <span className={`priceWrapper ${buyPopUpStyle.greenHighlight}`} style={{ fontSize: 'x-large', justifyContent: 'center' }}>
+                  {tokenBid.price * tokenAmount}
+                  <img src={tonImage}></img>
+                </span>
+              </> :
+              <></>
+          }
         </div>
         <div className={buyPopUpStyle.buttonContainer}>
-          <GlowingButton onClick={() => {
-            setBuyPc(false);
-            setPcPurchaseNotif(true);
-          }}>Purchase PC</GlowingButton>
+          {tokenButton}
         </div>
       </PopUp>
 
@@ -960,40 +992,43 @@ export default function Market() {
         <div className={s.itemsContainer}>
           {
             showAi ?
-            aiItems[curAi].map((ai) => {
-              return (
-                <SellingItem key={ai.id} imgSrc={getAiImage(ai.rarity)} price={ai.price} rarity={ai.rarity} onBuyClick={() => {
-                  setAiBid(ai);
-                  setBuyAi(true);
-                }}></SellingItem>
-              )
-            }) :
-            <></>
+              aiItems[curAi].map((ai) => {
+                return (
+                  <SellingItem key={ai.id} imgSrc={getAiImage(ai.rarity)} price={ai.price} rarity={ai.rarity} onBuyClick={() => {
+                    setAiBid(ai);
+                    setBuyAi(true);
+                  }}></SellingItem>
+                )
+              }) :
+              <></>
           }
           {
             showPc ?
-            pcItems[curPc].map((pc) => {
-              return (
-                <SellingItem key={pc.id} imgSrc={getPcImage(pc.rarity)} price={pc.price} rarity={pc.rarity} onBuyClick={() => {
-                  setPcBid(pc);
-                  setBuyPc(true);
-                }}></SellingItem>
-              )
-            }) :
-            <></>
+              pcItems[curPc].map((pc) => {
+                return (
+                  <SellingItem key={pc.id} imgSrc={getPcImage(pc.rarity)} price={pc.price} rarity={pc.rarity} onBuyClick={() => {
+                    setPcBid(pc);
+                    setBuyPc(true);
+                  }}></SellingItem>
+                )
+              }) :
+              <></>
           }
           {
             showToken ?
-            listedTokens.map((token) => {
-              return (
-                <SellingItem key={token.id} imgSrc={tokenImage} price={token.price} isToken={true} rarity={'rare'}></SellingItem>
-              )
-            }) :
-            <></>
+              listedTokens.map((token) => {
+                return (
+                  <SellingItem key={token.id} imgSrc={tokenImage} price={token.price} isToken={true} rarity={'rare'} onBuyClick={() => {
+                    setTokenBid(token);
+                    setBuyToken(true);
+                  }}></SellingItem>
+                )
+              }) :
+              <></>
           }
         </div>
       </div>
     </>
-    
+
   )
 }
