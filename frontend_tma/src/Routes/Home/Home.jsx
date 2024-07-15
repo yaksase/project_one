@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { PiCoinsLight, PiClockLight, PiDesktopLight, PiCheckBold } from 'react-icons/pi';
 
 import GlowingButton from '../../Components/GlowingButton/GlowingButton';
-import Notification from '../../Components/Notification/Notification';
+import NotificationBase from '../../Components/NotificationBase/NotificationBase';
 import PcSlider from '../../Components/PcSlider/PcSlider';
 import AiSlider from '../../Components/AiSlider/AiSlider';
 import HealthBar from '../../Components/HealthBar/HealthBar';
@@ -16,7 +16,7 @@ import UnknownAi from '../../assets/ai/ai_unknown.png';
 import CommonAi from '../../assets/ai/ai_common.png';
 
 import homeStyle from './Home.module.css';
-import notifStyle from './HomeNotifcation.module.css';
+import notifStyle from './HomeNotification.module.css';
 
 const payload = [
   {
@@ -216,7 +216,7 @@ export default function Home() {
     return (
       <>
         {/* Free Pc Claim */}
-        <Notification isActive={pcContainer} onClose={() => { showClaimPc(false); getPc(true) }}>
+        <NotificationBase isActive={pcContainer} onClose={() => { showClaimPc(false); getPc(true) }}>
           <div className={notifStyle.claimedNotif}>
             <img src={getPcImage('common')} className='glow-common'></img>
             <span>
@@ -224,18 +224,18 @@ export default function Home() {
               <PiCheckBold></PiCheckBold>
             </span>
           </div>
-        </Notification>
+        </NotificationBase>
 
         {/* Free Ai Claim */}
-        <Notification isActive={claimAi} onClose={() => { showClaimAi(false); getAi(true) }}>
+        <NotificationBase isActive={claimAi} onClose={() => { showClaimAi(false); getAi(true) }}>
           <div className={notifStyle.claimedNotif}>
-            <img src={CommonAi} className='glow-common'></img>
+            <img src={getAiImage('common')} className='glow-common'></img>
             <span>
               Claimed
               <PiCheckBold></PiCheckBold>
             </span>
           </div>
-        </Notification>
+        </NotificationBase>
 
         <div className={homeStyle.container}>
           <div className={homeStyle.freeDropsCount}>
