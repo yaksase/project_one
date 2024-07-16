@@ -8,6 +8,7 @@ import NotificationBase from '../../Components/NotificationBase/NotificationBase
 
 import getAiImage from '../../utils/getAiImage';
 import getPcImage from '../../utils/getPcImage';
+import numberWithCommas from '../../utils/numberWithCommas';
 
 import tokenImage from '../../assets/token_icon.png';
 import tonImage from '../../assets/ton_icon.svg';
@@ -574,7 +575,7 @@ const pcItems = {
   ],
 };
 
-const listedTokens = [
+const tokenItems = [
   {
     id: 0,
     price: 0.2,
@@ -590,7 +591,66 @@ const listedTokens = [
     price: 0.23,
     quantity: 98000
   },
-]
+];
+
+const listedAi = [
+  {
+    rarity: 'common',
+    id: 0,
+    price: 12.5
+  },
+  {
+    rarity: 'rare',
+    id: 1,
+    price: 194.4
+  },
+  {
+    rarity: 'rare',
+    id: 2,
+    price: 201.45
+  },
+  {
+    rarity: 'ultra',
+    id: 3,
+    price: 8450
+  },
+];
+
+const listedPc = [
+  {
+    rarity: 'common',
+    id: 0,
+    price: 13.1
+  },
+  {
+    rarity: 'rare',
+    id: 1,
+    price: 201.45
+  },
+  {
+    rarity: 'epic',
+    id: 2,
+    price: 594
+  },
+  {
+    rarity: 'mythic',
+    id: 3,
+    price: 59000
+  },
+];
+
+const listedTokens = [
+  {
+    id: 0,
+    price: 0.2,
+    quantity: 5500
+  },
+  {
+    id: 1,
+    price: 0.22,
+    quantity: 130
+  },
+];
 
 const raritiesData = [
   'common', 'uncommon', 'rare', 'epic', 'legendary', 'ultra', 'mythic'
@@ -649,6 +709,25 @@ function SellingItem({ onBuyClick, imgSrc, price, rarity, isToken = false }) {
   )
 }
 
+function ListedItem({ onDelistClick, imgSrc, price, rarity, isToken = false }) {
+  return (
+    <div className={sellingItemStyle.container}>
+      <img src={imgSrc} className={rarity ? `glow-${rarity}` : ''}></img>
+      <span className='priceWrapper'>
+        {price}
+        {
+          isToken ?
+            <img src={tonImage}></img> :
+            <img src={tokenImage}></img>
+        }
+      </span>
+      <GlowingButton glowSize={'0.3rem'} width={'100%'} verticalPadding='0.2em' onClick={onDelistClick} buttonColor={'orange'}>
+        Delist
+      </GlowingButton>
+    </div>
+  )
+}
+
 export default function Market() {
   const [showMarket, setShowMarket] = useState(true);
 
@@ -674,37 +753,73 @@ export default function Market() {
   const [buyToken, setBuyToken] = useState(false);
   const [tokenPurchaseNotif, setTokenPurchaseNotif] = useState(false);
   const [tokenBid, setTokenBid] = useState({});
-  const [tokenAmount, setTokenAmount] = useState(0);
+  const [tokenAmountPurchased, setTokenAmountPurchased] = useState(0);
 
-  let tokenButton;
+  const [listedItemType, setListedItemType] = useState('ai');
+
+  const [listToken, setListToken] = useState(false);
+  const [tokenAmountListed, setTokenAmountListed] = useState(0);
+  const [tokenPrice, setTokenPrice] = useState(0);
+  const [tokenListNotif, setTokenListNotif] = useState(false);
+
+  const [delistingAi, setDelistingAi] = useState(null);
+  const [delistingAiNotif, setDelistingAiNotif] = useState(null);
+  const [delistingPc, setDelistingPc] = useState(null);
+  const [delistingPcNotif, setDelistingPcNotif] = useState(null);
+  const [delistingToken, setDelistingToken] = useState(null);
+  const [delistingTokenNotif, setDelistingTokenNotif] = useState(null);
+
+  let tokenBuyButton;
   if (buyToken) {
-    if (tokenAmount > tokenBid.quantity) {
-      tokenButton =
+    if (tokenAmountPurchased > tokenBid.quantity) {
+      tokenBuyButton =
         <GlowingButton disabled={true} buttonColor={'red'}>
           Not Enough Tokens
         </GlowingButton>;
-    } else if (tokenAmount == 0) {
-      tokenButton =
+    } else if (tokenAmountPurchased == 0) {
+      tokenBuyButton =
         <GlowingButton disabled={true}>
           Purchase Tokens
         </GlowingButton>;
-    } else if (tokenAmount * tokenBid.price > 12.356) {
-      tokenButton =
+    } else if (tokenAmountPurchased * tokenBid.price > 12.356) {
+      tokenBuyButton =
         <GlowingButton disabled={true} buttonColor={'red'}>
           Not Enough TON
         </GlowingButton>;
     } else {
-      tokenButton =
+      tokenBuyButton =
         <GlowingButton
-        onClick={() => {
-          setBuyToken(false);
-          setTokenPurchaseNotif(true);
-          setTokenAmount(0);
-        }}>Purchase Tokens</GlowingButton>;
+          onClick={() => {
+            setBuyToken(false);
+            setTokenPurchaseNotif(true);
+            setTokenAmountPurchased(0);
+          }}>Purchase Tokens</GlowingButton>;
     }
   }
 
-  console.log(tokenAmount);
+  let tokenListButton;
+  if (listToken) {
+    if (!tokenAmountListed || !tokenPrice) {
+      tokenListButton =
+        <GlowingButton disabled={true}>
+          Purchase Tokens
+        </GlowingButton>;
+    } else if (tokenAmountListed > 1546234128) {
+      tokenListButton =
+        <GlowingButton disabled={true} buttonColor={'red'}>
+          Not Enough Tokens
+        </GlowingButton>;
+    } else {
+      tokenListButton =
+        <GlowingButton
+          onClick={() => {
+            setListToken(false);
+            setTokenListNotif(true);
+            setTokenAmountListed(0);
+            setTokenPrice(0);
+          }}>Purchase Tokens</GlowingButton>;
+    }
+  }
 
   return (
     <>
@@ -742,6 +857,63 @@ export default function Market() {
           <img src={tokenImage} className={`glow-rare`}></img>
           <span>
             Purchased
+            <PiCheckBold></PiCheckBold>
+          </span>
+        </div>
+      </NotificationBase>
+
+      <NotificationBase isActive={tokenListNotif} onClose={() => {
+        setTokenListNotif(false);
+      }}>
+        <div className={notifStyle.claimedNotif}>
+          <img src={tokenImage} className={`glow-rare`}></img>
+          <span>
+            Listed
+            <PiCheckBold></PiCheckBold>
+          </span>
+        </div>
+      </NotificationBase>
+
+      <NotificationBase isActive={delistingAiNotif} onClose={() => {
+        setDelistingAiNotif(null);
+      }}>
+        {
+          delistingAiNotif ?
+            <div className={notifStyle.claimedNotif}>
+              <img src={getAiImage(delistingAiNotif.rarity)} className={`glow-${delistingAiNotif.rarity}`}></img>
+              <span>
+                Delisted
+                <PiCheckBold></PiCheckBold>
+              </span>
+            </div> :
+            <></>
+        }
+
+      </NotificationBase>
+
+      <NotificationBase isActive={delistingPcNotif} onClose={() => {
+        setDelistingPcNotif(null);
+      }}>
+        {
+          delistingPcNotif ?
+            <div className={notifStyle.claimedNotif}>
+              <img src={getPcImage(delistingPcNotif.rarity)} className={`glow-${delistingPcNotif.rarity}`}></img>
+              <span>
+                Delisted
+                <PiCheckBold></PiCheckBold>
+              </span>
+            </div> :
+            <></>
+        }
+      </NotificationBase>
+
+      <NotificationBase isActive={delistingTokenNotif} onClose={() => {
+        setDelistingTokenNotif(null);
+      }}>
+        <div className={notifStyle.claimedNotif}>
+          <img src={tokenImage} className={`glow-rare`}></img>
+          <span>
+            Delisted
             <PiCheckBold></PiCheckBold>
           </span>
         </div>
@@ -885,7 +1057,7 @@ export default function Market() {
 
       <PopUp isActive={buyToken} onClose={() => {
         setBuyToken(false);
-        setTokenAmount(0);
+        setTokenAmountPurchased(0);
       }}>
         <div className={buyPopUpStyle.container}>
           <div className={buyPopUpStyle.image}>
@@ -905,14 +1077,14 @@ export default function Market() {
             <img src={tokenImage}></img>
           </span><br />
           <div style={{ display: 'flex', justifyContent: 'center' }}>
-            <input className={buyPopUpStyle.amountPurchased} placeholder='Amount' onChange={(e) => setTokenAmount(e.target.value)}></input>
+            <input className={buyPopUpStyle.amountPurchased} placeholder='Amount' onChange={(e) => setTokenAmountPurchased(e.target.value)}></input>
           </div>
           {
-            tokenAmount ?
+            tokenAmountPurchased ?
               <>
                 <span style={{ fontSize: 'x-large', textAlign: 'center' }}>Total:</span>
                 <span className={`priceWrapper ${buyPopUpStyle.greenHighlight}`} style={{ fontSize: 'x-large', justifyContent: 'center' }}>
-                  {tokenBid.price * tokenAmount}
+                  {tokenBid.price * tokenAmountPurchased}
                   <img src={tonImage}></img>
                 </span>
               </> :
@@ -920,8 +1092,232 @@ export default function Market() {
           }
         </div>
         <div className={buyPopUpStyle.buttonContainer}>
-          {tokenButton}
+          {tokenBuyButton}
         </div>
+      </PopUp>
+
+      <PopUp isActive={listToken} onClose={() => {
+        setListToken(false);
+        setTokenAmountListed(0);
+        setTokenPrice(0);
+      }}>
+        <div className={buyPopUpStyle.container}>
+          <div className={buyPopUpStyle.image}>
+            <img src={tokenImage} className={`glow-rare`}></img>
+          </div>
+          <span style={{ fontSize: 'x-large', textAlign: 'center' }}>Available:</span>
+          <span className={`priceWrapper ${buyPopUpStyle.greenHighlight}`} style={{ fontSize: 'x-large', justifyContent: 'center' }}>
+            1,546,234,128
+            <img src={tokenImage}></img>
+          </span>
+          <br />
+          <span style={{ fontSize: 'x-large', textAlign: 'center' }}>Price:</span>
+          <span className={`priceWrapper ${buyPopUpStyle.greenHighlight}`} style={{ fontSize: 'x-large', justifyContent: 'center' }}>
+            {tokenBid.price}
+            <img src={tonImage} style={{ marginRight: '1rem' }}></img>
+            for 1
+            <img src={tokenImage}></img>
+          </span><br />
+          <div style={{ display: 'flex', justifyContent: 'center' }}>
+            <input className={buyPopUpStyle.amountPurchased} placeholder='Amount' onChange={(e) => setTokenAmountListed(e.target.value)}></input>
+          </div>
+          <div style={{ display: 'flex', justifyContent: 'center' }}>
+            <input className={buyPopUpStyle.amountPurchased} placeholder='Price' onChange={(e) => setTokenPrice(e.target.value)}></input>
+          </div>
+          {
+            tokenAmountListed && tokenPrice ?
+              <>
+                <span style={{ fontSize: 'x-large', textAlign: 'center' }}>Listing:</span>
+                <span className={`priceWrapper ${buyPopUpStyle.greenHighlight}`} style={{ fontSize: 'x-large', justifyContent: 'center' }}>
+                  {numberWithCommas(tokenAmountListed)}
+                  <img src={tokenImage}></img>
+                </span><br />
+                <span style={{ fontSize: 'x-large', textAlign: 'center' }}>Price:</span>
+                <span className={`priceWrapper ${buyPopUpStyle.greenHighlight}`} style={{ fontSize: 'x-large', justifyContent: 'center' }}>
+                  {tokenPrice}
+                  <img src={tonImage} style={{ marginRight: '1rem' }}></img>
+                  for 1
+                  <img src={tokenImage}></img>
+                </span><br />
+              </> :
+              <></>
+          }
+        </div>
+        <div className={buyPopUpStyle.buttonContainer}>
+          {tokenListButton}
+        </div>
+      </PopUp>
+
+      <PopUp isActive={delistingAi} onClose={() => setDelistingAi(null)}>
+        {
+          delistingAi ?
+            <>
+              <div className={buyPopUpStyle.container}>
+                <div className={buyPopUpStyle.image}>
+                  <img src={getAiImage(delistingAi.rarity)} className={`glow-${delistingAi.rarity}`}></img>
+                </div>
+                <div className={buyPopUpStyle.centeredText}>
+                  Rarity: <span className={`text-${delistingAi.rarity}`} style={{ fontWeight: 'bold', fontSize: 'large' }}>{delistingAi.rarity}</span>
+                </div>
+                <div className={buyPopUpStyle.centeredText}>
+                  This <span className={buyPopUpStyle.greenHighlight}>AI</span> has not been used yet. <span className={buyPopUpStyle.greenHighlight}>Connect PC</span> to it to start using. Then the AI will start to bring you profit
+                </div>
+                Every PC connected to this AI will be farming tokens during this time:<br />
+                <span className={`${buyPopUpStyle.iconWrapper} ${buyPopUpStyle.greenHighlight}`} style={{ fontSize: 'x-large' }}>
+                  <PiClockBold></PiClockBold>
+                  N Hours
+                </span>
+                <br />
+                You can link this many PCs to the AI:
+                <span className={`${buyPopUpStyle.iconWrapper} text-common`}>
+                  <PiDesktopBold></PiDesktopBold>
+                  N Common PCs
+                </span>
+                <span className={`${buyPopUpStyle.iconWrapper} text-uncommon`}>
+                  <PiDesktopBold></PiDesktopBold>
+                  N Uncommon PCs
+                </span>
+                <span className={`${buyPopUpStyle.iconWrapper} text-rare`}>
+                  <PiDesktopBold></PiDesktopBold>
+                  N Rare PCs
+                </span>
+                <span className={`${buyPopUpStyle.iconWrapper} text-epic`}>
+                  <PiDesktopBold></PiDesktopBold>
+                  N Epic PCs
+                </span>
+                <span className={`${buyPopUpStyle.iconWrapper} text-legendary`}>
+                  <PiDesktopBold></PiDesktopBold>
+                  N Legendary PCs
+                </span>
+                <span className={`${buyPopUpStyle.iconWrapper} text-ultra`}>
+                  <PiDesktopBold></PiDesktopBold>
+                  N Ultra PCs
+                </span>
+                <span className={`${buyPopUpStyle.iconWrapper} text-mythic`}>
+                  <PiDesktopBold></PiDesktopBold>
+                  N Mythic PCs
+                </span>
+                <span className='priceWrapper' style={{ justifyContent: 'center', fontSize: 'x-large', marginTop: '1rem' }}>
+                  Listed for: {delistingAi.price}
+                  <img src={tokenImage}></img>
+                </span>
+              </div>
+              <div className={buyPopUpStyle.buttonContainer}>
+                <GlowingButton buttonColor={'orange'} onClick={() => {
+                  setDelistingAiNotif(delistingAi);
+                  setDelistingAi(null);
+                }}>Delist AI</GlowingButton>
+              </div>
+            </> :
+            <></>
+        }
+
+      </PopUp>
+
+      <PopUp isActive={delistingPc} onClose={() => setDelistingPc(null)}>
+        {
+          delistingPc ?
+            <>
+              <div className={buyPopUpStyle.container}>
+                <div className={buyPopUpStyle.image}>
+                  <img src={getPcImage(delistingPc.rarity)} className={`glow-${delistingPc.rarity}`}></img>
+                </div>
+                <div className={buyPopUpStyle.centeredText}>
+                  Rarity: <span className={`text-${delistingPc.rarity}`} style={{ fontWeight: 'bold', fontSize: 'large' }}>{delistingPc.rarity}</span>
+                </div>
+                <div className={buyPopUpStyle.centeredText}>
+                  While the <span className={buyPopUpStyle.greenHighlight}>PC is not activated</span>, you can sell it. As soon as you start using it, you will not be able to list it on the market
+                </div>
+                Earnings per hour:<br />
+                <span className={`priceWrapper ${buyPopUpStyle.greenHighlight}`} style={{ fontSize: 'x-large' }}>
+                  <img src={tokenImage} style={{ marginRight: '0.2em', marginLeft: '0em' }}></img>
+                  N/hour
+                </span>
+                <br />
+                PC duration:<br />
+                <span className={`${buyPopUpStyle.iconWrapper} ${buyPopUpStyle.greenHighlight}`}>
+                  <PiClockBold></PiClockBold>
+                  N Hours
+                </span>
+                <br />
+                This PC takes up this many slots for each AI:
+                <span className={`${buyPopUpStyle.aiSlotsWrapper} text-common`}>
+                  <img src={getAiImage('common')} className='glow-common'></img>
+                  N for common AI
+                </span>
+                <span className={`${buyPopUpStyle.aiSlotsWrapper} text-uncommon`}>
+                  <img src={getAiImage('uncommon')} className='glow-uncommon'></img>
+                  N for uncommon AI
+                </span>
+                <span className={`${buyPopUpStyle.aiSlotsWrapper} text-rare`}>
+                  <img src={getAiImage('rare')} className='glow-rare'></img>
+                  N for rare AI
+                </span>
+                <span className={`${buyPopUpStyle.aiSlotsWrapper} text-epic`}>
+                  <img src={getAiImage('epic')} className='glow-epic'></img>
+                  N for epic AI
+                </span>
+                <span className={`${buyPopUpStyle.aiSlotsWrapper} text-legendary`}>
+                  <img src={getAiImage('legendary')} className='glow-legendary'></img>
+                  N for legendary AI
+                </span>
+                <span className={`${buyPopUpStyle.aiSlotsWrapper} text-ultra`}>
+                  <img src={getAiImage('ultra')} className='glow-ultra'></img>
+                  N for ultra AI
+                </span>
+                <span className={`${buyPopUpStyle.aiSlotsWrapper} text-mythic`}>
+                  <img src={getAiImage('mythic')} className='glow-mythic'></img>
+                  N for mythic AI
+                </span>
+                <span className='priceWrapper' style={{ justifyContent: 'center', fontSize: 'x-large', marginTop: '1rem' }}>
+                  Listed for: {delistingPc.price}
+                  <img src={tokenImage}></img>
+                </span>
+              </div>
+              <div className={buyPopUpStyle.buttonContainer}>
+                <GlowingButton buttonColor={'orange'} onClick={() => {
+                  setDelistingPcNotif(delistingPc);
+                  setDelistingPc(null);
+                }}>Delist PC</GlowingButton>
+              </div>
+            </> :
+            <></>
+        }
+      </PopUp>
+
+      <PopUp isActive={delistingToken} onClose={() => {
+        setDelistingToken(null);
+      }}>
+        {
+          delistingToken ?
+            <>
+              <div className={buyPopUpStyle.container}>
+                <div className={buyPopUpStyle.image}>
+                  <img src={tokenImage} className={`glow-rare`}></img>
+                </div>
+                <span style={{ fontSize: 'x-large', textAlign: 'center' }}>Listed:</span>
+                <span className={`priceWrapper ${buyPopUpStyle.greenHighlight}`} style={{ fontSize: 'x-large', justifyContent: 'center' }}>
+                  {numberWithCommas(delistingToken.quantity)}
+                  <img src={tokenImage}></img>
+                </span>
+                <br />
+                <span style={{ fontSize: 'x-large', textAlign: 'center' }}>Price:</span>
+                <span className={`priceWrapper ${buyPopUpStyle.greenHighlight}`} style={{ fontSize: 'x-large', justifyContent: 'center' }}>
+                  {delistingToken.price}
+                  <img src={tonImage} style={{ marginRight: '1rem' }}></img>
+                  for 1
+                  <img src={tokenImage}></img>
+                </span>
+              </div>
+              <div className={buyPopUpStyle.buttonContainer}>
+                <GlowingButton buttonColor={'orange'} onClick={() => {
+                  setDelistingTokenNotif(delistingToken);
+                  setDelistingToken(null);
+                }}>Delist Token Bid</GlowingButton>
+              </div>
+            </> :
+            <></>
+        }
       </PopUp>
 
       <div className={s.container}>
@@ -933,100 +1329,180 @@ export default function Market() {
             setShowMarket(false);
           }}>Listed</button>
         </div>
-        <div className={s.itemSelector}>
-          {
-            showAi ?
-              <RarityDropdown imgSrc={getAiImage(curAi)} showDropdown={showAiDropdown} setShowDropdown={setShowAiDropdown}>
-                {raritiesData.map((rarity) => {
-                  return (
-                    <div key={rarity} className={s.dropdownItem} onClick={() => {
-                      setCurAi(rarity);
-                      setShowAiDropdown(false);
+        {
+          showMarket ?
+            <>
+              <div className={s.itemSelector}>
+                {
+                  showAi ?
+                    <RarityDropdown imgSrc={getAiImage(curAi)} showDropdown={showAiDropdown} setShowDropdown={setShowAiDropdown}>
+                      {raritiesData.map((rarity) => {
+                        return (
+                          <div key={rarity} className={s.dropdownItem} onClick={() => {
+                            setCurAi(rarity);
+                            setShowAiDropdown(false);
+                          }}>
+                            <img src={getAiImage(rarity)} style={{ width: '1rem' }}></img>
+                            <span className={`text-${rarity}`}>{rarity}</span>
+                          </div>
+                        )
+                      })}
+                    </RarityDropdown> :
+                    <button className={itemSelectorStyle.button} onClick={() => {
+                      setShowAi(true);
+                      setShowPc(false);
+                      setShowToken(false);
                     }}>
-                      <img src={getAiImage(rarity)} style={{ width: '1rem' }}></img>
-                      <span className={`text-${rarity}`}>{rarity}</span>
-                    </div>
-                  )
-                })}
-              </RarityDropdown> :
-              <button className={itemSelectorStyle.button} onClick={() => {
-                setShowAi(true);
-                setShowPc(false);
-                setShowToken(false);
-              }}>
-                <img src={getAiImage(curAi)}></img>
-              </button>
-          }
-          {
-            showPc ?
-              <RarityDropdown imgSrc={getPcImage(curPc)} showDropdown={showPcDropdown} setShowDropdown={setShowPcDropdown}>
-                {raritiesData.map((rarity) => {
-                  return (
-                    <div key={rarity} className={s.dropdownItem} onClick={() => {
-                      setCurPc(rarity);
-                      setShowPcDropdown(false);
+                      <img src={getAiImage(curAi)}></img>
+                    </button>
+                }
+                {
+                  showPc ?
+                    <RarityDropdown imgSrc={getPcImage(curPc)} showDropdown={showPcDropdown} setShowDropdown={setShowPcDropdown}>
+                      {raritiesData.map((rarity) => {
+                        return (
+                          <div key={rarity} className={s.dropdownItem} onClick={() => {
+                            setCurPc(rarity);
+                            setShowPcDropdown(false);
+                          }}>
+                            <img src={getPcImage(rarity)} style={{ width: '1.5rem' }}></img>
+                            <span className={`text-${rarity}`}>{rarity}</span>
+                          </div>
+                        )
+                      })}
+                    </RarityDropdown> :
+                    <button className={itemSelectorStyle.button} onClick={() => {
+                      setShowPc(true);
+                      setShowAi(false);
+                      setShowToken(false);
                     }}>
-                      <img src={getPcImage(rarity)} style={{ width: '1.5rem' }}></img>
-                      <span className={`text-${rarity}`}>{rarity}</span>
+                      <img src={getPcImage(curPc)}></img>
+                      {showPc ? <PiCaretDownBold></PiCaretDownBold> : <></>}
+                    </button>
+                }
+                <button className={`${itemSelectorStyle.button} ${showToken ? itemSelectorStyle.active : ''}`} onClick={() => {
+                  setShowToken(true);
+                  setShowAi(false);
+                  setShowPc(false);
+                }}>
+                  <img src={tokenImage}></img>
+                </button>
+              </div>
+              <div className={s.itemsContainer}>
+                {
+                  showAi ?
+                    aiItems[curAi].map((ai) => {
+                      return (
+                        <SellingItem key={ai.id} imgSrc={getAiImage(ai.rarity)} price={ai.price} rarity={ai.rarity} onBuyClick={() => {
+                          setAiBid(ai);
+                          setBuyAi(true);
+                        }}></SellingItem>
+                      )
+                    }) :
+                    <></>
+                }
+                {
+                  showPc ?
+                    pcItems[curPc].map((pc) => {
+                      return (
+                        <SellingItem key={pc.id} imgSrc={getPcImage(pc.rarity)} price={pc.price} rarity={pc.rarity} onBuyClick={() => {
+                          setPcBid(pc);
+                          setBuyPc(true);
+                        }}></SellingItem>
+                      )
+                    }) :
+                    <></>
+                }
+                {
+                  showToken ?
+                    tokenItems.map((token) => {
+                      return (
+                        <SellingItem key={token.id} imgSrc={tokenImage} price={token.price} isToken={true} rarity={'rare'} onBuyClick={() => {
+                          setTokenBid(token);
+                          setBuyToken(true);
+                        }}></SellingItem>
+                      )
+                    }) :
+                    <></>
+                }
+              </div>
+            </> :
+            <>
+              <div className={s.itemSelector}>
+                <button
+                  className={`${itemSelectorStyle.button} ${listedItemType == 'ai' ? itemSelectorStyle.active : ''}`}
+                  onClick={() => {
+                    setListedItemType('ai');
+                  }}>
+                  <img src={getAiImage('common')}></img>
+                </button>
+                <button
+                  className={`${itemSelectorStyle.button} ${listedItemType == 'pc' ? itemSelectorStyle.active : ''}`}
+                  onClick={() => {
+                    setListedItemType('pc');
+                  }}>
+                  <img src={getPcImage('common')}></img>
+                </button>
+                <button
+                  className={`${itemSelectorStyle.button} ${listedItemType == 'token' ? itemSelectorStyle.active : ''}`}
+                  onClick={() => {
+                    setListedItemType('token');
+                  }}>
+                  <img src={tokenImage}></img>
+                </button>
+              </div>
+              {
+                listedItemType == 'ai' ?
+                  <div className={s.itemsContainer}>
+                    {listedAi.map((ai) => {
+                      return (
+                        <ListedItem key={ai.id} imgSrc={getAiImage(ai.rarity)} price={ai.price} rarity={ai.rarity} onDelistClick={() => {
+                          setDelistingAi(ai);
+                        }}></ListedItem>
+                      )
+                    })}
+                  </div> :
+                  <></>
+              }
+              {
+                listedItemType == 'pc' ?
+                  <div className={s.itemsContainer}>
+                    {listedPc.map((pc) => {
+                      return (
+                        <ListedItem key={pc.id} imgSrc={getPcImage(pc.rarity)} price={pc.price} rarity={pc.rarity} onDelistClick={() => {
+                          setDelistingPc(pc);
+                        }}></ListedItem>
+                      )
+                    })}
+                  </div> :
+                  <></>
+              }
+              {
+                listedItemType == 'token' ?
+                  <>
+                    <div className={s.listToken}>
+                      <span className='priceWrapper'>
+                        <img src={tokenImage}></img>
+                        1,546,234,128
+                      </span>
+                      <button onClick={() => setListToken(true)}>
+                        $
+                      </button>
                     </div>
-                  )
-                })}
-              </RarityDropdown> :
-              <button className={itemSelectorStyle.button} onClick={() => {
-                setShowPc(true);
-                setShowAi(false);
-                setShowToken(false);
-              }}>
-                <img src={getPcImage(curPc)}></img>
-                {showPc ? <PiCaretDownBold></PiCaretDownBold> : <></>}
-              </button>
-          }
-          <button className={`${itemSelectorStyle.button} ${showToken ? itemSelectorStyle.active : ''}`} onClick={() => {
-            setShowToken(true);
-            setShowAi(false);
-            setShowPc(false);
-          }}>
-            <img src={tokenImage}></img>
-          </button>
-        </div>
-        <div className={s.itemsContainer}>
-          {
-            showAi ?
-              aiItems[curAi].map((ai) => {
-                return (
-                  <SellingItem key={ai.id} imgSrc={getAiImage(ai.rarity)} price={ai.price} rarity={ai.rarity} onBuyClick={() => {
-                    setAiBid(ai);
-                    setBuyAi(true);
-                  }}></SellingItem>
-                )
-              }) :
-              <></>
-          }
-          {
-            showPc ?
-              pcItems[curPc].map((pc) => {
-                return (
-                  <SellingItem key={pc.id} imgSrc={getPcImage(pc.rarity)} price={pc.price} rarity={pc.rarity} onBuyClick={() => {
-                    setPcBid(pc);
-                    setBuyPc(true);
-                  }}></SellingItem>
-                )
-              }) :
-              <></>
-          }
-          {
-            showToken ?
-              listedTokens.map((token) => {
-                return (
-                  <SellingItem key={token.id} imgSrc={tokenImage} price={token.price} isToken={true} rarity={'rare'} onBuyClick={() => {
-                    setTokenBid(token);
-                    setBuyToken(true);
-                  }}></SellingItem>
-                )
-              }) :
-              <></>
-          }
-        </div>
+                    <div className={s.itemsContainer}>
+                      {listedTokens.map((token) => {
+                        return (
+                          <ListedItem key={token.id} imgSrc={tokenImage} price={token.price} isToken={true} rarity={'rare'} onDelistClick={() => {
+                            setDelistingToken(token);
+                          }}></ListedItem>
+                        )
+                      })}
+                    </div>
+                  </> :
+                  <></>
+              }
+            </>
+        }
       </div>
     </>
 
