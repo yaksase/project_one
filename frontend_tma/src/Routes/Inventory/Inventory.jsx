@@ -1,10 +1,11 @@
 /* eslint-disable react/prop-types */
 import { useState } from 'react';
-import { PiCoinVerticalLight, PiInfoLight, PiPercentLight, PiDesktopLight, PiArrowsClockwiseLight, PiClockLight, PiClockBold, PiDesktopBold } from 'react-icons/pi';
+import { PiCoinVerticalLight, PiInfoLight, PiPercentLight, PiDesktopLight, PiArrowsClockwiseLight, PiClockLight, PiClockBold, PiDesktopBold, PiCheckBold } from 'react-icons/pi';
 
 import GlowingButton from '../../Components/GlowingButton/GlowingButton';
 import PopUp from '../../Components/PopUp/PopUp';
-import ListAi from '../../Components/List/ListAi';
+import ConnectPc from '../../Components/ConnectPc/ConnectPc';
+import PositiveNotification from '../../Components/PositiveNotification/PositiveNotification';
 
 import getAiImage from '../../utils/getAiImage';
 import getPcImage from '../../utils/getPcImage';
@@ -15,8 +16,7 @@ import s from './Inventory.module.css';
 import actSelStyle from './ActivatedSelector.module.css';
 import typeSelStyle from './TypeSelector.module.css';
 import infoPopUpStyle from './InfoPopUp.module.css';
-import ConnectPc from '../../Components/ConnectPc/ConnectPc';
-import ListPc from '../../Components/List/ListPc';
+import listStyle from './List.module.css';
 
 // 1 is activated 0 is not activated
 const aiData = [
@@ -205,53 +205,53 @@ function ItemAi({ ai, onInfoClick, onConnectClick, onSellClick }) {
       <div className={s.itemMenu}>
         {
           ai.state ?
-          <>
-            <div className={s.buttonsRow}>
-              <GlowingButton glowSize={'0.3rem'} buttonColor={'white'} width={'50%'} onClick={onConnectClick}>
-                <span>
-                  <PiArrowsClockwiseLight></PiArrowsClockwiseLight>
-                  Replace
-                </span>
-              </GlowingButton>
-              <GlowingButton glowSize={'0.3rem'} buttonColor={'red'} width={'40%'} onClick={onSellClick}>
-                <span>
-                  <PiCoinVerticalLight></PiCoinVerticalLight>
-                  Sell
-                </span>
-              </GlowingButton>
-            </div>
-            <div className={s.buttonsRow}> 
-              <div style={{width: '50%'}}>
-                <span className={`${s.border} ${s.infoWrapper}`} >
-                  <PiClockLight></PiClockLight>
-                  {ai.timer} hours
-                </span>
+            <>
+              <div className={s.buttonsRow}>
+                <GlowingButton glowSize={'0.3rem'} buttonColor={'white'} width={'50%'} onClick={onConnectClick}>
+                  <span>
+                    <PiArrowsClockwiseLight></PiArrowsClockwiseLight>
+                    Replace
+                  </span>
+                </GlowingButton>
+                <GlowingButton glowSize={'0.3rem'} buttonColor={'red'} width={'40%'} onClick={onSellClick}>
+                  <span>
+                    <PiCoinVerticalLight></PiCoinVerticalLight>
+                    Sell
+                  </span>
+                </GlowingButton>
               </div>
-              <div style={{width: '40%'}}>
-                <span className={`${s.border} ${s.infoWrapper}`} >
-                  <PiDesktopLight></PiDesktopLight>
-                  {ai.slots}/{ai.maxSlots}
-                </span>
+              <div className={s.buttonsRow}>
+                <div style={{ width: '50%' }}>
+                  <span className={`${s.border} ${s.infoWrapper}`} >
+                    <PiClockLight></PiClockLight>
+                    {ai.timer} hours
+                  </span>
+                </div>
+                <div style={{ width: '40%' }}>
+                  <span className={`${s.border} ${s.infoWrapper}`} >
+                    <PiDesktopLight></PiDesktopLight>
+                    {ai.slots}/{ai.maxSlots}
+                  </span>
+                </div>
               </div>
-            </div>
-          </> :
-          <>
-            <div className={s.buttonsRow}>
-              <GlowingButton glowSize={'0.3rem'} width={'50%'} onClick={onConnectClick}>Connect PC</GlowingButton>
-              <GlowingButton glowSize={'0.3rem'} buttonColor={'red'} width={'40%'} onClick={onSellClick}>
+            </> :
+            <>
+              <div className={s.buttonsRow}>
+                <GlowingButton glowSize={'0.3rem'} width={'50%'} onClick={onConnectClick}>Connect PC</GlowingButton>
+                <GlowingButton glowSize={'0.3rem'} buttonColor={'red'} width={'40%'} onClick={onSellClick}>
+                  <span>
+                    <PiCoinVerticalLight></PiCoinVerticalLight>
+                    Sell
+                  </span>
+                </GlowingButton>
+              </div>
+              <GlowingButton glowSize={'0.3rem'} buttonColor={'white'} width={'50%'} onClick={onInfoClick}>
                 <span>
-                  <PiCoinVerticalLight></PiCoinVerticalLight>
-                  Sell
+                  <PiInfoLight></PiInfoLight>
+                  Info
                 </span>
               </GlowingButton>
-            </div>
-            <GlowingButton glowSize={'0.3rem'} buttonColor={'white'} width={'50%'} onClick={onInfoClick}>
-              <span>
-                <PiInfoLight></PiInfoLight>
-                Info
-              </span>
-            </GlowingButton>
-          </>
+            </>
         }
       </div>
     </div>
@@ -272,47 +272,142 @@ function ItemPc({ pc, onInfoClick, onSellClick }) {
       <div className={s.itemMenu}>
         {
           pc.state ?
-          <>
+            <>
+              <div className={s.buttonsRow}>
+                <div style={{ width: '45%' }}>
+                  <span className={`priceWrapper ${s.border} ${s.infoWrapper}`} >
+                    <img src={tokenIcon}></img>
+                    {pc.tokenCount}/hour
+                  </span>
+                </div>
+                <div style={{ width: '45%' }}>
+                  <span className={`${s.border} ${s.infoWrapper}`}>
+                    <PiPercentLight></PiPercentLight>
+                    {pc.health}
+                  </span>
+                </div>
+              </div>
+              <div className={s.buttonsRow}>
+                <div style={{ width: '45%' }}>
+                  <span className={`priceWrapper ${s.border} ${s.infoWrapper}`} >
+                    <PiDesktopLight></PiDesktopLight>
+                    {pc.slotsCount}
+                  </span>
+                </div>
+              </div>
+            </> :
             <div className={s.buttonsRow}>
-              <div style={{width: '45%'}}>
-                <span className={`priceWrapper ${s.border} ${s.infoWrapper}`} >
-                  <img src={tokenIcon}></img>
-                  {pc.tokenCount}/hour
+              <GlowingButton glowSize={'0.3rem'} buttonColor={'white'} width={'50%'} onClick={onInfoClick}>
+                <span>
+                  <PiInfoLight></PiInfoLight>
+                  Info
                 </span>
-              </div>
-              <div style={{width: '45%'}}>
-                <span className={`${s.border} ${s.infoWrapper}`}>
-                  <PiPercentLight></PiPercentLight>
-                  {pc.health}
+              </GlowingButton>
+              <GlowingButton glowSize={'0.3rem'} buttonColor={'red'} width={'40%'} onClick={onSellClick}>
+                <span>
+                  <PiCoinVerticalLight></PiCoinVerticalLight>
+                  Sell
                 </span>
-              </div>
+              </GlowingButton>
             </div>
-            <div className={s.buttonsRow}>
-              <div style={{width: '45%'}}>
-                <span className={`priceWrapper ${s.border} ${s.infoWrapper}`} >
-                  <PiDesktopLight></PiDesktopLight>
-                  {pc.slotsCount}
-                </span>
-              </div>
-            </div>
-          </> :
-          <div className={s.buttonsRow}>
-            <GlowingButton glowSize={'0.3rem'} buttonColor={'white'} width={'50%'} onClick={onInfoClick}>
-              <span>
-                <PiInfoLight></PiInfoLight>
-                Info
-              </span>
-            </GlowingButton>
-            <GlowingButton glowSize={'0.3rem'} buttonColor={'red'} width={'40%'} onClick={onSellClick}>
-              <span>
-                <PiCoinVerticalLight></PiCoinVerticalLight>
-                Sell
-              </span>
-            </GlowingButton>
-          </div>
         }
       </div>
     </div>
+  )
+}
+
+function ListAi({ ai, setAi, isActive, setIsActive }) {
+  const [notification, setNotification] = useState(false);
+  const [price, setPrice] = useState(0);
+
+  return (
+    <>
+      <PositiveNotification isActive={notification} onClose={() => {
+        setNotification(false);
+        setAi({});
+      }}>
+        <img src={getAiImage(ai.rarity)} className={`glow-${ai.rarity}`}></img>
+        <span>
+          Listed
+          <PiCheckBold></PiCheckBold>
+        </span>
+      </PositiveNotification>
+
+      <PopUp isActive={isActive} onClose={() => {
+        setIsActive(false);
+        setPrice(0);
+      }}>
+        <div className={listStyle.container}>
+          <div className={listStyle.image}>
+            <img src={getAiImage(ai.rarity)} className={`glow-${ai.rarity}`}></img>
+            <span className={`text-${ai.rarity}`}>{ai.rarity}</span>
+          </div>
+          <div className={listStyle.controlsContainer}>
+            <input className={listStyle.price} placeholder='Price' onChange={(e) => setPrice(e.target.value)}></input>
+            <div className={listStyle.buttonContainer}>
+              {
+                price ?
+                <GlowingButton width={'40vw'} glowSize={'0.2em'} buttonColor={'orange'} 
+                onClick={() => {
+                  setPrice(0);
+                  setNotification(true);
+                  setIsActive(false);
+                }}>List</GlowingButton> :
+                <GlowingButton width={'40vw'} glowSize={'0.2em'} buttonColor={'orange'} disabled={true}>List</GlowingButton>
+              }
+            </div>
+          </div>
+        </div>
+      </PopUp>
+    </>
+  )
+}
+
+
+function ListPc({ pc, setPc, isActive, setIsActive }) {
+  const [notification, setNotification] = useState(false);
+  const [price, setPrice] = useState(0);
+
+  return (
+    <>
+      <PositiveNotification isActive={notification} onClose={() => {
+        setNotification(false);
+        setPc({});
+      }}>
+        <img src={getPcImage(pc.rarity)} className={`glow-${pc.rarity}`}></img>
+        <span>
+          Listed
+          <PiCheckBold></PiCheckBold>
+        </span>
+      </PositiveNotification>
+
+      <PopUp isActive={isActive} onClose={() => {
+        setPrice(0);
+        setIsActive(false);
+      }}>
+        <div className={listStyle.container}>
+          <div className={listStyle.image}>
+            <img src={getPcImage(pc.rarity)} className={`glow-${pc.rarity}`}></img>
+            <span className={`text-${pc.rarity}`}>{pc.rarity}</span>
+          </div>
+          <div className={listStyle.controlsContainer}>
+            <input className={listStyle.price} placeholder='Price' onChange={(e) => setPrice(e.target.value)}></input>
+            <div className={listStyle.buttonContainer}>
+              {
+                price ?
+                <GlowingButton width={'40vw'} glowSize={'0.2em'} buttonColor={'orange'} 
+                onClick={() => {
+                  setPrice(0);
+                  setNotification(true);
+                  setIsActive(false);
+                }}>List</GlowingButton> :
+                <GlowingButton width={'40vw'} glowSize={'0.2em'} buttonColor={'orange'} disabled={true}>List</GlowingButton>
+              }
+            </div>
+          </div>
+        </div>
+      </PopUp>
+    </>
   )
 }
 
@@ -348,37 +443,22 @@ export default function Inventory() {
     setPcInfo({});
   }
 
-  function closeAiConnection() {
-    setConnectAi(false);
-    setAiConnectionData({});
-  }
-
-  function closeAiSell() {
-    setSellAi(false);
-    setListingAi({});
-  }
-
-  function closePcSell() {
-    setSellPc(false);
-    setListingPc({});
-  }
-
   return (
     <>
-      <ConnectPc isActive={connectAi} onClose={closeAiConnection} curAi={aiConnectionData}></ConnectPc>
+      <ConnectPc isActive={connectAi} setIsActive={setConnectAi} curAi={aiConnectionData} setCurAi={setAiConnectionData}></ConnectPc>
       <PopUp isActive={showAiInfo} onClose={closeAiInfo}>
         <div className={infoPopUpStyle.container}>
           <div className={infoPopUpStyle.image}>
             <img src={getAiImage(aiInfo.rarity)} className={`glow-${aiInfo.rarity}`}></img>
           </div>
           <div className={infoPopUpStyle.centeredText}>
-            Rarity: <span className={`text-${aiInfo.rarity}`} style={{fontWeight: 'bold', fontSize: 'large'}}>{aiInfo.rarity}</span>
+            Rarity: <span className={`text-${aiInfo.rarity}`} style={{ fontWeight: 'bold', fontSize: 'large' }}>{aiInfo.rarity}</span>
           </div>
           <div className={infoPopUpStyle.centeredText}>
             This <span className={infoPopUpStyle.greenHighlight}>AI</span> has not been used yet. <span className={infoPopUpStyle.greenHighlight}>Connect PC</span> to it to start using. Then the AI will start to bring you profit
           </div>
           Every PC connected to this AI will be farming tokens during this time:<br />
-          <span className={`${infoPopUpStyle.iconWrapper} ${infoPopUpStyle.greenHighlight}`} style={{fontSize: 'x-large'}}>
+          <span className={`${infoPopUpStyle.iconWrapper} ${infoPopUpStyle.greenHighlight}`} style={{ fontSize: 'x-large' }}>
             <PiClockBold></PiClockBold>
             {aiInfo.timer} Hours
           </span>
@@ -412,10 +492,15 @@ export default function Inventory() {
             <PiDesktopBold></PiDesktopBold>
             N Mythic PCs
           </span>
-          
+
         </div>
         <div className={infoPopUpStyle.buttonContainer}>
-          <GlowingButton>Connect PC</GlowingButton>
+          <GlowingButton onClick={() => {
+            setShowAiInfo(false);
+            setConnectAi(true);
+            setAiConnectionData(aiInfo);
+            setAiInfo({});
+          }}>Connect PC</GlowingButton>
         </div>
       </PopUp>
 
@@ -425,14 +510,14 @@ export default function Inventory() {
             <img src={getPcImage(pcInfo.rarity)} className={`glow-${pcInfo.rarity}`}></img>
           </div>
           <div className={infoPopUpStyle.centeredText}>
-            Rarity: <span className={`text-${pcInfo.rarity}`} style={{fontWeight: 'bold', fontSize: 'large'}}>{pcInfo.rarity}</span>
+            Rarity: <span className={`text-${pcInfo.rarity}`} style={{ fontWeight: 'bold', fontSize: 'large' }}>{pcInfo.rarity}</span>
           </div>
           <div className={infoPopUpStyle.centeredText}>
             While the <span className={infoPopUpStyle.greenHighlight}>PC is not activated</span>, you can sell it. As soon as you start using it, you will not be able to list it on the market
           </div>
           Earnings per hour:<br />
-          <span className={`priceWrapper ${infoPopUpStyle.greenHighlight}`} style={{fontSize: 'x-large'}}>
-            <img src={tokenIcon} style={{marginRight: '0.2em', marginLeft: '0em'}}></img>
+          <span className={`priceWrapper ${infoPopUpStyle.greenHighlight}`} style={{ fontSize: 'x-large' }}>
+            <img src={tokenIcon} style={{ marginRight: '0.2em', marginLeft: '0em' }}></img>
             {pcInfo.tokenCount}/hour
           </span>
           <br />
@@ -471,62 +556,62 @@ export default function Inventory() {
             <img src={getAiImage('mythic')} className='glow-mythic'></img>
             N for mythic AI
           </span>
-          
+
         </div>
       </PopUp>
 
-      <ListAi ai={listingAi} isActive={sellAi} onClose={closeAiSell}></ListAi>
+      <ListAi ai={listingAi} setAi={setListingAi} isActive={sellAi} setIsActive={setSellAi}></ListAi>
 
-      <ListPc pc={listingPc} isActive={sellPc} onClose={closePcSell}></ListPc>
+      <ListPc pc={listingPc} setPc={setListingPc} isActive={sellPc} setIsActive={setSellPc}></ListPc>
 
       <div className={s.container}>
         <ActivatedSelector active={active} setActive={setActive} notActive={notActive} setNotActive={setNotActive}></ActivatedSelector>
         <TypeSelector showPc={showPc} setShowPc={setShowPc} showAi={showAi} setShowAi={setShowAi}></TypeSelector>
         {
           showAi || showAi == showPc ?
-          aiData.map((ai) => {
-            if (active && !ai.state) {
-              return <></>
-            }
-            if (notActive && ai.state) {
-              return <></>
-            }
-            return <ItemAi key={ai.id} ai={ai} 
-            onConnectClick={() => {
-              setAiConnectionData(ai);
-              setConnectAi(true);
-            }}
-            onInfoClick={() => {
-              setAiInfo(ai);
-              setShowAiInfo(true);
-            }}
-            onSellClick={() => {
-              setListingAi(ai);
-              setSellAi(true);
-            }}></ItemAi>
-          }) :
-          <></>
+            aiData.map((ai) => {
+              if (active && !ai.state) {
+                return <></>
+              }
+              if (notActive && ai.state) {
+                return <></>
+              }
+              return <ItemAi key={ai.id} ai={ai}
+                onConnectClick={() => {
+                  setAiConnectionData(ai);
+                  setConnectAi(true);
+                }}
+                onInfoClick={() => {
+                  setAiInfo(ai);
+                  setShowAiInfo(true);
+                }}
+                onSellClick={() => {
+                  setListingAi(ai);
+                  setSellAi(true);
+                }}></ItemAi>
+            }) :
+            <></>
         }
         {
           showPc || showAi == showPc ?
-          pcData.map((pc) => {
-            if (active && !pc.state) {
-              return <></>
-            }
-            if (notActive && pc.state) {
-              return <></>
-            }
-            return <ItemPc key={pc.id} pc={pc} 
-            onInfoClick={() => {
-              setPcInfo(pc);
-              setShowPcInfo(true);
-            }}
-            onSellClick={() => {
-              setListingPc(pc);
-              setSellPc(true);
-            }}></ItemPc>
-          }) :
-          <></>
+            pcData.map((pc) => {
+              if (active && !pc.state) {
+                return <></>
+              }
+              if (notActive && pc.state) {
+                return <></>
+              }
+              return <ItemPc key={pc.id} pc={pc}
+                onInfoClick={() => {
+                  setPcInfo(pc);
+                  setShowPcInfo(true);
+                }}
+                onSellClick={() => {
+                  setListingPc(pc);
+                  setSellPc(true);
+                }}></ItemPc>
+            }) :
+            <></>
         }
       </div>
     </>
