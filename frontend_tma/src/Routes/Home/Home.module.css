@@ -96,6 +96,10 @@
   width: 100%;
 }
 
+.aiShow:active {
+  opacity: 60%;
+}
+
 .pcHealth {
   display: flex;
   flex-direction: column;

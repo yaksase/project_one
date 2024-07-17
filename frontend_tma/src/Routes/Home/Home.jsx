@@ -6,6 +6,7 @@ import PositiveNotification from '../../Components/PositiveNotification/Positive
 import PcSlider from '../../Components/PcSlider/PcSlider';
 import AiSlider from '../../Components/AiSlider/AiSlider';
 import HealthBar from '../../Components/HealthBar/HealthBar';
+import ConnectPc from '../../Components/ConnectPc/ConnectPc';
 
 import getPcImage from '../../utils/getPcImage';
 import getAiImage from '../../utils/getAiImage';
@@ -179,37 +180,47 @@ export default function Home() {
 
   const [curAi, setCurAi] = useState(0);
 
+  const [connectionAi, setConnectionAi] = useState({});
+  const [showConnectAi, setShowConnectAi] = useState(false);
+
   if (pcClaimed * aiClaimed == true) {
     return (
-      <div className={homeStyle.container}>
-        {payload.map((ai, index) =>
-          <PcSlider key={ai.id} hidden={curAi === index ? false : true}>
-            {ai.pc.map((pc) =>
-              <div key={pc.id} className={homeStyle.pcHealth}>
-                {getPcImageComponent(pc.rarity)}
-                <div className={homeStyle.healthBar}>
-                  <HealthBar percentage={pc.health}></HealthBar>
-                </div>
-              </div>)}
-          </PcSlider>
-        )}
-        <AiSlider curPageHook={setCurAi}>
-          {payload.map((ai) =>
-            <div key={ai.id} className={homeStyle.aiSlideWrapper}>
-              <div className={homeStyle.aiContainer}>
-                <div className={homeStyle.aiData}>
-                  <span><PiCoinsLight></PiCoinsLight> Shit</span>
-                  <span><PiClockLight></PiClockLight> Piss</span>
-                  <span><PiDesktopLight></PiDesktopLight> Cum</span>
-                </div>
-                <div className={homeStyle.aiShow}>
-                  <img className={`glow-${ai.rarity}`} src={getAiImage(ai.rarity)}></img>
+      <>
+        <ConnectPc isActive={showConnectAi} setIsActive={setShowConnectAi} curAi={connectionAi} setCurAi={setConnectionAi}></ConnectPc>
+
+        <div className={homeStyle.container}>
+          {payload.map((ai, index) =>
+            <PcSlider key={ai.id} hidden={curAi === index ? false : true}>
+              {ai.pc.map((pc) =>
+                <div key={pc.id} className={homeStyle.pcHealth}>
+                  {getPcImageComponent(pc.rarity)}
+                  <div className={homeStyle.healthBar}>
+                    <HealthBar percentage={pc.health}></HealthBar>
+                  </div>
+                </div>)}
+            </PcSlider>
+          )}
+          <AiSlider curPageHook={setCurAi}>
+            {payload.map((ai) =>
+              <div key={ai.id} className={homeStyle.aiSlideWrapper}>
+                <div className={homeStyle.aiContainer}>
+                  <div className={homeStyle.aiData}>
+                    <span><PiCoinsLight></PiCoinsLight> Shit</span>
+                    <span><PiClockLight></PiClockLight> Piss</span>
+                    <span><PiDesktopLight></PiDesktopLight> Cum</span>
+                  </div>
+                  <div className={homeStyle.aiShow} onClick={() => {
+                    setConnectionAi(payload[curAi]);
+                    setShowConnectAi(true);
+                  }}>
+                    <img className={`glow-${ai.rarity}`} src={getAiImage(ai.rarity)}></img>
+                  </div>
                 </div>
               </div>
-            </div>
-          )}
-        </AiSlider>
-      </div>
+            )}
+          </AiSlider>
+        </div>
+      </>
     )
   } else {
     return (
