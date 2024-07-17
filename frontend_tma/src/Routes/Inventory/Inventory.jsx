@@ -455,10 +455,10 @@ export default function Inventory() {
             Rarity: <span className={`text-${aiInfo.rarity}`} style={{ fontWeight: 'bold', fontSize: 'large' }}>{aiInfo.rarity}</span>
           </div>
           <div className={infoPopUpStyle.centeredText}>
-            This <span className={infoPopUpStyle.greenHighlight}>AI</span> has not been used yet. <span className={infoPopUpStyle.greenHighlight}>Connect PC</span> to it to start using. Then the AI will start to bring you profit
+            This <span className='greenHighlight'>AI</span> has not been used yet. <span className='greenHighlight'>Connect PC</span> to it to start using. Then the AI will start to bring you profit
           </div>
           Every PC connected to this AI will be farming tokens during this time:<br />
-          <span className={`${infoPopUpStyle.iconWrapper} ${infoPopUpStyle.greenHighlight}`} style={{ fontSize: 'x-large' }}>
+          <span className={`${infoPopUpStyle.iconWrapper} greenHighlight`} style={{ fontSize: 'x-large' }}>
             <PiClockBold></PiClockBold>
             {aiInfo.timer} Hours
           </span>
@@ -513,16 +513,16 @@ export default function Inventory() {
             Rarity: <span className={`text-${pcInfo.rarity}`} style={{ fontWeight: 'bold', fontSize: 'large' }}>{pcInfo.rarity}</span>
           </div>
           <div className={infoPopUpStyle.centeredText}>
-            While the <span className={infoPopUpStyle.greenHighlight}>PC is not activated</span>, you can sell it. As soon as you start using it, you will not be able to list it on the market
+            While the <span className='greenHighlight'>PC is not activated</span>, you can sell it. As soon as you start using it, you will not be able to list it on the market
           </div>
           Earnings per hour:<br />
-          <span className={`priceWrapper ${infoPopUpStyle.greenHighlight}`} style={{ fontSize: 'x-large' }}>
+          <span className={`priceWrapper greenHighlight`} style={{ fontSize: 'x-large' }}>
             <img src={tokenIcon} style={{ marginRight: '0.2em', marginLeft: '0em' }}></img>
             {pcInfo.tokenCount}/hour
           </span>
           <br />
           PC duration:<br />
-          <span className={`${infoPopUpStyle.iconWrapper} ${infoPopUpStyle.greenHighlight}`}>
+          <span className={`${infoPopUpStyle.iconWrapper} greenHighlight`}>
             <PiClockBold></PiClockBold>
             N Hours
           </span>

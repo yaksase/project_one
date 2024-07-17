@@ -148,17 +148,17 @@ export default function ConnectPc({ isActive, setIsActive, curAi, setCurAi }) {
             })}
           </div>
           Claim tokens every:<br />
-          <span className={`${s.iconWrapper} ${s.greenHighlight}`} style={{fontSize: 'x-large'}}>
+          <span className={`${s.iconWrapper} greenHighlight`} style={{fontSize: 'x-large'}}>
             <PiClockBold></PiClockBold>
             N Hours
           </span><br />
           Slots taken:<br />
-          <span className={`${s.iconWrapper} ${s.greenHighlight}`} style={{fontSize: 'x-large'}}>
+          <span className={`${s.iconWrapper} greenHighlight`} style={{fontSize: 'x-large'}}>
             <PiDesktopBold></PiDesktopBold>
             N/N Slots
           </span><br />
           Hourly earnings:<br />
-          <span className={`priceWrapper ${s.greenHighlight}`} style={{fontSize: 'x-large'}}>
+          <span className='priceWrapper greenHighlight' style={{fontSize: 'x-large'}}>
             32,760
             <img src={tokenIcon} className="glow-rare"></img>
             /hour
@@ -178,7 +178,7 @@ export default function ConnectPc({ isActive, setIsActive, curAi, setCurAi }) {
             Rarity: <span className={`text-${curAi.rarity}`} style={{ fontWeight: 'bold', fontSize: 'large' }}>{curAi.rarity}</span>
           </div>
           <div className={s.centeredText}>
-            Click on an <span className={s.greenHighlight}>available PC</span> to connect it to the AI
+            Click on an <span className='greenHighlight'>available PC</span> to connect it to the AI
           </div>
           <div className={s.centeredText} style={{ marginBottom: '0.5rem' }}>
             Connected PCs:
@@ -211,7 +211,7 @@ export default function ConnectPc({ isActive, setIsActive, curAi, setCurAi }) {
           </div>
           <br />
           <div className={s.centeredText} style={{ marginBottom: '0.5rem' }}>
-            Select <span className={s.greenHighlight}>available PC</span>:
+            Select <span className='greenHighlight'>available PC</span>:
           </div>
           {
             availablePc.length == 0 ?

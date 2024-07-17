@@ -916,10 +916,10 @@ export default function Market() {
             Rarity: <span className={`text-${aiBid.rarity}`} style={{ fontWeight: 'bold', fontSize: 'large' }}>{aiBid.rarity}</span>
           </div>
           <div className={buyPopUpStyle.centeredText}>
-            This <span className={buyPopUpStyle.greenHighlight}>AI</span> has not been used yet. <span className={buyPopUpStyle.greenHighlight}>Connect PC</span> to it to start using. Then the AI will start to bring you profit
+            This <span className='greenHighlight'>AI</span> has not been used yet. <span className='greenHighlight'>Connect PC</span> to it to start using. Then the AI will start to bring you profit
           </div>
           Every PC connected to this AI will be farming tokens during this time:<br />
-          <span className={`${buyPopUpStyle.iconWrapper} ${buyPopUpStyle.greenHighlight}`} style={{ fontSize: 'x-large' }}>
+          <span className={`${buyPopUpStyle.iconWrapper} greenHighlight`} style={{ fontSize: 'x-large' }}>
             <PiClockBold></PiClockBold>
             N Hours
           </span>
@@ -981,16 +981,16 @@ export default function Market() {
             Rarity: <span className={`text-${pcBid.rarity}`} style={{ fontWeight: 'bold', fontSize: 'large' }}>{pcBid.rarity}</span>
           </div>
           <div className={buyPopUpStyle.centeredText}>
-            While the <span className={buyPopUpStyle.greenHighlight}>PC is not activated</span>, you can sell it. As soon as you start using it, you will not be able to list it on the market
+            While the <span className='greenHighlight'>PC is not activated</span>, you can sell it. As soon as you start using it, you will not be able to list it on the market
           </div>
           Earnings per hour:<br />
-          <span className={`priceWrapper ${buyPopUpStyle.greenHighlight}`} style={{ fontSize: 'x-large' }}>
+          <span className='priceWrapper greenHighlight' style={{ fontSize: 'x-large' }}>
             <img src={tokenImage} style={{ marginRight: '0.2em', marginLeft: '0em' }}></img>
             N/hour
           </span>
           <br />
           PC duration:<br />
-          <span className={`${buyPopUpStyle.iconWrapper} ${buyPopUpStyle.greenHighlight}`}>
+          <span className={`${buyPopUpStyle.iconWrapper} greenHighlight`}>
             <PiClockBold></PiClockBold>
             N Hours
           </span>
@@ -1052,13 +1052,13 @@ export default function Market() {
             <img src={tokenImage} className={`glow-rare`}></img>
           </div>
           <span style={{ fontSize: 'x-large', textAlign: 'center' }}>Available:</span>
-          <span className={`priceWrapper ${buyPopUpStyle.greenHighlight}`} style={{ fontSize: 'x-large', justifyContent: 'center' }}>
+          <span className='priceWrapper greenHighlight' style={{ fontSize: 'x-large', justifyContent: 'center' }}>
             {tokenBid.quantity}
             <img src={tokenImage}></img>
           </span>
           <br />
           <span style={{ fontSize: 'x-large', textAlign: 'center' }}>Price:</span>
-          <span className={`priceWrapper ${buyPopUpStyle.greenHighlight}`} style={{ fontSize: 'x-large', justifyContent: 'center' }}>
+          <span className='priceWrapper greenHighlight' style={{ fontSize: 'x-large', justifyContent: 'center' }}>
             {tokenBid.price}
             <img src={tonImage} style={{ marginRight: '1rem' }}></img>
             for 1
@@ -1071,7 +1071,7 @@ export default function Market() {
             tokenAmountPurchased ?
               <>
                 <span style={{ fontSize: 'x-large', textAlign: 'center' }}>Total:</span>
-                <span className={`priceWrapper ${buyPopUpStyle.greenHighlight}`} style={{ fontSize: 'x-large', justifyContent: 'center' }}>
+                <span className='priceWrapper greenHighlight' style={{ fontSize: 'x-large', justifyContent: 'center' }}>
                   {tokenBid.price * tokenAmountPurchased}
                   <img src={tonImage}></img>
                 </span>
@@ -1094,13 +1094,13 @@ export default function Market() {
             <img src={tokenImage} className={`glow-rare`}></img>
           </div>
           <span style={{ fontSize: 'x-large', textAlign: 'center' }}>Available:</span>
-          <span className={`priceWrapper ${buyPopUpStyle.greenHighlight}`} style={{ fontSize: 'x-large', justifyContent: 'center' }}>
+          <span className='priceWrapper greenHighlight' style={{ fontSize: 'x-large', justifyContent: 'center' }}>
             1,546,234,128
             <img src={tokenImage}></img>
           </span>
           <br />
           <span style={{ fontSize: 'x-large', textAlign: 'center' }}>Price:</span>
-          <span className={`priceWrapper ${buyPopUpStyle.greenHighlight}`} style={{ fontSize: 'x-large', justifyContent: 'center' }}>
+          <span className='priceWrapper greenHighlight' style={{ fontSize: 'x-large', justifyContent: 'center' }}>
             {tokenBid.price}
             <img src={tonImage} style={{ marginRight: '1rem' }}></img>
             for 1
@@ -1116,12 +1116,12 @@ export default function Market() {
             tokenAmountListed && tokenPrice ?
               <>
                 <span style={{ fontSize: 'x-large', textAlign: 'center' }}>Listing:</span>
-                <span className={`priceWrapper ${buyPopUpStyle.greenHighlight}`} style={{ fontSize: 'x-large', justifyContent: 'center' }}>
+                <span className='priceWrapper greenHighlight' style={{ fontSize: 'x-large', justifyContent: 'center' }}>
                   {numberWithCommas(tokenAmountListed)}
                   <img src={tokenImage}></img>
                 </span><br />
                 <span style={{ fontSize: 'x-large', textAlign: 'center' }}>Price:</span>
-                <span className={`priceWrapper ${buyPopUpStyle.greenHighlight}`} style={{ fontSize: 'x-large', justifyContent: 'center' }}>
+                <span className='priceWrapper greenHighlight' style={{ fontSize: 'x-large', justifyContent: 'center' }}>
                   {tokenPrice}
                   <img src={tonImage} style={{ marginRight: '1rem' }}></img>
                   for 1
@@ -1148,10 +1148,10 @@ export default function Market() {
                   Rarity: <span className={`text-${delistingAi.rarity}`} style={{ fontWeight: 'bold', fontSize: 'large' }}>{delistingAi.rarity}</span>
                 </div>
                 <div className={buyPopUpStyle.centeredText}>
-                  This <span className={buyPopUpStyle.greenHighlight}>AI</span> has not been used yet. <span className={buyPopUpStyle.greenHighlight}>Connect PC</span> to it to start using. Then the AI will start to bring you profit
+                  This <span className='greenHighlight'>AI</span> has not been used yet. <span className='greenHighlight'>Connect PC</span> to it to start using. Then the AI will start to bring you profit
                 </div>
                 Every PC connected to this AI will be farming tokens during this time:<br />
-                <span className={`${buyPopUpStyle.iconWrapper} ${buyPopUpStyle.greenHighlight}`} style={{ fontSize: 'x-large' }}>
+                <span className={`${buyPopUpStyle.iconWrapper} greenHighlight`} style={{ fontSize: 'x-large' }}>
                   <PiClockBold></PiClockBold>
                   N Hours
                 </span>
@@ -1214,16 +1214,16 @@ export default function Market() {
                   Rarity: <span className={`text-${delistingPc.rarity}`} style={{ fontWeight: 'bold', fontSize: 'large' }}>{delistingPc.rarity}</span>
                 </div>
                 <div className={buyPopUpStyle.centeredText}>
-                  While the <span className={buyPopUpStyle.greenHighlight}>PC is not activated</span>, you can sell it. As soon as you start using it, you will not be able to list it on the market
+                  While the <span className='greenHighlight'>PC is not activated</span>, you can sell it. As soon as you start using it, you will not be able to list it on the market
                 </div>
                 Earnings per hour:<br />
-                <span className={`priceWrapper ${buyPopUpStyle.greenHighlight}`} style={{ fontSize: 'x-large' }}>
+                <span className='priceWrapper greenHighlight' style={{ fontSize: 'x-large' }}>
                   <img src={tokenImage} style={{ marginRight: '0.2em', marginLeft: '0em' }}></img>
                   N/hour
                 </span>
                 <br />
                 PC duration:<br />
-                <span className={`${buyPopUpStyle.iconWrapper} ${buyPopUpStyle.greenHighlight}`}>
+                <span className={`${buyPopUpStyle.iconWrapper} greenHighlight`}>
                   <PiClockBold></PiClockBold>
                   N Hours
                 </span>
@@ -1284,13 +1284,13 @@ export default function Market() {
                   <img src={tokenImage} className={`glow-rare`}></img>
                 </div>
                 <span style={{ fontSize: 'x-large', textAlign: 'center' }}>Listed:</span>
-                <span className={`priceWrapper ${buyPopUpStyle.greenHighlight}`} style={{ fontSize: 'x-large', justifyContent: 'center' }}>
+                <span className='priceWrapper greenHighlight' style={{ fontSize: 'x-large', justifyContent: 'center' }}>
                   {numberWithCommas(delistingToken.quantity)}
                   <img src={tokenImage}></img>
                 </span>
                 <br />
                 <span style={{ fontSize: 'x-large', textAlign: 'center' }}>Price:</span>
-                <span className={`priceWrapper ${buyPopUpStyle.greenHighlight}`} style={{ fontSize: 'x-large', justifyContent: 'center' }}>
+                <span className='priceWrapper greenHighlight' style={{ fontSize: 'x-large', justifyContent: 'center' }}>
                   {delistingToken.price}
                   <img src={tonImage} style={{ marginRight: '1rem' }}></img>
                   for 1
