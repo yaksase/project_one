@@ -4,7 +4,7 @@ import { PiCaretDownBold, PiCaretUpBold, PiDesktopBold, PiClockBold, PiCheckBold
 
 import GlowingButton from '../../Components/GlowingButton/GlowingButton';
 import PopUp from '../../Components/PopUp/PopUp';
-import NotificationBase from '../../Components/NotificationBase/NotificationBase';
+import PositiveNotification from '../../Components/PositiveNotification/PositiveNotification';
 
 import getAiImage from '../../utils/getAiImage';
 import getPcImage from '../../utils/getPcImage';
@@ -19,7 +19,6 @@ import itemSelectorStyle from './ItemSelector.module.css';
 import dropdownStyle from './RarityDropdown.module.css';
 import sellingItemStyle from './SellingItem.module.css';
 import buyPopUpStyle from './BuyPopUp.module.css';
-import notifStyle from './MarketNotif.module.css';
 
 const aiItems = {
   'common': [
@@ -823,101 +822,90 @@ export default function Market() {
 
   return (
     <>
-      <NotificationBase isActive={aiPurchaseNotif} onClose={() => {
+      <PositiveNotification isActive={aiPurchaseNotif} onClose={() => {
         setAiPurchaseNotif(false);
         setAiBid({});
       }}>
-        <div className={notifStyle.claimedNotif}>
-          <img src={getAiImage(aiBid.rarity)} className={`glow-${aiBid.rarity}`}></img>
-          <span>
-            Purchased
-            <PiCheckBold></PiCheckBold>
-          </span>
-        </div>
-      </NotificationBase>
+        <img src={getAiImage(aiBid.rarity)} className={`glow-${aiBid.rarity}`}></img>
+        <span>
+          Purchased
+          <PiCheckBold></PiCheckBold>
+        </span>
+      </PositiveNotification>
 
-      <NotificationBase isActive={pcPurchaseNotif} onClose={() => {
+      <PositiveNotification isActive={pcPurchaseNotif} onClose={() => {
         setPcPurchaseNotif(false);
         setPcBid({});
       }}>
-        <div className={notifStyle.claimedNotif}>
-          <img src={getPcImage(pcBid.rarity)} className={`glow-${pcBid.rarity}`}></img>
-          <span>
-            Purchased
-            <PiCheckBold></PiCheckBold>
-          </span>
-        </div>
-      </NotificationBase>
+        <img src={getPcImage(pcBid.rarity)} className={`glow-${pcBid.rarity}`}></img>
+        <span>
+          Purchased
+          <PiCheckBold></PiCheckBold>
+        </span>
+      </PositiveNotification>
 
-      <NotificationBase isActive={tokenPurchaseNotif} onClose={() => {
+      <PositiveNotification isActive={tokenPurchaseNotif} onClose={() => {
         setTokenPurchaseNotif(false);
         setTokenBid({});
       }}>
-        <div className={notifStyle.claimedNotif}>
-          <img src={tokenImage} className={`glow-rare`}></img>
-          <span>
-            Purchased
-            <PiCheckBold></PiCheckBold>
-          </span>
-        </div>
-      </NotificationBase>
+        <img src={tokenImage} className={`glow-rare`}></img>
+        <span>
+          Purchased
+          <PiCheckBold></PiCheckBold>
+        </span>
+      </PositiveNotification>
 
-      <NotificationBase isActive={tokenListNotif} onClose={() => {
+      <PositiveNotification isActive={tokenListNotif} onClose={() => {
         setTokenListNotif(false);
       }}>
-        <div className={notifStyle.claimedNotif}>
-          <img src={tokenImage} className={`glow-rare`}></img>
-          <span>
-            Listed
-            <PiCheckBold></PiCheckBold>
-          </span>
-        </div>
-      </NotificationBase>
+        <img src={tokenImage} className={`glow-rare`}></img>
+        <span>
+          Listed
+          <PiCheckBold></PiCheckBold>
+        </span>
+      </PositiveNotification>
 
-      <NotificationBase isActive={delistingAiNotif} onClose={() => {
+      <PositiveNotification isActive={delistingAiNotif} onClose={() => {
         setDelistingAiNotif(null);
       }}>
         {
           delistingAiNotif ?
-            <div className={notifStyle.claimedNotif}>
+            <>
               <img src={getAiImage(delistingAiNotif.rarity)} className={`glow-${delistingAiNotif.rarity}`}></img>
               <span>
                 Delisted
                 <PiCheckBold></PiCheckBold>
               </span>
-            </div> :
+            </> :
             <></>
         }
+      </PositiveNotification>
 
-      </NotificationBase>
-
-      <NotificationBase isActive={delistingPcNotif} onClose={() => {
+      <PositiveNotification isActive={delistingPcNotif} onClose={() => {
         setDelistingPcNotif(null);
       }}>
         {
           delistingPcNotif ?
-            <div className={notifStyle.claimedNotif}>
+            <>
               <img src={getPcImage(delistingPcNotif.rarity)} className={`glow-${delistingPcNotif.rarity}`}></img>
               <span>
                 Delisted
                 <PiCheckBold></PiCheckBold>
               </span>
-            </div> :
+            </> :
             <></>
         }
-      </NotificationBase>
+      </PositiveNotification>
 
-      <NotificationBase isActive={delistingTokenNotif} onClose={() => {
+      <PositiveNotification isActive={delistingTokenNotif} onClose={() => {
         setDelistingTokenNotif(null);
       }}>
-        <div className={notifStyle.claimedNotif}>
-          <img src={tokenImage} className={`glow-rare`}></img>
-          <span>
-            Delisted
-            <PiCheckBold></PiCheckBold>
-          </span>
-        </div>
-      </NotificationBase>
+        <img src={tokenImage} className={`glow-rare`}></img>
+        <span>
+          Delisted
+          <PiCheckBold></PiCheckBold>
+        </span>
+      </PositiveNotification>
 
       <PopUp isActive={buyAi} onClose={() => setBuyAi(false)}>
         <div className={buyPopUpStyle.container}>

@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { PiCoinsLight, PiClockLight, PiDesktopLight, PiCheckBold } from 'react-icons/pi';
 
 import GlowingButton from '../../Components/GlowingButton/GlowingButton';
-import NotificationBase from '../../Components/NotificationBase/NotificationBase';
+import PositiveNotification from '../../Components/PositiveNotification/PositiveNotification';
 import PcSlider from '../../Components/PcSlider/PcSlider';
 import AiSlider from '../../Components/AiSlider/AiSlider';
 import HealthBar from '../../Components/HealthBar/HealthBar';
@@ -16,7 +16,6 @@ import UnknownAi from '../../assets/ai/ai_unknown.png';
 import CommonAi from '../../assets/ai/ai_common.png';
 
 import homeStyle from './Home.module.css';
-import notifStyle from './HomeNotification.module.css';
 
 const payload = [
   {
@@ -216,26 +215,22 @@ export default function Home() {
     return (
       <>
         {/* Free Pc Claim */}
-        <NotificationBase isActive={pcContainer} onClose={() => { showClaimPc(false); getPc(true) }}>
-          <div className={notifStyle.claimedNotif}>
-            <img src={getPcImage('common')} className='glow-common'></img>
-            <span>
-              Claimed
-              <PiCheckBold></PiCheckBold>
-            </span>
-          </div>
-        </NotificationBase>
+        <PositiveNotification isActive={pcContainer} onClose={() => { showClaimPc(false); getPc(true) }}>
+          <img src={getPcImage('common')} className='glow-common'></img>
+          <span>
+            Claimed
+            <PiCheckBold></PiCheckBold>
+          </span>
+        </PositiveNotification>
 
         {/* Free Ai Claim */}
-        <NotificationBase isActive={claimAi} onClose={() => { showClaimAi(false); getAi(true) }}>
-          <div className={notifStyle.claimedNotif}>
-            <img src={getAiImage('common')} className='glow-common'></img>
-            <span>
-              Claimed
-              <PiCheckBold></PiCheckBold>
-            </span>
-          </div>
-        </NotificationBase>
+        <PositiveNotification isActive={claimAi} onClose={() => { showClaimAi(false); getAi(true) }}>
+          <img src={getAiImage('common')} className='glow-common'></img>
+          <span>
+            Claimed
+            <PiCheckBold></PiCheckBold>
+          </span>
+        </PositiveNotification>
 
         <div className={homeStyle.container}>
           <div className={homeStyle.freeDropsCount}>

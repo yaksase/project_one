@@ -1,14 +1,14 @@
-.claimedNotif {
+.container {
   display: flex;
   align-items: center;
 }
 
-.claimedNotif img {
+.container img {
   max-width: 15vw;
   margin-right: 10vw;
 }
 
-.claimedNotif span {
+.container span {
   display: flex;
   font-size: xx-large;
   font-weight: bold;
@@ -17,7 +17,7 @@
 }
 
 @media (orientation: landscape) {
-  .claimedNotif img {
+  .container img {
     max-width: 10vw;
     margin-right: 5vw;
   }
