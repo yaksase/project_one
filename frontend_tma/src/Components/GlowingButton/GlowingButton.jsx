@@ -1,7 +1,7 @@
 import s from'./GlowingButton.module.css'
 
 // eslint-disable-next-line react/prop-types
-export default function GlowingButton({ onClick, buttonColor, glowSize, width, children }) {
+export default function GlowingButton({ onClick, buttonColor, glowSize, width, children, verticalPadding = '0.5em', disabled = false }) {
   switch (buttonColor) {
     case 'positive':
       buttonColor = 'var(--positive-color)'
@@ -15,6 +15,6 @@ export default function GlowingButton({ onClick, buttonColor, glowSize, width, c
       break;
   }
   return (
-    <button className={s.GlowingButton} style={{'--button-color': buttonColor, '--glow-size': glowSize, width: width}} onClick={() => onClick()}>{children}</button>
+    <button className={s.GlowingButton} disabled={disabled} style={{'--button-color': buttonColor, '--glow-size': glowSize, width: width, paddingTop: verticalPadding, paddingBottom: verticalPadding }} onClick={() => onClick()}>{children}</button>
   )
 }

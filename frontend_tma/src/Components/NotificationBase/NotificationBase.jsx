@@ -1,7 +1,7 @@
-import s from './Notification.module.css'
+import s from './NotificationBase.module.css'
 
 // eslint-disable-next-line react/prop-types
-export default function Notification({ isActive, onClose, children }) {
+export default function NotificationBase({ isActive, onClose, children }) {
   return (
     <>
       {isActive && (

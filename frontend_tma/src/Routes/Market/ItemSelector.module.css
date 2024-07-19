@@ -1,0 +1,40 @@
+.button {
+  --button-color: white;
+  padding: 0.3rem 0;
+  width: 20vw;
+  height: 2.5rem;
+
+  border-radius: 1em;
+  background-color: #000000;
+  opacity: 70%;
+
+  color: var(--button-color);
+  font-size: large;
+  font-family: 'Courier New', Courier, monospace;
+  font-weight: bold;
+  box-shadow: 0px 0px 0.3em;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+}
+
+.button img {
+  height: 100%;
+}
+
+.iconsWrapper {
+  width: 18px;
+  height: 18px;
+  display: flex;
+}
+
+.iconsWrapper svg {
+  right: 4;
+  position: absolute;
+}
+
+.active {
+  --button-color: var(--positive-color);
+  opacity: 100%;
+}

@@ -6,7 +6,7 @@ import { RouterProvider, createBrowserRouter  } from 'react-router-dom'
 import Root from './Routes/Root.jsx'
 import Home from './Routes/Home/Home.jsx'
 import Inventory from './Routes/Inventory/Inventory.jsx'
-import Market from './Routes/Market.jsx'
+import Market from './Routes/Market/Market.jsx'
 import Drops from './Routes/Drops/Drops.jsx'
 
 import './index.css'

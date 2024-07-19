@@ -1,12 +1,14 @@
 /* eslint-disable react/prop-types */
 import { useEffect, useState } from "react";
-import { PiTrashLight, PiArrowUUpLeftLight } from "react-icons/pi";
+import { PiTrashLight, PiArrowUUpLeftLight, PiClockBold, PiDesktopBold } from "react-icons/pi";
 
 import PopUp from "../PopUp/PopUp"
 import AvailablePc from "./AvailablePc";
+import NotificationBase from "../NotificationBase/NotificationBase";
 
 import getAiImage from "../../utils/getAiImage";
 import getPcImage from "../../utils/getPcImage";
+import tokenIcon from '../../assets/token_icon.png';
 
 import s from './ConnectPc.module.css';
 import GlowingButton from "../GlowingButton/GlowingButton";
@@ -49,10 +51,12 @@ const pcData = [
   }
 ]
 
-export default function ConnectPc({ isActive, onClose, curAi }) {
+export default function ConnectPc({ isActive, setIsActive, curAi, setCurAi }) {
   const [availablePc, setAvailablePc] = useState(pcData);
   const [connectedPc, setConnectedPc] = useState([]);
   const [slotsData, setSlotsData] = useState(new Array(10).fill(null));
+
+  const [connectionNotif, setConnectionNotif] = useState(false);
 
   function onPcSelect(pc) {
     const newConnectedPc = [
@@ -110,75 +114,135 @@ export default function ConnectPc({ isActive, onClose, curAi }) {
   }, [connectedPc])
 
   return (
-    <PopUp isActive={isActive} onClose={onClose}>
-      <div className={s.container}>
-        <div className={s.image}>
-          <img src={getAiImage(curAi.rarity)} className={`glow-${curAi.rarity}`}></img>
-        </div>
-        <div className={s.centeredText}>
-          Rarity: <span className={`text-${curAi.rarity}`} style={{ fontWeight: 'bold', fontSize: 'large' }}>{curAi.rarity}</span>
-        </div>
-        <div className={s.centeredText}>
-          Click on an <span className={s.greenHighlight}>available PC</span> to connect it to the AI
-        </div>
-        <div className={s.centeredText} style={{ marginBottom: '0.5rem' }}>
-          Connected PCs:
-        </div>
-        <div className={s.selectedPcRow}>
-          {slotsData.slice(0, 6).map((rarity, index) => {
-            return (
-              <div key={index} className={s.selectedPc} style={rarity ? { '--border-color': `var(--${rarity}-color)` } : {}}>
-                {rarity == null ? <></> : <img src={getPcImage(rarity)}></img>}
-              </div>
-            )
-          })}
-        </div>
-        <div className={s.selectedPcRow}>
-          <div className={s.selectedPcControl} onClick={() => onClear()}>
-            <PiTrashLight></PiTrashLight>
-            <span>Clear</span>
+    <>
+      <NotificationBase isActive={connectionNotif} onClose={() => {
+        setConnectionNotif(false);
+        setCurAi({});
+      }}>
+        <div className={s.container}>
+          <div className={s.image}>
+            <img src={getAiImage(curAi.rarity)} className={`glow-${curAi.rarity}`}></img>
           </div>
-          {slotsData.slice(6, 10).map((rarity, index) => {
-            return (
-              <div key={index} className={s.selectedPc} style={rarity ? { '--border-color': `var(--${rarity}-color)` } : {}}>
-                {rarity == null ? <></> : <img src={getPcImage(rarity)}></img>}
-              </div>
-            )
-          })}
-          <div className={s.selectedPcControl} onClick={() => onUndo()}>
-            <PiArrowUUpLeftLight></PiArrowUUpLeftLight>
-            <span>Undo</span>
+          <div className={s.centeredText}>
+            Rarity: <span className={`text-${curAi.rarity}`} style={{ fontWeight: 'bold', fontSize: 'large' }}>{curAi.rarity}</span>
           </div>
+          <div className={s.centeredText} style={{ marginBottom: '0.5rem' }}>
+            Connected PCs:
+          </div>
+          <div className={s.selectedPcRow}>
+            {slotsData.slice(0, 6).map((rarity, index) => {
+              return (
+                <div key={index} className={s.selectedPc} style={rarity ? { '--border-color': `var(--${rarity}-color)` } : {}}>
+                  {rarity == null ? <></> : <img src={getPcImage(rarity)}></img>}
+                </div>
+              )
+            })}
+          </div>
+          <div className={s.selectedPcRow} style={{marginBottom: '1rem'}}>
+            {slotsData.slice(6, 10).map((rarity, index) => {
+              return (
+                <div key={index} className={s.selectedPc} style={rarity ? { '--border-color': `var(--${rarity}-color)` } : {}}>
+                  {rarity == null ? <></> : <img src={getPcImage(rarity)}></img>}
+                </div>
+              )
+            })}
+          </div>
+          Claim tokens every:<br />
+          <span className={`${s.iconWrapper} ${s.greenHighlight}`} style={{fontSize: 'x-large'}}>
+            <PiClockBold></PiClockBold>
+            N Hours
+          </span><br />
+          Slots taken:<br />
+          <span className={`${s.iconWrapper} ${s.greenHighlight}`} style={{fontSize: 'x-large'}}>
+            <PiDesktopBold></PiDesktopBold>
+            N/N Slots
+          </span><br />
+          Hourly earnings:<br />
+          <span className={`priceWrapper ${s.greenHighlight}`} style={{fontSize: 'x-large'}}>
+            32,760
+            <img src={tokenIcon} className="glow-rare"></img>
+            /hour
+          </span>
         </div>
-        <br />
-        <div className={s.centeredText} style={{ marginBottom: '0.5rem' }}>
-          Select <span className={s.greenHighlight}>available PC</span>:
-        </div>
-        {
-          availablePc.length == 0 ?
-            <div className={s.centeredText}>No PC available</div> :
-            <AvailablePc>
-              {
-                availablePc.map((pc) => {
-                  return (
-                    <div key={pc.id} className={s.availablePc} >
-                      <div onClick={() => onPcSelect(pc)} className={s.availablePcImage} style={{ '--border-color': `var(--${pc.rarity}-color)` }}>
-                        <img src={getPcImage(pc.rarity)}></img>
-                      </div>
-                      <div className={s.availablePcSlots}>
-                        {pc.slots} {pc.slots == 1 ? 'slot' : 'slots'}
-                      </div>
-                    </div>
-                  )
-                })
-              }
-            </AvailablePc>
-        }
+      </NotificationBase>
 
-      </div>
-      <div className={s.buttonContainer}>
-        <GlowingButton>Connect PC</GlowingButton>
-      </div>
-    </PopUp>
+      <PopUp isActive={isActive} onClose={() => {
+        setCurAi({});
+        setIsActive(false);
+      }}>
+        <div className={s.container}>
+          <div className={s.image}>
+            <img src={getAiImage(curAi.rarity)} className={`glow-${curAi.rarity}`}></img>
+          </div>
+          <div className={s.centeredText}>
+            Rarity: <span className={`text-${curAi.rarity}`} style={{ fontWeight: 'bold', fontSize: 'large' }}>{curAi.rarity}</span>
+          </div>
+          <div className={s.centeredText}>
+            Click on an <span className={s.greenHighlight}>available PC</span> to connect it to the AI
+          </div>
+          <div className={s.centeredText} style={{ marginBottom: '0.5rem' }}>
+            Connected PCs:
+          </div>
+          <div className={s.selectedPcRow}>
+            {slotsData.slice(0, 6).map((rarity, index) => {
+              return (
+                <div key={index} className={s.selectedPc} style={rarity ? { '--border-color': `var(--${rarity}-color)` } : {}}>
+                  {rarity == null ? <></> : <img src={getPcImage(rarity)}></img>}
+                </div>
+              )
+            })}
+          </div>
+          <div className={s.selectedPcRow}>
+            <div className={s.selectedPcControl} onClick={() => onClear()}>
+              <PiTrashLight></PiTrashLight>
+              <span>Clear</span>
+            </div>
+            {slotsData.slice(6, 10).map((rarity, index) => {
+              return (
+                <div key={index} className={s.selectedPc} style={rarity ? { '--border-color': `var(--${rarity}-color)` } : {}}>
+                  {rarity == null ? <></> : <img src={getPcImage(rarity)}></img>}
+                </div>
+              )
+            })}
+            <div className={s.selectedPcControl} onClick={() => onUndo()}>
+              <PiArrowUUpLeftLight></PiArrowUUpLeftLight>
+              <span>Undo</span>
+            </div>
+          </div>
+          <br />
+          <div className={s.centeredText} style={{ marginBottom: '0.5rem' }}>
+            Select <span className={s.greenHighlight}>available PC</span>:
+          </div>
+          {
+            availablePc.length == 0 ?
+              <div className={s.centeredText}>No PC available</div> :
+              <AvailablePc>
+                {
+                  availablePc.map((pc) => {
+                    return (
+                      <div key={pc.id} className={s.availablePc} >
+                        <div onClick={() => onPcSelect(pc)} className={s.availablePcImage} style={{ '--border-color': `var(--${pc.rarity}-color)` }}>
+                          <img src={getPcImage(pc.rarity)}></img>
+                        </div>
+                        <div className={s.availablePcSlots}>
+                          {pc.slots} {pc.slots == 1 ? 'slot' : 'slots'}
+                        </div>
+                      </div>
+                    )
+                  })
+                }
+              </AvailablePc>
+          }
+
+        </div>
+        <div className={s.buttonContainer}>
+          <GlowingButton onClick={() => {
+            setConnectionNotif(true);
+            setIsActive(false);
+          }}>Connect PC</GlowingButton>
+        </div>
+      </PopUp>
+    </>
+    
   )
 }

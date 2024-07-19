@@ -22,3 +22,8 @@
   color: #000000;
   box-shadow: 0px 0px var(--glow-size) white;
 }
+
+.GlowingButton:disabled {
+  opacity: 60%;
+  pointer-events: none;
+}
