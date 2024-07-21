@@ -6,51 +6,52 @@ import tokenIcon from '../../assets/token_icon.png';
 import s from './Leaderboard.module.css';
 
 export default function Leaderboard({ isActive, onClose }) {
+  const userList = [
+    {
+      id: 1,
+      name: 'bob',
+      tokens: 1234
+    },
+    {
+      id: 2,
+      name: 'lol',
+      tokens: 123
+    },
+    {
+      id: 3,
+      name: 'francua modi dick lil uzi vert diamond',
+      tokens: 98765432445
+    },
+    {
+      id: 4,
+      name: 'lil morty',
+      tokens: 432
+    },
+    {
+      id: 5,
+      name: 'jesus',
+      tokens: 0
+    }
+  ];
+  
   return (
     <PopUp isActive={isActive} onClose={onClose}>
       <div className={s.leaderboardPopUp}>
         <span className={s.leaderboardTitle}>Leaderboard</span>
-        <div className={s.leaderboardItem}>
-          <div className={s.itemPlace}>
-            1
-          </div>
-          <div className={s.itemDescription}>
-            Nick 1000000000000000000000000000000 <span className={`priceWrapper`}><img src={tokenIcon}></img></span>
-          </div>
-        </div>
 
-        <div className={s.leaderboardItem}>
-          <div className={s.itemPlace}>
-            2
-          </div>
-          <div className={s.itemDescription}>
-            Dick 187234 <span className={`priceWrapper`}><img src={tokenIcon}></img></span>
-          </div>
-        </div>
-        <div className={s.leaderboardItem}>
-          <div className={s.itemPlace}>
-            3
-          </div>
-          <div className={s.itemDescription}>
-            Bob 120000 <span className={`priceWrapper`}><img src={tokenIcon}></img></span>
-          </div>
-        </div>
-        <div className={s.leaderboardItem}>
-          <div className={s.itemPlace}>
-            4
-          </div>
-          <div className={s.itemDescription}>
-            Tod 10000000000 <span className={`priceWrapper`}><img src={tokenIcon}></img></span>
-          </div>
-        </div>
-        <div className={s.leaderboardItem}>
-          <div className={s.itemPlace}>
-            5
-          </div>
-          <div className={s.itemDescription}>
-            Sosa 0 <span className={`priceWrapper`}><img src={tokenIcon}></img></span>
-          </div>
-        </div>
+        {
+          userList.map((user, index) => (
+            <div className={s.leaderboardItem}>
+              <div className={s.itemPlace}>
+                {index + 1}
+              </div>
+              <div className={s.itemDescription}>
+                {user.name} {user.tokens} <span className={`priceWrapper`}><img src={tokenIcon}></img></span>
+              </div>
+            </div>
+          ))
+        }
+
       </div>
     </PopUp>
   )
