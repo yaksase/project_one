@@ -20,16 +20,6 @@
   margin-bottom: 1rem;
 }
 
-.greenHighlight {
-  font-weight: bold;
-  color: var(--positive-color);
-  text-shadow: 0 0 0.5em var(--positive-color);
-}
-
-.greenHighlight svg {
-  filter: drop-shadow(0 0 0.5em var(--positive-color));
-}
-
 .iconWrapper {
   font-size: large;
   font-weight: bold;
