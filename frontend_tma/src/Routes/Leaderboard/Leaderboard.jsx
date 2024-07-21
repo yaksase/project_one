@@ -33,14 +33,14 @@ export default function Leaderboard({ isActive, onClose }) {
       tokens: 0
     }
   ];
-  
+
   return (
     <PopUp isActive={isActive} onClose={onClose}>
       <div className={s.leaderboardPopUp}>
         <span className={s.leaderboardTitle}>Leaderboard</span>
 
         {
-          userList.map((user, index) => (
+          userList.sort((a, b) => b.tokens - a.tokens).map((user, index) => (
             <div className={s.leaderboardItem}>
               <div className={s.itemPlace}>
                 {index + 1}

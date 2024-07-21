@@ -31,14 +31,14 @@
 }
 
 .inviteStats {
-    margin-top: 10%;
+    margin-top: 6vh;
     width: 100%;
     height: 40%;
 
     display: flex;
     flex-direction: row;
 
-    justify-content: space-between;
+    justify-content: space-evenly;
 }
 
 .inviteStats svg {
@@ -79,10 +79,4 @@
     font-weight: bold;
 
     color: var(--positive-color);
-}
-
-.homeIcon {
-    position: absolute;
-    bottom: 5%;
-    font-size: 2.5em;
 }
