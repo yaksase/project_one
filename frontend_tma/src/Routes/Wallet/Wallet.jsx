@@ -1,10 +1,12 @@
 /* eslint-disable react/prop-types */
 import { useState } from 'react';
 import PopUp from '../../Components/PopUp/PopUp';
+import GlowingButton from '../../Components/GlowingButton/GlowingButton';
 
 import s from './Wallet.module.css';
 
 import { FaLink } from "react-icons/fa";
+import { PiHandArrowDownDuotone, PiHandArrowUpDuotone } from "react-icons/pi";
 
 export default function Wallet({ isActive, onClose }) {
   const [showDepositPopup, setShowDepositPopup] = useState(false);
@@ -38,8 +40,8 @@ export default function Wallet({ isActive, onClose }) {
             <input type="text"></input>
           </div>
           <div className={s.buttonsBlock}>
-            <button className={s.buttonDeposit} onClick={openDepositPopup}>Deposit</button>
-            <button className={s.buttonWithdraw} onClick={openWithdrawPopup}>Withdraw</button>
+          <div className={s.buttonContainer}><GlowingButton onClick={openDepositPopup}><div className={s.innerButton}>Deposite<span className={`priceWrapper`}><PiHandArrowUpDuotone></PiHandArrowUpDuotone></span></div></GlowingButton></div>
+            <div className={s.buttonContainer}><GlowingButton buttonColor='red' onClick={openWithdrawPopup}><div className={s.innerButton}>Withdraw<span className={`priceWrapper`}><PiHandArrowDownDuotone></PiHandArrowDownDuotone></span></div></GlowingButton></div>
           </div>
         </div>
       </PopUp>
@@ -61,7 +63,11 @@ export default function Wallet({ isActive, onClose }) {
       </PopUp>
 
       <PopUp isActive={showWithdrawPopup} onClose={closeWithdrawPopup}>
-
+        <div className={s.withdrawPopUp}>
+          <label>Amount</label>
+          <input onChange={(e) => setPrice(e.target.value)}></input>
+          <div className={s.buttonContainer}><GlowingButton buttonColor='red'><div className={s.innerButton}>Withdraw<span className={`priceWrapper`}><PiHandArrowDownDuotone></PiHandArrowDownDuotone></span></div></GlowingButton></div>
+        </div>
       </PopUp>
     </>
   )

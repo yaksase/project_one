@@ -12,7 +12,7 @@
 }
 .inputBlock input {
     height: 100%;
-    width: 80%;
+    width: calc(100% - 10px);
 }
 input {
     background-color: white;
@@ -32,7 +32,7 @@ input:focus {
     height: 40px;
     width: 100%;
 
-    margin-top: 30px;
+    margin-top: 10px;
 
     display: flex;
     justify-content: space-evenly;
@@ -113,7 +113,37 @@ input:focus {
     font-size: 0.9em;
 }
 
+/* withdraw */
+.withdrawPopUp {
+    width: 70vw;
+    height: 10vh;
+}
 
+.withdrawPopUp label {
+    font-size: small;
+    margin-bottom: 5px;
+}
+
+.withdrawPopUp input {
+    height: 30px;
+    width: calc(100% - 10px);
+}
+
+.buttonContainer {
+    display: flex;
+    justify-content: center;
+    margin-top: 10px;
+}
+
+.innerButton {
+    display: flex;
+    flex-direction: row;
+}
+.innerButton span {
+    margin-left: 5px;
+}
+
+/* Main */
 .centerText {
     display: block;
     text-align: center;
