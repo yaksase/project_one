@@ -1,0 +1,120 @@
+.blockContent {
+    width: 70vw;
+    height: 20vh;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+.inputBlock {
+    width: 100%;    
+    height: 35px;
+}
+.inputBlock input {
+    height: 100%;
+    width: 80%;
+}
+input {
+    background-color: white;
+    border: none;
+    outline: none;
+    border-radius: 5px;
+    font-size: 20px;
+    padding-left: 5px;
+    padding-right: 5px;
+}
+input:focus {
+    border: none;
+    outline: none;
+}
+
+.buttonsBlock {
+    height: 40px;
+    width: 100%;
+
+    margin-top: 30px;
+
+    display: flex;
+    justify-content: space-evenly;
+}
+.buttonDeposit,
+.buttonWithdraw {
+    width: 30%;
+    height: 100%;
+    background-color: white;
+    color: white;
+    border-width: 3px;
+    border-style: solid;
+    border-radius: 5px;
+}
+.buttonDeposit {
+    background-color: #01E71A;
+    border-color: #009511;
+}
+.buttonWithdraw {
+    background-color: red;
+    border-color: rgb(165, 0, 0);
+}
+
+.buttonDeposit:hover {
+    background-color: #009511;
+    border-color: #01E71A;
+}
+.buttonWithdraw:hover {
+    background-color: rgb(165, 0, 0);
+    border-color: red;
+}
+/* Deposit */
+.depositContent {
+    width: 70vw;
+    min-height: 25vh;
+    height: fit-content;
+}
+
+.firstGreenHint {
+    font-size: 2.5vw;
+}
+
+.secondHint {
+    font-size: 3vw;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.inputBlockDeposit label {
+    font-size: x-small;
+}
+.inputString {
+    width: 100%;    
+    height: 30px;
+
+    display: flex;
+
+}
+.inputString input {
+    height: 100%;
+    width: 85%;
+}
+.linkIcon {
+    height: 30px;
+    width: 30px;
+    margin-left: 5px;
+}
+
+.attention {
+    font-size: x-large;
+    color: var(--negative-color);
+    font-weight: 700;
+}
+.attentionDescription {
+    color: var(--negative-color);
+    row-gap: 0.7em;
+    font-weight: 600;
+    font-size: 0.9em;
+}
+
+
+.centerText {
+    display: block;
+    text-align: center;
+}
