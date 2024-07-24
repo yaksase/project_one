@@ -37,7 +37,7 @@ export default function Wallet({ isActive, onClose }) {
       <PopUp isActive={isActive} onClose={onClose}>
         <div className={s.blockContent}>
           <div className={s.inputBlock}>
-            <input type="text"></input>
+            <input type="text" className={s.input}></input>
           </div>
           <div className={s.buttonsBlock}>
           <div className={s.buttonContainer}><GlowingButton onClick={openDepositPopup}><div className={s.innerButton}>Deposite<span className={`priceWrapper`}><PiHandArrowUpDuotone></PiHandArrowUpDuotone></span></div></GlowingButton></div>
@@ -52,7 +52,7 @@ export default function Wallet({ isActive, onClose }) {
           <div className={s.inputBlockDeposit}>
             <label>Network: Ton</label>
             <div className={s.inputString}>
-              <input type="text"></input>
+              <input type="text" className={s.input}></input>
               <FaLink className={s.linkIcon}></FaLink>
             </div>
           </div>
@@ -65,8 +65,12 @@ export default function Wallet({ isActive, onClose }) {
       <PopUp isActive={showWithdrawPopup} onClose={closeWithdrawPopup}>
         <div className={s.withdrawPopUp}>
           <label>Amount</label>
-          <input onChange={(e) => setPrice(e.target.value)}></input>
-          <div className={s.buttonContainer}><GlowingButton buttonColor='red'><div className={s.innerButton}>Withdraw<span className={`priceWrapper`}><PiHandArrowDownDuotone></PiHandArrowDownDuotone></span></div></GlowingButton></div>
+          <input onChange={(e) => setPrice(e.target.value)} className={s.input}></input>
+          <div className={s.buttonContainer}>
+            <GlowingButton buttonColor='red'>
+              <div className={s.innerButton}>Withdraw<span className={`priceWrapper`}><PiHandArrowDownDuotone></PiHandArrowDownDuotone></span></div>
+            </GlowingButton>
+          </div>
         </div>
       </PopUp>
     </>
