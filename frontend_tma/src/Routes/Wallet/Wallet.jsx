@@ -2,6 +2,7 @@
 import { useState } from 'react';
 import PopUp from '../../Components/PopUp/PopUp';
 import GlowingButton from '../../Components/GlowingButton/GlowingButton';
+import Input from '../../Components/Input/Input';
 
 import s from './Wallet.module.css';
 
@@ -22,50 +23,44 @@ export default function Wallet({ isActive, onClose }) {
   const closeDepositPopup = () => {
     setShowDepositPopup(false);
     setShowWalletPopUp(false);
+    setPrice('');
   };
   const closeWithdrawPopup = () => {
     setShowWithdrawPopup(false);
     setShowWalletPopUp(false);
+    setPrice('');
   };
-  const closeAll = () => {
-    setShowDepositPopup(false);
-    setShowWalletPopUp(false);
-    setShowWithdrawPopup(false);
-  };
+  const [price, setPrice] = useState('');
   return (
     <>
       <PopUp isActive={isActive} onClose={onClose}>
         <div className={s.blockContent}>
-          <div className={s.inputBlock}>
-            <input type="text" className={s.input}></input>
+          <div className={s.tgWalletButton}>
+            connect wallet
           </div>
           <div className={s.buttonsBlock}>
-          <div className={s.buttonContainer}><GlowingButton onClick={openDepositPopup}><div className={s.innerButton}>Deposite<span className={`priceWrapper`}><PiHandArrowUpDuotone></PiHandArrowUpDuotone></span></div></GlowingButton></div>
+            <div className={s.buttonContainer}><GlowingButton onClick={openDepositPopup}><div className={s.innerButton}>Deposite<span className={`priceWrapper`}><PiHandArrowUpDuotone></PiHandArrowUpDuotone></span></div></GlowingButton></div>
             <div className={s.buttonContainer}><GlowingButton buttonColor='red' onClick={openWithdrawPopup}><div className={s.innerButton}>Withdraw<span className={`priceWrapper`}><PiHandArrowDownDuotone></PiHandArrowDownDuotone></span></div></GlowingButton></div>
           </div>
         </div>
       </PopUp>
 
       <PopUp isActive={showDepositPopup} onClose={closeDepositPopup}>
-        <div className={s.depositContent}>
-          <span className={`${s.firstGreenHint} ${s.centerText} greenHighlight`}>To top up your balance, transfer the required amount of $Ton to the specified wallet</span>
-          <div className={s.inputBlockDeposit}>
-            <label>Network: Ton</label>
-            <div className={s.inputString}>
-              <input type="text" className={s.input}></input>
-              <FaLink className={s.linkIcon}></FaLink>
-            </div>
+        <div className={s.depositeWithdrawContent}>
+          <label>Amount</label>
+          <Input value={price} setValue={setPrice} className={s.input}></Input>
+          <div className={s.buttonContainer}>
+            <GlowingButton>
+              <div className={s.innerButton}>Deposite<span className={`priceWrapper`}><PiHandArrowUpDuotone></PiHandArrowUpDuotone></span></div>
+            </GlowingButton>
           </div>
-          <span className={`${s.secondHint} ${s.centerText}`}>Your balance will be replenished automatically for the amount that you transferred immediately after the transaction takes place.</span>
-          <span className={`${s.attention} ${s.centerText} text-ultra`}>Attention!</span>
-          <span className={`${s.attentionDescription} ${s.centerText} text-ultra`}>Send cryptocurrency only from the wallet linked to the application, otherwise your funds will be lost.</span>
         </div>
       </PopUp>
 
       <PopUp isActive={showWithdrawPopup} onClose={closeWithdrawPopup}>
-        <div className={s.withdrawPopUp}>
+        <div className={s.depositeWithdrawContent}>
           <label>Amount</label>
-          <input onChange={(e) => setPrice(e.target.value)} className={s.input}></input>
+          <Input value={price} setValue={setPrice} className={s.input}></Input>
           <div className={s.buttonContainer}>
             <GlowingButton buttonColor='red'>
               <div className={s.innerButton}>Withdraw<span className={`priceWrapper`}><PiHandArrowDownDuotone></PiHandArrowDownDuotone></span></div>

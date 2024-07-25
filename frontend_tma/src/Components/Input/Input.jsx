@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
 import s from './Input.module.css';
 
-export default function Input({ value, setValue, placeholder }) {
+export default function Input({ value, setValue, placeholder, className }) {
   const handlePriceChange = (e) => {
     let input = e.target.value.replace(',', '.');
 
@@ -24,7 +24,7 @@ export default function Input({ value, setValue, placeholder }) {
   };
 
   return (
-    <input className={s.input}
+    <input className={`${s.input} ${className}`}
       placeholder={placeholder}
       type='text'
       value={value}
