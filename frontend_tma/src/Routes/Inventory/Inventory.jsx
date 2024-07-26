@@ -6,6 +6,7 @@ import GlowingButton from '../../Components/GlowingButton/GlowingButton';
 import PopUp from '../../Components/PopUp/PopUp';
 import ConnectPc from '../../Components/ConnectPc/ConnectPc';
 import PositiveNotification from '../../Components/PositiveNotification/PositiveNotification';
+import Input from '../../Components/Input/Input';
 
 import getAiImage from '../../utils/getAiImage';
 import getPcImage from '../../utils/getPcImage';
@@ -318,7 +319,9 @@ function ItemPc({ pc, onInfoClick, onSellClick }) {
 
 function ListAi({ ai, setAi, isActive, setIsActive }) {
   const [notification, setNotification] = useState(false);
-  const [price, setPrice] = useState(0);
+  const [price, setPrice] = useState('');
+
+  console.log(price);
 
   return (
     <>
@@ -335,7 +338,7 @@ function ListAi({ ai, setAi, isActive, setIsActive }) {
 
       <PopUp isActive={isActive} onClose={() => {
         setIsActive(false);
-        setPrice(0);
+        setPrice('');
       }}>
         <div className={listStyle.container}>
           <div className={listStyle.image}>
@@ -343,17 +346,17 @@ function ListAi({ ai, setAi, isActive, setIsActive }) {
             <span className={`text-${ai.rarity}`}>{ai.rarity}</span>
           </div>
           <div className={listStyle.controlsContainer}>
-            <input className={listStyle.price} placeholder='Price' onChange={(e) => setPrice(e.target.value)}></input>
+            <Input value={price} setValue={setPrice} placeholder='Price'></Input>
             <div className={listStyle.buttonContainer}>
               {
-                price ?
+                price == '' || price == '0' ?
+                <GlowingButton width={'40vw'} glowSize={'0.2em'} buttonColor={'orange'} disabled={true}>List</GlowingButton> :
                 <GlowingButton width={'40vw'} glowSize={'0.2em'} buttonColor={'orange'} 
                 onClick={() => {
-                  setPrice(0);
+                  setPrice('');
                   setNotification(true);
                   setIsActive(false);
-                }}>List</GlowingButton> :
-                <GlowingButton width={'40vw'} glowSize={'0.2em'} buttonColor={'orange'} disabled={true}>List</GlowingButton>
+                }}>List</GlowingButton>
               }
             </div>
           </div>
@@ -366,7 +369,7 @@ function ListAi({ ai, setAi, isActive, setIsActive }) {
 
 function ListPc({ pc, setPc, isActive, setIsActive }) {
   const [notification, setNotification] = useState(false);
-  const [price, setPrice] = useState(0);
+  const [price, setPrice] = useState('');
 
   return (
     <>
@@ -382,7 +385,7 @@ function ListPc({ pc, setPc, isActive, setIsActive }) {
       </PositiveNotification>
 
       <PopUp isActive={isActive} onClose={() => {
-        setPrice(0);
+        setPrice('');
         setIsActive(false);
       }}>
         <div className={listStyle.container}>
@@ -391,17 +394,17 @@ function ListPc({ pc, setPc, isActive, setIsActive }) {
             <span className={`text-${pc.rarity}`}>{pc.rarity}</span>
           </div>
           <div className={listStyle.controlsContainer}>
-            <input className={listStyle.price} placeholder='Price' onChange={(e) => setPrice(e.target.value)}></input>
+            <Input value={price} setValue={setPrice} placeholder='Price'></Input>
             <div className={listStyle.buttonContainer}>
               {
-                price ?
+                price == '' || price == '0' ?
+                <GlowingButton width={'40vw'} glowSize={'0.2em'} buttonColor={'orange'} disabled={true}>List</GlowingButton> :
                 <GlowingButton width={'40vw'} glowSize={'0.2em'} buttonColor={'orange'} 
                 onClick={() => {
-                  setPrice(0);
+                  setPrice('');
                   setNotification(true);
                   setIsActive(false);
-                }}>List</GlowingButton> :
-                <GlowingButton width={'40vw'} glowSize={'0.2em'} buttonColor={'orange'} disabled={true}>List</GlowingButton>
+                }}>List</GlowingButton>
               }
             </div>
           </div>

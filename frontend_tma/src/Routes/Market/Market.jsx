@@ -5,6 +5,7 @@ import { PiCaretDownBold, PiCaretUpBold, PiDesktopBold, PiClockBold, PiCheckBold
 import GlowingButton from '../../Components/GlowingButton/GlowingButton';
 import PopUp from '../../Components/PopUp/PopUp';
 import PositiveNotification from '../../Components/PositiveNotification/PositiveNotification';
+import Input from '../../Components/Input/Input';
 
 import getAiImage from '../../utils/getAiImage';
 import getPcImage from '../../utils/getPcImage';
@@ -752,13 +753,13 @@ export default function Market() {
   const [buyToken, setBuyToken] = useState(false);
   const [tokenPurchaseNotif, setTokenPurchaseNotif] = useState(false);
   const [tokenBid, setTokenBid] = useState({});
-  const [tokenAmountPurchased, setTokenAmountPurchased] = useState(0);
+  const [tokenAmountPurchased, setTokenAmountPurchased] = useState('');
 
   const [listedItemType, setListedItemType] = useState('ai');
 
   const [listToken, setListToken] = useState(false);
-  const [tokenAmountListed, setTokenAmountListed] = useState(0);
-  const [tokenPrice, setTokenPrice] = useState(0);
+  const [tokenAmountListed, setTokenAmountListed] = useState('');
+  const [tokenPrice, setTokenPrice] = useState('');
   const [tokenListNotif, setTokenListNotif] = useState(false);
 
   const [delistingAi, setDelistingAi] = useState(null);
@@ -770,17 +771,17 @@ export default function Market() {
 
   let tokenBuyButton;
   if (buyToken) {
-    if (tokenAmountPurchased > tokenBid.quantity) {
+    if (parseFloat(tokenAmountPurchased) > tokenBid.quantity) {
       tokenBuyButton =
         <GlowingButton disabled={true} buttonColor={'red'}>
           Not Enough Tokens
         </GlowingButton>;
-    } else if (tokenAmountPurchased == 0) {
+    } else if (tokenAmountPurchased === '0' || tokenAmountPurchased === '') {
       tokenBuyButton =
         <GlowingButton disabled={true}>
           Purchase Tokens
         </GlowingButton>;
-    } else if (tokenAmountPurchased * tokenBid.price > 12.356) {
+    } else if (parseFloat(tokenAmountPurchased) * tokenBid.price > 12.356) {
       tokenBuyButton =
         <GlowingButton disabled={true} buttonColor={'red'}>
           Not Enough TON
@@ -791,14 +792,14 @@ export default function Market() {
           onClick={() => {
             setBuyToken(false);
             setTokenPurchaseNotif(true);
-            setTokenAmountPurchased(0);
+            setTokenAmountPurchased('');
           }}>Purchase Tokens</GlowingButton>;
     }
   }
 
   let tokenListButton;
   if (listToken) {
-    if (!tokenAmountListed || !tokenPrice) {
+    if (tokenAmountListed == '' || tokenAmountListed == '0' || tokenPrice == '' || tokenPrice == '0') {
       tokenListButton =
         <GlowingButton disabled={true}>
           Purchase Tokens
@@ -814,8 +815,8 @@ export default function Market() {
           onClick={() => {
             setListToken(false);
             setTokenListNotif(true);
-            setTokenAmountListed(0);
-            setTokenPrice(0);
+            setTokenAmountListed('');
+            setTokenPrice('');
           }}>Purchase Tokens</GlowingButton>;
     }
   }
@@ -1045,7 +1046,7 @@ export default function Market() {
 
       <PopUp isActive={buyToken} onClose={() => {
         setBuyToken(false);
-        setTokenAmountPurchased(0);
+        setTokenAmountPurchased('');
       }}>
         <div className={buyPopUpStyle.container}>
           <div className={buyPopUpStyle.image}>
@@ -1065,18 +1066,18 @@ export default function Market() {
             <img src={tokenImage}></img>
           </span><br />
           <div style={{ display: 'flex', justifyContent: 'center' }}>
-            <input className={buyPopUpStyle.amountPurchased} placeholder='Amount' onChange={(e) => setTokenAmountPurchased(e.target.value)}></input>
+            <Input value={tokenAmountPurchased} setValue={setTokenAmountPurchased} placeholder='Amount'></Input>
           </div>
           {
-            tokenAmountPurchased ?
+            tokenAmountPurchased == '' || tokenAmountPurchased == '0' ?
+              <></> :
               <>
                 <span style={{ fontSize: 'x-large', textAlign: 'center' }}>Total:</span>
                 <span className='priceWrapper greenHighlight' style={{ fontSize: 'x-large', justifyContent: 'center' }}>
-                  {tokenBid.price * tokenAmountPurchased}
+                  {tokenBid.price * parseFloat(tokenAmountPurchased)}
                   <img src={tonImage}></img>
                 </span>
-              </> :
-              <></>
+              </>
           }
         </div>
         <div className={buyPopUpStyle.buttonContainer}>
@@ -1086,8 +1087,8 @@ export default function Market() {
 
       <PopUp isActive={listToken} onClose={() => {
         setListToken(false);
-        setTokenAmountListed(0);
-        setTokenPrice(0);
+        setTokenAmountListed('');
+        setTokenPrice('');
       }}>
         <div className={buyPopUpStyle.container}>
           <div className={buyPopUpStyle.image}>
@@ -1107,28 +1108,28 @@ export default function Market() {
             <img src={tokenImage}></img>
           </span><br />
           <div style={{ display: 'flex', justifyContent: 'center' }}>
-            <input className={buyPopUpStyle.amountPurchased} placeholder='Amount' onChange={(e) => setTokenAmountListed(e.target.value)}></input>
+            <Input value={tokenAmountListed} setValue={setTokenAmountListed} placeholder='Amount'></Input>
           </div>
           <div style={{ display: 'flex', justifyContent: 'center' }}>
-            <input className={buyPopUpStyle.amountPurchased} placeholder='Price' onChange={(e) => setTokenPrice(e.target.value)}></input>
+            <Input value={tokenPrice} setValue={setTokenPrice} placeholder='Price'></Input>
           </div>
           {
-            tokenAmountListed && tokenPrice ?
+            tokenAmountListed == '' || tokenAmountListed == '0' || tokenPrice == '' || tokenPrice == '0' ?
+              <></> :
               <>
                 <span style={{ fontSize: 'x-large', textAlign: 'center' }}>Listing:</span>
                 <span className='priceWrapper greenHighlight' style={{ fontSize: 'x-large', justifyContent: 'center' }}>
-                  {numberWithCommas(tokenAmountListed)}
+                  {numberWithCommas(parseFloat(tokenAmountListed))}
                   <img src={tokenImage}></img>
                 </span><br />
                 <span style={{ fontSize: 'x-large', textAlign: 'center' }}>Price:</span>
                 <span className='priceWrapper greenHighlight' style={{ fontSize: 'x-large', justifyContent: 'center' }}>
-                  {tokenPrice}
+                  {parseFloat(tokenPrice)}
                   <img src={tonImage} style={{ marginRight: '1rem' }}></img>
                   for 1
                   <img src={tokenImage}></img>
                 </span><br />
-              </> :
-              <></>
+              </>
           }
         </div>
         <div className={buyPopUpStyle.buttonContainer}>
