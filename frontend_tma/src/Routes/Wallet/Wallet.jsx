@@ -1,12 +1,13 @@
 /* eslint-disable react/prop-types */
 import { useState } from 'react';
+import { TonConnectButton } from '@tonconnect/ui-react';
+
 import PopUp from '../../Components/PopUp/PopUp';
 import GlowingButton from '../../Components/GlowingButton/GlowingButton';
 import Input from '../../Components/Input/Input';
 
 import s from './Wallet.module.css';
 
-import { FaLink } from "react-icons/fa";
 import { PiHandArrowDownDuotone, PiHandArrowUpDuotone } from "react-icons/pi";
 
 export default function Wallet({ isActive, onClose }) {
@@ -36,7 +37,7 @@ export default function Wallet({ isActive, onClose }) {
       <PopUp isActive={isActive} onClose={onClose}>
         <div className={s.blockContent}>
           <div className={s.tgWalletButton}>
-            connect wallet
+            <TonConnectButton />
           </div>
           <div className={s.buttonsBlock}>
             <div className={s.buttonContainer}><GlowingButton onClick={openDepositPopup}><div className={s.innerButton}>Deposite<span className={`priceWrapper`}><PiHandArrowUpDuotone></PiHandArrowUpDuotone></span></div></GlowingButton></div>

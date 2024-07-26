@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Outlet } from "react-router-dom";
+import { TonConnectUIProvider } from '@tonconnect/ui-react';
 
 import BottomMenu from "../Components/BottomMenu/BottomMenu";
 import TopMenu from "../Components/TopMenu/TopMenu";
@@ -14,19 +15,21 @@ export default function Root() {
 
   return (
     <>
+      <TonConnectUIProvider manifestUrl='http://localhost:5173/tonconnect-manifest.json'>
       <Invite isActive={showInvite} onClose={() => setShowInvite(false)}></Invite>
       <Leaderboard isActive={showLeaderboard} onClose={() => setShowLeaderboard(false)}></Leaderboard>
       <Wallet isActive={showWallet} onClose={() => setShowWallet(false)}></Wallet>
 
       <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-      <TopMenu 
-      onInviteClick={() => setShowInvite(true)}
-      onLeaderboardClick={() => setShowLeaderboard(true)}
-      onWalletClick={() => setShowWallet(true)}></TopMenu>
+      <TopMenu
+        onInviteClick={() => setShowInvite(true)}
+        onLeaderboardClick={() => setShowLeaderboard(true)}
+        onWalletClick={() => setShowWallet(true)}></TopMenu>
       <main className="mainContent">
         <Outlet></Outlet>
       </main>
       <BottomMenu></BottomMenu>
+      </TonConnectUIProvider>
     </>
   )
 }
