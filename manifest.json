@@ -1,7 +1,0 @@
-{
-    "url": "http://localhost:5173", // required
-    "name": "App", // required
-    "iconUrl": "/src/assets/token_icon.png" // required
-    // "termsOfUseUrl": "<terms-of-use-url>",     // optional
-    // "privacyPolicyUrl": "<privacy-policy-url>" // optional
-}

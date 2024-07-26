@@ -15,7 +15,7 @@ export default function Root() {
 
   return (
     <>
-      <TonConnectUIProvider manifestUrl='http://localhost:5173/tonconnect-manifest.json'>
+      <TonConnectUIProvider>
       <Invite isActive={showInvite} onClose={() => setShowInvite(false)}></Invite>
       <Leaderboard isActive={showLeaderboard} onClose={() => setShowLeaderboard(false)}></Leaderboard>
       <Wallet isActive={showWallet} onClose={() => setShowWallet(false)}></Wallet>
