@@ -45,7 +45,7 @@ export default function Wallet({ isActive, onClose }) {
             <TonConnectButton />
           </div>
           <div className={s.buttonsBlock}>
-            <div className={s.buttonContainer}><GlowingButton onClick={openDepositPopup}><div className={s.innerButton}>Deposite<span className={`priceWrapper`}><PiHandArrowUpDuotone></PiHandArrowUpDuotone></span></div></GlowingButton></div>
+            <div className={s.buttonContainer}><GlowingButton onClick={openDepositPopup}><div className={s.innerButton}>Deposit<span className={`priceWrapper`}><PiHandArrowUpDuotone></PiHandArrowUpDuotone></span></div></GlowingButton></div>
             <div className={s.buttonContainer}><GlowingButton buttonColor='red' onClick={openWithdrawPopup}><div className={s.innerButton}>Withdraw<span className={`priceWrapper`}><PiHandArrowDownDuotone></PiHandArrowDownDuotone></span></div></GlowingButton></div>
           </div>
         </div>
@@ -57,7 +57,7 @@ export default function Wallet({ isActive, onClose }) {
           <Input value={price} setValue={setPrice} className={s.input}></Input>
           <div className={s.buttonContainer}>
             <GlowingButton>
-              <div className={s.innerButton}>Deposite<span className={`priceWrapper`}><PiHandArrowUpDuotone></PiHandArrowUpDuotone></span></div>
+              <div className={s.innerButton}>Deposit<span className={`priceWrapper`}><PiHandArrowUpDuotone></PiHandArrowUpDuotone></span></div>
             </GlowingButton>
           </div>
         </div>
