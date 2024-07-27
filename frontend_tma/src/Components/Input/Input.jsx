@@ -1,7 +1,15 @@
-/* eslint-disable react/prop-types */
+import PropTypes from 'prop-types'
+
 import s from './Input.module.css';
 
-export default function Input({ value, setValue, placeholder, className }) {
+Input.propTypes = {
+  value: PropTypes.string.isRequired,
+  setValue: PropTypes.func.isRequired,
+  placeholder: PropTypes.string,
+  className: PropTypes.string
+}
+
+export default function Input({ value, setValue, placeholder = '', className = ''}) {
   const handlePriceChange = (e) => {
     let input = e.target.value.replace(',', '.');
 

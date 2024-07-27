@@ -1,9 +1,15 @@
-/* eslint-disable react/prop-types */
+import PropTypes from 'prop-types';
+
 import PopUp from '../../Components/PopUp/PopUp';
 
 import tokenIcon from '../../assets/token_icon.png';
 
 import s from './Leaderboard.module.css';
+
+Leaderboard.propTypes = {
+  isActive: PropTypes.bool.isRequired,
+  onClose: PropTypes.func.isRequired
+}
 
 export default function Leaderboard({ isActive, onClose }) {
   const userList = [

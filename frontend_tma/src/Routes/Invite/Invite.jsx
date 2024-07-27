@@ -1,5 +1,5 @@
-/* eslint-disable react/prop-types */
 import { useState, useEffect } from 'react';
+import PropTypes from 'prop-types';
 
 import { FaLink } from "react-icons/fa";
 import { GoPeople } from "react-icons/go";
@@ -10,6 +10,11 @@ import PopUp from '../../Components/PopUp/PopUp';
 import GlowingButton from "../../Components/GlowingButton/GlowingButton";
 
 import s from './Invite.module.css';
+
+Invite.propTypes = {
+  isActive: PropTypes.bool.isRequired,
+  onClose: PropTypes.func.isRequired
+}
 
 export default function Invite({ isActive, onClose }) {
   const [buttonText, setButtonText] = useState(<div className={s.buttonContent}>Invite friend<div className={`priceWrapper`}><FaLink /></div></div>);

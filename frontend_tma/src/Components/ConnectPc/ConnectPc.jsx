@@ -1,5 +1,5 @@
-/* eslint-disable react/prop-types */
 import { useEffect, useState } from "react";
+import PropTypes from 'prop-types';
 import { PiTrashLight, PiArrowUUpLeftLight, PiClockBold, PiDesktopBold } from "react-icons/pi";
 
 import PopUp from "../PopUp/PopUp"
@@ -50,6 +50,13 @@ const pcData = [
     slots: 1
   }
 ]
+
+ConnectPc.propTypes = {
+  isActive: PropTypes.bool.isRequired,
+  setIsActive: PropTypes.func.isRequired,
+  curAi: PropTypes.object.isRequired,
+  setCurAi: PropTypes.func.isRequired
+}
 
 export default function ConnectPc({ isActive, setIsActive, curAi, setCurAi }) {
   const [availablePc, setAvailablePc] = useState(pcData);

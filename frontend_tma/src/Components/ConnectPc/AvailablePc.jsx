@@ -1,8 +1,17 @@
-/* eslint-disable react/prop-types */
 import { useState, useEffect, useRef } from 'react';
+import PropTypes from 'prop-types';
 import { PiCaretLeftBold, PiCaretRightBold } from 'react-icons/pi';
 
 import s from './AvailablePc.module.css';
+
+AvailablePc.propTypes = {
+  curPageHook: PropTypes.func.isRequired,
+  hidden: PropTypes.bool,
+  children: PropTypes.oneOfType([
+    PropTypes.arrayOf(PropTypes.node),
+    PropTypes.node
+  ]).isRequired
+}
 
 export default function AvailablePc({ curPageHook, hidden = false, children }) {
   const [curPage, setCurPage] = useState(0);

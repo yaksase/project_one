@@ -1,5 +1,5 @@
-/* eslint-disable react/prop-types */
 import { useState } from 'react';
+import PropTypes from 'prop-types';
 import { TonConnectButton } from '@tonconnect/ui-react';
 
 import PopUp from '../../Components/PopUp/PopUp';
@@ -9,6 +9,11 @@ import Input from '../../Components/Input/Input';
 import s from './Wallet.module.css';
 
 import { PiHandArrowDownDuotone, PiHandArrowUpDuotone } from "react-icons/pi";
+
+Wallet.propTypes = {
+  isActive: PropTypes.bool.isRequired,
+  onClose: PropTypes.func.isRequired
+}
 
 export default function Wallet({ isActive, onClose }) {
   const [showDepositPopup, setShowDepositPopup] = useState(false);

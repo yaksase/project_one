@@ -1,3 +1,5 @@
+import PropTypes from 'prop-types';
+
 import s from './HealthBar.module.css';
 
 function getFillColor(percentage) {
@@ -12,7 +14,10 @@ function getFillColor(percentage) {
   }
 }
 
-// eslint-disable-next-line react/prop-types
+HealthBar.propTypes = {
+  percentage: PropTypes.number
+}
+
 export default function HealthBar({ percentage }) {
   return (
     <div className={s.progressBarWrapper}>

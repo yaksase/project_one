@@ -1,9 +1,18 @@
 import { useState, useEffect, cloneElement, Children, useRef } from 'react';
+import PropTypes from 'prop-types';
 import { PiCaretLeftBold, PiCaretRightBold } from 'react-icons/pi';
 
 import s from './AiSlider.module.css';
 
-// eslint-disable-next-line react/prop-types
+AiSlider.propTypes = {
+  curPageHook: PropTypes.func.isRequired,
+  hidden: PropTypes.bool,
+  children: PropTypes.oneOfType([
+    PropTypes.arrayOf(PropTypes.node),
+    PropTypes.node
+  ]).isRequired
+}
+
 export default function AiSlider({ curPageHook, hidden = false, children }) {
   const [pages, setPages] = useState([]);
   const [curPage, setCurPage] = useState(0);

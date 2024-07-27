@@ -1,4 +1,4 @@
-/* eslint-disable react/prop-types */
+import PropTypes from 'prop-types';
 import { IconContext } from "react-icons/lib";
 import { PiWalletLight, PiUserPlusLight, PiRankingLight } from "react-icons/pi";
 
@@ -6,6 +6,12 @@ import TonIcon from '../../assets/ton_icon.svg';
 import TokenIcon from '../../assets/token_icon.png';
 
 import s from './TopMenu.module.css';
+
+TopMenu.propTypes = {
+  onInviteClick: PropTypes.func.isRequired,
+  onLeaderboardClick: PropTypes.func.isRequired,
+  onWalletClick: PropTypes.func.isRequired
+}
 
 export default function TopMenu({ onInviteClick, onLeaderboardClick, onWalletClick}) {
   const IconSize = "40";

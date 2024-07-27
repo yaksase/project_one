@@ -1,6 +1,16 @@
+import PropTypes from 'prop-types'
+
 import s from './NotificationBase.module.css'
 
-// eslint-disable-next-line react/prop-types
+NotificationBase.propTypes = {
+  isActive: PropTypes.bool.isRequired,
+  onClose: PropTypes.func.isRequired,
+  children: PropTypes.oneOfType([
+    PropTypes.arrayOf(PropTypes.node),
+    PropTypes.node
+  ]).isRequired,
+}
+
 export default function NotificationBase({ isActive, onClose, children }) {
   return (
     <>

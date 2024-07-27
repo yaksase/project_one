@@ -1,6 +1,16 @@
+import PropTypes from 'prop-types'
+
 import s from './PopUp.module.css'
 
-// eslint-disable-next-line react/prop-types
+PopUp.propTypes = {
+  isActive: PropTypes.bool.isRequired,
+  onClose: PropTypes.func.isRequired,
+  children: PropTypes.oneOfType([
+    PropTypes.arrayOf(PropTypes.node),
+    PropTypes.node
+  ]).isRequired,
+}
+
 export default function PopUp({ isActive, onClose, children }) {
   return (
     <>

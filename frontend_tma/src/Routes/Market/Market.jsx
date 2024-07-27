@@ -1,5 +1,5 @@
-/* eslint-disable react/prop-types */
 import { useEffect, useRef, useState } from 'react';
+import PropTypes from 'prop-types';
 import { PiCaretDownBold, PiCaretUpBold, PiDesktopBold, PiClockBold, PiCheckBold } from 'react-icons/pi';
 
 import GlowingButton from '../../Components/GlowingButton/GlowingButton';
@@ -656,6 +656,16 @@ const raritiesData = [
   'common', 'uncommon', 'rare', 'epic', 'legendary', 'ultra', 'mythic'
 ];
 
+RarityDropdown.propTypes = {
+  imgSrc: PropTypes.string.isRequired,
+  children: PropTypes.oneOfType([
+    PropTypes.arrayOf(PropTypes.node),
+    PropTypes.node
+  ]).isRequired,
+  showDropdown: PropTypes.bool.isRequired,
+  setShowDropdown: PropTypes.func.isRequired
+}
+
 function RarityDropdown({ imgSrc, children, showDropdown, setShowDropdown }) {
   const dropdownRef = useRef();
 
@@ -692,6 +702,14 @@ function RarityDropdown({ imgSrc, children, showDropdown, setShowDropdown }) {
   )
 }
 
+SellingItem.propTypes = {
+  onBuyClick: PropTypes.func.isRequired,
+  imgSrc: PropTypes.string.isRequired,
+  price: PropTypes.number.isRequired,
+  rarity: PropTypes.string.isRequired,
+  isToken: PropTypes.bool
+}
+
 function SellingItem({ onBuyClick, imgSrc, price, rarity, isToken = false }) {
   return (
     <div className={sellingItemStyle.container}>
@@ -707,6 +725,14 @@ function SellingItem({ onBuyClick, imgSrc, price, rarity, isToken = false }) {
       <GlowingButton glowSize={'0.3rem'} width={'100%'} verticalPadding='0.2em' onClick={onBuyClick}>Buy</GlowingButton>
     </div>
   )
+}
+
+ListedItem.propTypes = {
+  onDelistClick: PropTypes.func.isRequired,
+  imgSrc: PropTypes.string.isRequired,
+  price: PropTypes.number.isRequired,
+  rarity: PropTypes.string.isRequired,
+  isToken: PropTypes.bool
 }
 
 function ListedItem({ onDelistClick, imgSrc, price, rarity, isToken = false }) {

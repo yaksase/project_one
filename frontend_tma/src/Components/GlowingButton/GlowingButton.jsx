@@ -1,7 +1,21 @@
+import PropTypes from 'prop-types';
+
 import s from'./GlowingButton.module.css'
 
-// eslint-disable-next-line react/prop-types
-export default function GlowingButton({ onClick, buttonColor, glowSize, width, children, verticalPadding = '0.5em', disabled = false }) {
+GlowingButton.propTypes = {
+  onClick: PropTypes.func.isRequired,
+  buttonColor: PropTypes.string,
+  glowSize: PropTypes.string,
+  width: PropTypes.string,
+  children: PropTypes.oneOfType([
+    PropTypes.arrayOf(PropTypes.node),
+    PropTypes.node
+  ]).isRequired,
+  verticalPadding: PropTypes.string,
+  disabled: PropTypes.bool
+}
+
+export default function GlowingButton({ onClick, buttonColor = '', glowSize = '0.6em', width = '', children, verticalPadding = '0.5em', disabled = false }) {
   switch (buttonColor) {
     case 'positive':
       buttonColor = 'var(--positive-color)'

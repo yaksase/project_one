@@ -1,5 +1,5 @@
-/* eslint-disable react/prop-types */
 import { useState } from 'react';
+import PropTypes from 'prop-types';
 import { PiCoinVerticalLight, PiInfoLight, PiPercentLight, PiDesktopLight, PiArrowsClockwiseLight, PiClockLight, PiClockBold, PiDesktopBold, PiCheckBold } from 'react-icons/pi';
 
 import GlowingButton from '../../Components/GlowingButton/GlowingButton';
@@ -138,6 +138,13 @@ const pcData = [
   }
 ];
 
+ ActivatedSelector.propTypes = {
+  active: PropTypes.bool.isRequired,
+  setActive: PropTypes.func.isRequired,
+  notActive: PropTypes.bool.isRequired,
+  setNotActive: PropTypes.func.isRequired
+ }
+
 function ActivatedSelector({ active, setActive, notActive, setNotActive }) {
   function onActivePress() {
     if (notActive) {
@@ -165,6 +172,13 @@ function ActivatedSelector({ active, setActive, notActive, setNotActive }) {
   )
 }
 
+TypeSelector.propTypes = {
+  showPc: PropTypes.bool.isRequired,
+  setShowPc: PropTypes.func.isRequired,
+  showAi: PropTypes.bool.isRequired,
+  setShowAi: PropTypes.func.isRequired
+}
+
 function TypeSelector({ showPc, setShowPc, showAi, setShowAi }) {
   function onShowPcPress() {
     if (showAi) {
@@ -190,6 +204,13 @@ function TypeSelector({ showPc, setShowPc, showAi, setShowAi }) {
       <button className={`${typeSelStyle.button} ${showAi ? typeSelStyle.active : ''}`} onClick={onShowAiPress}>AI</button>
     </div>
   )
+}
+
+ItemAi.propTypes = {
+  ai: PropTypes.object.isRequired,
+  onInfoClick: PropTypes.func.isRequired,
+  onConnectClick: PropTypes.func.isRequired,
+  onSellClick: PropTypes.func.isRequired
 }
 
 function ItemAi({ ai, onInfoClick, onConnectClick, onSellClick }) {
@@ -259,6 +280,12 @@ function ItemAi({ ai, onInfoClick, onConnectClick, onSellClick }) {
   )
 }
 
+ItemPc.propTypes = {
+  pc: PropTypes.object.isRequired,
+  onInfoClick: PropTypes.func.isRequired,
+  onSellClick: PropTypes.func.isRequired
+}
+
 function ItemPc({ pc, onInfoClick, onSellClick }) {
   return (
     <div className={s.item}>
@@ -317,6 +344,13 @@ function ItemPc({ pc, onInfoClick, onSellClick }) {
   )
 }
 
+ListAi.propTypes = {
+  ai: PropTypes.object.isRequired,
+  setAi: PropTypes.func.isRequired,
+  isActive: PropTypes.bool.isRequired,
+  setIsActive: PropTypes.func.isRequired
+}
+
 function ListAi({ ai, setAi, isActive, setIsActive }) {
   const [notification, setNotification] = useState(false);
   const [price, setPrice] = useState('');
@@ -366,6 +400,12 @@ function ListAi({ ai, setAi, isActive, setIsActive }) {
   )
 }
 
+ListPc.propTypes = {
+  pc: PropTypes.object.isRequired,
+  setPc: PropTypes.func.isRequired,
+  isActive: PropTypes.bool.isRequired,
+  setIsActive: PropTypes.func.isRequired
+}
 
 function ListPc({ pc, setPc, isActive, setIsActive }) {
   const [notification, setNotification] = useState(false);
