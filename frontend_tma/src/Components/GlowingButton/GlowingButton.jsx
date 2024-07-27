@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import s from'./GlowingButton.module.css'
 
 GlowingButton.propTypes = {
-  onClick: PropTypes.func.isRequired,
+  onClick: PropTypes.func,
   buttonColor: PropTypes.string,
   glowSize: PropTypes.string,
   width: PropTypes.string,
@@ -15,7 +15,7 @@ GlowingButton.propTypes = {
   disabled: PropTypes.bool
 }
 
-export default function GlowingButton({ onClick, buttonColor = '', glowSize = '0.6em', width = '', children, verticalPadding = '0.5em', disabled = false }) {
+export default function GlowingButton({ onClick = () => {}, buttonColor = '', glowSize = '0.6em', width = '', children, verticalPadding = '0.5em', disabled = false }) {
   switch (buttonColor) {
     case 'positive':
       buttonColor = 'var(--positive-color)'
