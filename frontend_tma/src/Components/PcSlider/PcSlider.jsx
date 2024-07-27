@@ -5,7 +5,6 @@ import { PiCaretCircleLeftFill, PiCaretCircleRightFill } from 'react-icons/pi';
 import s from './PcSlider.module.css';
 
 PcSlider.propTypes = {
-  curPageHook: PropTypes.func.isRequired,
   hidden: PropTypes.bool,
   children: PropTypes.oneOfType([
     PropTypes.arrayOf(PropTypes.node),
@@ -13,7 +12,7 @@ PcSlider.propTypes = {
   ]).isRequired,
 }
 
-export default function PcSlider({ curPageHook, hidden = false, children }) {
+export default function PcSlider({ hidden = false, children }) {
   const [pages, setPages] = useState([]);
   const [curPage, setCurPage] = useState(0);
   const [width, setWidth] = useState(300);
@@ -38,9 +37,6 @@ export default function PcSlider({ curPageHook, hidden = false, children }) {
   function handleLeft() {
     setCurPage((prevPage) => {
       const newPage = Math.max(prevPage - 1, 0);
-      if (curPageHook != null) {
-        curPageHook(newPage);
-      }
       return newPage;
     });
   }
@@ -48,9 +44,6 @@ export default function PcSlider({ curPageHook, hidden = false, children }) {
   function handleRight() {
     setCurPage((prevPage) => {
       const newPage = Math.min(prevPage + 1, pages.length - 1);
-      if (curPageHook != null) {
-        curPageHook(newPage);
-      }
       return newPage;
     });
   }

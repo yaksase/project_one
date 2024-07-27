@@ -5,7 +5,6 @@ import { PiCaretLeftBold, PiCaretRightBold } from 'react-icons/pi';
 import s from './AvailablePc.module.css';
 
 AvailablePc.propTypes = {
-  curPageHook: PropTypes.func.isRequired,
   hidden: PropTypes.bool,
   children: PropTypes.oneOfType([
     PropTypes.arrayOf(PropTypes.node),
@@ -13,7 +12,7 @@ AvailablePc.propTypes = {
   ]).isRequired
 }
 
-export default function AvailablePc({ curPageHook, hidden = false, children }) {
+export default function AvailablePc({ hidden = false, children }) {
   const [curPage, setCurPage] = useState(0);
   const [width, setWidth] = useState(300);
 
@@ -37,9 +36,6 @@ export default function AvailablePc({ curPageHook, hidden = false, children }) {
   function handleLeft() {
     setCurPage((prevPage) => {
       const newPage = Math.max(prevPage - 3, 0);
-      if (curPageHook != null) {
-        curPageHook(newPage);
-      }
       return newPage;
     });
   }
@@ -47,10 +43,6 @@ export default function AvailablePc({ curPageHook, hidden = false, children }) {
   function handleRight() {
     setCurPage((prevPage) => {
       const newPage = Math.min(prevPage + 3, children.length - 3);
-      console.log(newPage);
-      if (curPageHook != null) {
-        curPageHook(newPage);
-      }
       return newPage;
     });
   }

@@ -355,8 +355,6 @@ function ListAi({ ai, setAi, isActive, setIsActive }) {
   const [notification, setNotification] = useState(false);
   const [price, setPrice] = useState('');
 
-  console.log(price);
-
   return (
     <>
       <PositiveNotification isActive={notification} onClose={() => {

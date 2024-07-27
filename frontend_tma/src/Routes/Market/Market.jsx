@@ -788,12 +788,17 @@ export default function Market() {
   const [tokenPrice, setTokenPrice] = useState('');
   const [tokenListNotif, setTokenListNotif] = useState(false);
 
-  const [delistingAi, setDelistingAi] = useState(null);
-  const [delistingAiNotif, setDelistingAiNotif] = useState(null);
-  const [delistingPc, setDelistingPc] = useState(null);
-  const [delistingPcNotif, setDelistingPcNotif] = useState(null);
-  const [delistingToken, setDelistingToken] = useState(null);
-  const [delistingTokenNotif, setDelistingTokenNotif] = useState(null);
+  const [showDelistAi, setShowDelistAi] = useState(false);
+  const [showDelistAiNotif, setShowDelistAiNotif] = useState(false);
+  const [delistingAi, setDelistingAi] = useState({});
+
+  const [showDelistPc, setShowDelistPc] = useState(false);
+  const [showDelistPcNotif, setShowDelistPcNotif] = useState(false);
+  const [delistingPc, setDelistingPc] = useState({});
+
+  const [showDelistToken, setShowDelistToken] = useState(false);
+  const [showDelistTokenNotif, setShowDelistTokenNotif] = useState(false);
+  const [delistingToken, setDelistingToken] = useState({});
 
   let tokenBuyButton;
   if (buyToken) {
@@ -892,40 +897,31 @@ export default function Market() {
         </span>
       </PositiveNotification>
 
-      <PositiveNotification isActive={delistingAiNotif} onClose={() => {
-        setDelistingAiNotif(null);
+      <PositiveNotification isActive={showDelistAiNotif} onClose={() => {
+        setShowDelistAiNotif(false);
+        setDelistingAi({});
       }}>
-        {
-          delistingAiNotif ?
-            <>
-              <img src={getAiImage(delistingAiNotif.rarity)} className={`glow-${delistingAiNotif.rarity}`}></img>
-              <span>
-                Delisted
-                <PiCheckBold></PiCheckBold>
-              </span>
-            </> :
-            <></>
-        }
+        <img src={getAiImage(delistingAi.rarity)} className={`glow-${delistingAi.rarity}`}></img>
+        <span>
+          Delisted
+          <PiCheckBold></PiCheckBold>
+        </span>
       </PositiveNotification>
 
-      <PositiveNotification isActive={delistingPcNotif} onClose={() => {
-        setDelistingPcNotif(null);
+      <PositiveNotification isActive={showDelistPcNotif} onClose={() => {
+        setDelistingPc({});
+        setShowDelistPcNotif(false);
       }}>
-        {
-          delistingPcNotif ?
-            <>
-              <img src={getPcImage(delistingPcNotif.rarity)} className={`glow-${delistingPcNotif.rarity}`}></img>
-              <span>
-                Delisted
-                <PiCheckBold></PiCheckBold>
-              </span>
-            </> :
-            <></>
-        }
+        <img src={getPcImage(delistingPc.rarity)} className={`glow-${delistingPc.rarity}`}></img>
+        <span>
+          Delisted
+          <PiCheckBold></PiCheckBold>
+        </span>
       </PositiveNotification>
 
-      <PositiveNotification isActive={delistingTokenNotif} onClose={() => {
-        setDelistingTokenNotif(null);
+      <PositiveNotification isActive={showDelistTokenNotif} onClose={() => {
+        setShowDelistTokenNotif(false);
+        setDelistingToken({});
       }}>
         <img src={tokenImage} className={`glow-rare`}></img>
         <span>
@@ -1163,176 +1159,164 @@ export default function Market() {
         </div>
       </PopUp>
 
-      <PopUp isActive={delistingAi} onClose={() => setDelistingAi(null)}>
-        {
-          delistingAi ?
-            <>
-              <div className={buyPopUpStyle.container}>
-                <div className={buyPopUpStyle.image}>
-                  <img src={getAiImage(delistingAi.rarity)} className={`glow-${delistingAi.rarity}`}></img>
-                </div>
-                <div className={buyPopUpStyle.centeredText}>
-                  Rarity: <span className={`text-${delistingAi.rarity}`} style={{ fontWeight: 'bold', fontSize: 'large' }}>{delistingAi.rarity}</span>
-                </div>
-                <div className={buyPopUpStyle.centeredText}>
-                  This <span className='greenHighlight'>AI</span> has not been used yet. <span className='greenHighlight'>Connect PC</span> to it to start using. Then the AI will start to bring you profit
-                </div>
-                Every PC connected to this AI will be farming tokens during this time:<br />
-                <span className={`${buyPopUpStyle.iconWrapper} greenHighlight`} style={{ fontSize: 'x-large' }}>
-                  <PiClockBold></PiClockBold>
-                  N Hours
-                </span>
-                <br />
-                You can link this many PCs to the AI:
-                <span className={`${buyPopUpStyle.iconWrapper} text-common`}>
-                  <PiDesktopBold></PiDesktopBold>
-                  N Common PCs
-                </span>
-                <span className={`${buyPopUpStyle.iconWrapper} text-uncommon`}>
-                  <PiDesktopBold></PiDesktopBold>
-                  N Uncommon PCs
-                </span>
-                <span className={`${buyPopUpStyle.iconWrapper} text-rare`}>
-                  <PiDesktopBold></PiDesktopBold>
-                  N Rare PCs
-                </span>
-                <span className={`${buyPopUpStyle.iconWrapper} text-epic`}>
-                  <PiDesktopBold></PiDesktopBold>
-                  N Epic PCs
-                </span>
-                <span className={`${buyPopUpStyle.iconWrapper} text-legendary`}>
-                  <PiDesktopBold></PiDesktopBold>
-                  N Legendary PCs
-                </span>
-                <span className={`${buyPopUpStyle.iconWrapper} text-ultra`}>
-                  <PiDesktopBold></PiDesktopBold>
-                  N Ultra PCs
-                </span>
-                <span className={`${buyPopUpStyle.iconWrapper} text-mythic`}>
-                  <PiDesktopBold></PiDesktopBold>
-                  N Mythic PCs
-                </span>
-                <span className='priceWrapper' style={{ justifyContent: 'center', fontSize: 'x-large', marginTop: '1rem' }}>
-                  Listed for: {delistingAi.price}
-                  <img src={tokenImage}></img>
-                </span>
-              </div>
-              <div className={buyPopUpStyle.buttonContainer}>
-                <GlowingButton buttonColor={'orange'} onClick={() => {
-                  setDelistingAiNotif(delistingAi);
-                  setDelistingAi(null);
-                }}>Delist AI</GlowingButton>
-              </div>
-            </> :
-            <></>
-        }
-
-      </PopUp>
-
-      <PopUp isActive={delistingPc} onClose={() => setDelistingPc(null)}>
-        {
-          delistingPc ?
-            <>
-              <div className={buyPopUpStyle.container}>
-                <div className={buyPopUpStyle.image}>
-                  <img src={getPcImage(delistingPc.rarity)} className={`glow-${delistingPc.rarity}`}></img>
-                </div>
-                <div className={buyPopUpStyle.centeredText}>
-                  Rarity: <span className={`text-${delistingPc.rarity}`} style={{ fontWeight: 'bold', fontSize: 'large' }}>{delistingPc.rarity}</span>
-                </div>
-                <div className={buyPopUpStyle.centeredText}>
-                  While the <span className='greenHighlight'>PC is not activated</span>, you can sell it. As soon as you start using it, you will not be able to list it on the market
-                </div>
-                Earnings per hour:<br />
-                <span className='priceWrapper greenHighlight' style={{ fontSize: 'x-large' }}>
-                  <img src={tokenImage} style={{ marginRight: '0.2em', marginLeft: '0em' }}></img>
-                  N/hour
-                </span>
-                <br />
-                PC duration:<br />
-                <span className={`${buyPopUpStyle.iconWrapper} greenHighlight`}>
-                  <PiClockBold></PiClockBold>
-                  N Hours
-                </span>
-                <br />
-                This PC takes up this many slots for each AI:
-                <span className={`${buyPopUpStyle.aiSlotsWrapper} text-common`}>
-                  <img src={getAiImage('common')} className='glow-common'></img>
-                  N for common AI
-                </span>
-                <span className={`${buyPopUpStyle.aiSlotsWrapper} text-uncommon`}>
-                  <img src={getAiImage('uncommon')} className='glow-uncommon'></img>
-                  N for uncommon AI
-                </span>
-                <span className={`${buyPopUpStyle.aiSlotsWrapper} text-rare`}>
-                  <img src={getAiImage('rare')} className='glow-rare'></img>
-                  N for rare AI
-                </span>
-                <span className={`${buyPopUpStyle.aiSlotsWrapper} text-epic`}>
-                  <img src={getAiImage('epic')} className='glow-epic'></img>
-                  N for epic AI
-                </span>
-                <span className={`${buyPopUpStyle.aiSlotsWrapper} text-legendary`}>
-                  <img src={getAiImage('legendary')} className='glow-legendary'></img>
-                  N for legendary AI
-                </span>
-                <span className={`${buyPopUpStyle.aiSlotsWrapper} text-ultra`}>
-                  <img src={getAiImage('ultra')} className='glow-ultra'></img>
-                  N for ultra AI
-                </span>
-                <span className={`${buyPopUpStyle.aiSlotsWrapper} text-mythic`}>
-                  <img src={getAiImage('mythic')} className='glow-mythic'></img>
-                  N for mythic AI
-                </span>
-                <span className='priceWrapper' style={{ justifyContent: 'center', fontSize: 'x-large', marginTop: '1rem' }}>
-                  Listed for: {delistingPc.price}
-                  <img src={tokenImage}></img>
-                </span>
-              </div>
-              <div className={buyPopUpStyle.buttonContainer}>
-                <GlowingButton buttonColor={'orange'} onClick={() => {
-                  setDelistingPcNotif(delistingPc);
-                  setDelistingPc(null);
-                }}>Delist PC</GlowingButton>
-              </div>
-            </> :
-            <></>
-        }
-      </PopUp>
-
-      <PopUp isActive={delistingToken} onClose={() => {
-        setDelistingToken(null);
+      <PopUp isActive={showDelistAi} onClose={() => {
+        setShowDelistAi(false);
+        setDelistingAi({});
       }}>
-        {
-          delistingToken ?
-            <>
-              <div className={buyPopUpStyle.container}>
-                <div className={buyPopUpStyle.image}>
-                  <img src={tokenImage} className={`glow-rare`}></img>
-                </div>
-                <span style={{ fontSize: 'x-large', textAlign: 'center' }}>Listed:</span>
-                <span className='priceWrapper greenHighlight' style={{ fontSize: 'x-large', justifyContent: 'center' }}>
-                  {numberWithCommas(delistingToken.quantity)}
-                  <img src={tokenImage}></img>
-                </span>
-                <br />
-                <span style={{ fontSize: 'x-large', textAlign: 'center' }}>Price:</span>
-                <span className='priceWrapper greenHighlight' style={{ fontSize: 'x-large', justifyContent: 'center' }}>
-                  {delistingToken.price}
-                  <img src={tonImage} style={{ marginRight: '1rem' }}></img>
-                  for 1
-                  <img src={tokenImage}></img>
-                </span>
-              </div>
-              <div className={buyPopUpStyle.buttonContainer}>
-                <GlowingButton buttonColor={'orange'} onClick={() => {
-                  setDelistingTokenNotif(delistingToken);
-                  setDelistingToken(null);
-                }}>Delist Token Bid</GlowingButton>
-              </div>
-            </> :
-            <></>
-        }
+        <div className={buyPopUpStyle.container}>
+          <div className={buyPopUpStyle.image}>
+            <img src={getAiImage(delistingAi.rarity)} className={`glow-${delistingAi.rarity}`}></img>
+          </div>
+          <div className={buyPopUpStyle.centeredText}>
+            Rarity: <span className={`text-${delistingAi.rarity}`} style={{ fontWeight: 'bold', fontSize: 'large' }}>{delistingAi.rarity}</span>
+          </div>
+          <div className={buyPopUpStyle.centeredText}>
+            This <span className='greenHighlight'>AI</span> has not been used yet. <span className='greenHighlight'>Connect PC</span> to it to start using. Then the AI will start to bring you profit
+          </div>
+          Every PC connected to this AI will be farming tokens during this time:<br />
+          <span className={`${buyPopUpStyle.iconWrapper} greenHighlight`} style={{ fontSize: 'x-large' }}>
+            <PiClockBold></PiClockBold>
+            N Hours
+          </span>
+          <br />
+          You can link this many PCs to the AI:
+          <span className={`${buyPopUpStyle.iconWrapper} text-common`}>
+            <PiDesktopBold></PiDesktopBold>
+            N Common PCs
+          </span>
+          <span className={`${buyPopUpStyle.iconWrapper} text-uncommon`}>
+            <PiDesktopBold></PiDesktopBold>
+            N Uncommon PCs
+          </span>
+          <span className={`${buyPopUpStyle.iconWrapper} text-rare`}>
+            <PiDesktopBold></PiDesktopBold>
+            N Rare PCs
+          </span>
+          <span className={`${buyPopUpStyle.iconWrapper} text-epic`}>
+            <PiDesktopBold></PiDesktopBold>
+            N Epic PCs
+          </span>
+          <span className={`${buyPopUpStyle.iconWrapper} text-legendary`}>
+            <PiDesktopBold></PiDesktopBold>
+            N Legendary PCs
+          </span>
+          <span className={`${buyPopUpStyle.iconWrapper} text-ultra`}>
+            <PiDesktopBold></PiDesktopBold>
+            N Ultra PCs
+          </span>
+          <span className={`${buyPopUpStyle.iconWrapper} text-mythic`}>
+            <PiDesktopBold></PiDesktopBold>
+            N Mythic PCs
+          </span>
+          <span className='priceWrapper' style={{ justifyContent: 'center', fontSize: 'x-large', marginTop: '1rem' }}>
+            Listed for: {delistingAi.price}
+            <img src={tokenImage}></img>
+          </span>
+        </div>
+        <div className={buyPopUpStyle.buttonContainer}>
+          <GlowingButton buttonColor={'orange'} onClick={() => {
+            setShowDelistAi(false);
+            setShowDelistAiNotif(true);
+          }}>Delist AI</GlowingButton>
+        </div>
+      </PopUp>
+
+      <PopUp isActive={showDelistPc} onClose={() => {
+        setShowDelistPc(false);
+        setDelistingPc({});
+      }}>
+        <div className={buyPopUpStyle.container}>
+          <div className={buyPopUpStyle.image}>
+            <img src={getPcImage(delistingPc.rarity)} className={`glow-${delistingPc.rarity}`}></img>
+          </div>
+          <div className={buyPopUpStyle.centeredText}>
+            Rarity: <span className={`text-${delistingPc.rarity}`} style={{ fontWeight: 'bold', fontSize: 'large' }}>{delistingPc.rarity}</span>
+          </div>
+          <div className={buyPopUpStyle.centeredText}>
+            While the <span className='greenHighlight'>PC is not activated</span>, you can sell it. As soon as you start using it, you will not be able to list it on the market
+          </div>
+          Earnings per hour:<br />
+          <span className='priceWrapper greenHighlight' style={{ fontSize: 'x-large' }}>
+            <img src={tokenImage} style={{ marginRight: '0.2em', marginLeft: '0em' }}></img>
+            N/hour
+          </span>
+          <br />
+          PC duration:<br />
+          <span className={`${buyPopUpStyle.iconWrapper} greenHighlight`}>
+            <PiClockBold></PiClockBold>
+            N Hours
+          </span>
+          <br />
+          This PC takes up this many slots for each AI:
+          <span className={`${buyPopUpStyle.aiSlotsWrapper} text-common`}>
+            <img src={getAiImage('common')} className='glow-common'></img>
+            N for common AI
+          </span>
+          <span className={`${buyPopUpStyle.aiSlotsWrapper} text-uncommon`}>
+            <img src={getAiImage('uncommon')} className='glow-uncommon'></img>
+            N for uncommon AI
+          </span>
+          <span className={`${buyPopUpStyle.aiSlotsWrapper} text-rare`}>
+            <img src={getAiImage('rare')} className='glow-rare'></img>
+            N for rare AI
+          </span>
+          <span className={`${buyPopUpStyle.aiSlotsWrapper} text-epic`}>
+            <img src={getAiImage('epic')} className='glow-epic'></img>
+            N for epic AI
+          </span>
+          <span className={`${buyPopUpStyle.aiSlotsWrapper} text-legendary`}>
+            <img src={getAiImage('legendary')} className='glow-legendary'></img>
+            N for legendary AI
+          </span>
+          <span className={`${buyPopUpStyle.aiSlotsWrapper} text-ultra`}>
+            <img src={getAiImage('ultra')} className='glow-ultra'></img>
+            N for ultra AI
+          </span>
+          <span className={`${buyPopUpStyle.aiSlotsWrapper} text-mythic`}>
+            <img src={getAiImage('mythic')} className='glow-mythic'></img>
+            N for mythic AI
+          </span>
+          <span className='priceWrapper' style={{ justifyContent: 'center', fontSize: 'x-large', marginTop: '1rem' }}>
+            Listed for: {delistingPc.price}
+            <img src={tokenImage}></img>
+          </span>
+        </div>
+        <div className={buyPopUpStyle.buttonContainer}>
+          <GlowingButton buttonColor={'orange'} onClick={() => {
+            setShowDelistPcNotif(true);
+            setShowDelistPc(false);
+          }}>Delist PC</GlowingButton>
+        </div>
+      </PopUp>
+
+      <PopUp isActive={showDelistToken} onClose={() => {
+        setShowDelistToken(false);
+        setDelistingToken({});
+      }}>
+        <div className={buyPopUpStyle.container}>
+          <div className={buyPopUpStyle.image}>
+            <img src={tokenImage} className={`glow-rare`}></img>
+          </div>
+          <span style={{ fontSize: 'x-large', textAlign: 'center' }}>Listed:</span>
+          <span className='priceWrapper greenHighlight' style={{ fontSize: 'x-large', justifyContent: 'center' }}>
+            {delistingToken.quantity ? numberWithCommas(delistingToken.quantity) : 0}
+            <img src={tokenImage}></img>
+          </span>
+          <br />
+          <span style={{ fontSize: 'x-large', textAlign: 'center' }}>Price:</span>
+          <span className='priceWrapper greenHighlight' style={{ fontSize: 'x-large', justifyContent: 'center' }}>
+            {delistingToken.price}
+            <img src={tonImage} style={{ marginRight: '1rem' }}></img>
+            for 1
+            <img src={tokenImage}></img>
+          </span>
+        </div>
+        <div className={buyPopUpStyle.buttonContainer}>
+          <GlowingButton buttonColor={'orange'} onClick={() => {
+            setShowDelistTokenNotif(true);
+            setShowDelistToken(false);
+          }}>Delist Token Bid</GlowingButton>
+        </div>
       </PopUp>
 
       <div className={s.container}>
@@ -1473,6 +1457,7 @@ export default function Market() {
                       return (
                         <ListedItem key={ai.id} imgSrc={getAiImage(ai.rarity)} price={ai.price} rarity={ai.rarity} onDelistClick={() => {
                           setDelistingAi(ai);
+                          setShowDelistAi(true);
                         }}></ListedItem>
                       )
                     })}
@@ -1486,6 +1471,7 @@ export default function Market() {
                       return (
                         <ListedItem key={pc.id} imgSrc={getPcImage(pc.rarity)} price={pc.price} rarity={pc.rarity} onDelistClick={() => {
                           setDelistingPc(pc);
+                          setShowDelistPc(true);
                         }}></ListedItem>
                       )
                     })}
@@ -1509,6 +1495,7 @@ export default function Market() {
                         return (
                           <ListedItem key={token.id} imgSrc={tokenImage} price={token.price} isToken={true} rarity={'rare'} onDelistClick={() => {
                             setDelistingToken(token);
+                            setShowDelistToken(true);
                           }}></ListedItem>
                         )
                       })}
