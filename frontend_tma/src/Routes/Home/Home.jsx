@@ -8,8 +8,8 @@ import AiSlider from '../../Components/AiSlider/AiSlider';
 import HealthBar from '../../Components/HealthBar/HealthBar';
 import ConnectPc from '../../Components/ConnectPc/ConnectPc';
 
-import getPcImage from '../../utils/getPcImage';
-import getAiImage from '../../utils/getAiImage';
+import getPcImage from '../../utils/getPcImage.js';
+import getAiImage from '../../utils/getAiImage.js';
 
 import UnknownPc from '../../assets/pc/pc_unknown.png';
 import UnknownAi from '../../assets/ai/ai_unknown.png';

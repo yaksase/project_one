@@ -8,8 +8,8 @@ import ConnectPc from '../../Components/ConnectPc/ConnectPc';
 import PositiveNotification from '../../Components/PositiveNotification/PositiveNotification';
 import Input from '../../Components/Input/Input';
 
-import getAiImage from '../../utils/getAiImage';
-import getPcImage from '../../utils/getPcImage';
+import getAiImage from '../../utils/getAiImage.js';
+import getPcImage from '../../utils/getPcImage.js';
 
 import tokenIcon from '../../assets/token_icon.png';
 

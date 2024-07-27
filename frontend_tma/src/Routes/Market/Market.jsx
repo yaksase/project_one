@@ -7,9 +7,9 @@ import PopUp from '../../Components/PopUp/PopUp';
 import PositiveNotification from '../../Components/PositiveNotification/PositiveNotification';
 import Input from '../../Components/Input/Input';
 
-import getAiImage from '../../utils/getAiImage';
-import getPcImage from '../../utils/getPcImage';
-import numberWithCommas from '../../utils/numberWithCommas';
+import getAiImage from '../../utils/getAiImage.js';
+import getPcImage from '../../utils/getPcImage.js';
+import numberWithCommas from '../../utils/numberWithCommas.js';
 
 import tokenImage from '../../assets/token_icon.png';
 import tonImage from '../../assets/ton_icon.svg';

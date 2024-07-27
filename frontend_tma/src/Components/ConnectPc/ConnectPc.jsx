@@ -6,8 +6,8 @@ import PopUp from "../PopUp/PopUp"
 import AvailablePc from "./AvailablePc";
 import NotificationBase from "../NotificationBase/NotificationBase";
 
-import getAiImage from "../../utils/getAiImage";
-import getPcImage from "../../utils/getPcImage";
+import getAiImage from "../../utils/getAiImage.js";
+import getPcImage from "../../utils/getPcImage.js";
 import tokenIcon from '../../assets/token_icon.png';
 
 import s from './ConnectPc.module.css';
