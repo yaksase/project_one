@@ -19,11 +19,14 @@ For macOS/Linux:
 
 **Initialize db**
 
-    flask --app init-db
+    flask --app app init-db
 
 **Configuration:**
 
-Create ***config.py*** in instance folder. Required props: **BOT_TOKEN**.
+Create ***config.py*** in instance folder. Required props: 
+
+* **BOT_TOKEN** - required to validate authorization data from the Telegram mini app
+* **FRONTEND_URL** - required to whitelist frontend app origin
 
 **Run:**
 
@@ -31,3 +34,5 @@ Create ***config.py*** in instance folder. Required props: **BOT_TOKEN**.
 
 Endpoints
 ===
+
+For every request you must provide **Authorization** header which has an authorization method and a token. For now only **tma** method is supported and **init_data** from telegram stands as a token.

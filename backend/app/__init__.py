@@ -30,7 +30,7 @@ def create_app(test_config=None):
     
     from . import api
     app.register_blueprint(api.bp)
-    
-    CORS(app)
+
+    CORS(app, origins=app.config.get('FRONTEND_URL'))
     
     return app
