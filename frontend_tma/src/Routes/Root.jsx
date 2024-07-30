@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import axios from 'axios';
+import axiosInstance from "../axios";
 import { Outlet } from "react-router-dom";
 import { TonConnectUIProvider } from '@tonconnect/ui-react';
 
@@ -15,8 +15,9 @@ export default function Root() {
   const [showWallet, setShowWallet] = useState(false);
 
   useEffect(() => {
-    axios.post('http://127.0.0.1:5000/api/', {
-      debil: 'gavno'
+    axiosInstance.post('/api/', 
+      {
+      gavno: 'eblan'
     })
       .then((res) => console.log(res))
       .catch((err) => console.log(err))
