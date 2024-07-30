@@ -1,4 +1,5 @@
 import React from 'react'
+import eruda from 'eruda';
 import ReactDOM from 'react-dom/client'
 import WebApp from '@twa-dev/sdk'
 import { RouterProvider, createBrowserRouter  } from 'react-router-dom'
@@ -39,6 +40,8 @@ const router = createBrowserRouter([
 WebApp.ready();
 WebApp.setHeaderColor("#000000");
 WebApp.setBackgroundColor("#000000");
+
+eruda.init();
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
