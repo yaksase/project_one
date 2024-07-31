@@ -94,11 +94,11 @@ export default function Drops() {
 
       <div className={s.item}>
         <img src={PcMint} alt="Mint PC" className={s.image} />
-        <button className={s.button} onClick={() => openPcMint()}>Mint PC</button>
+        <GlowingButton width='100%' onClick={() => openPcMint()}><div className={s.buttonContent}>Mint PC</div></GlowingButton>
       </div>
       <div className={s.item}>
         <img src={AiMint} alt="Mint Ai" className={s.image} />
-        <button className={s.button} onClick={() => openAiMint()}>Mint Ai</button>
+        <GlowingButton width='100%' onClick={() => openAiMint()}><div className={s.buttonContent}>Mint Ai</div></GlowingButton>
       </div>
     </div>
   )
