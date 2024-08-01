@@ -3,6 +3,7 @@ from functools import wraps
 import hmac
 import time
 import hashlib
+import json
 from urllib.parse import unquote
 
 bp = Blueprint('api', __name__, url_prefix='/api')
@@ -24,25 +25,25 @@ def token_required(view):
             return make_response(jsonify({'message': 'Auth method is incorrect'}), 401)
         
         initdata = auth_data[1]
-        hash = ''
-        auth_date = '0'
-        sorted_data = []
-        for chunk in sorted(unquote(initdata).split("&")):
-            if chunk[:len("hash=")] == "hash=":
-                hash = chunk[len("hash="):]
-            elif chunk[:len("auth_date=")] == "auth_date=":
-                auth_date = chunk[len("auth_date="):]
-                sorted_data.append(chunk)
-            else:
-                sorted_data.append(chunk)
-        processed_initdata = '\n'.join(sorted_data)
+        try:
+            d = {k: v for k, v in map(lambda i: i.split('='), unquote(initdata).split('&'))}
+        except ValueError as e:
+            return make_response(jsonify({'message': f'Init data is malformed'}), 401)
+            
+        try:
+            hash = d.pop('hash')
+            auth_date = d['auth_date']
+            user_id = json.loads(d['user'])['id']
+        except KeyError as e:
+            return make_response(jsonify({'message': f'Missing {e.args[0]} property'}), 401)
+        processed_initdata = '\n'.join(sorted([f'{k}={v}' for k, v in d.items()]))
 
         secret_key = hmac.new("WebAppData".encode(), current_app.config.get('BOT_TOKEN').encode(), hashlib.sha256).digest()
         data_check = hmac.new(secret_key, processed_initdata.encode(), hashlib.sha256)
 
         if data_check.hexdigest() != hash:
             return make_response(jsonify({'message': 'Init data is not valid'}), 401)
-            
+
         try:
             token_age = int(time.time()) - int(auth_date)
         except ValueError:
