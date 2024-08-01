@@ -6,6 +6,8 @@ import hashlib
 import json
 from urllib.parse import unquote
 
+from app.db import get_db
+
 bp = Blueprint('api', __name__, url_prefix='/api')
 
 
@@ -29,11 +31,11 @@ def token_required(view):
             d = {k: v for k, v in map(lambda i: i.split('='), unquote(initdata).split('&'))}
         except ValueError as e:
             return make_response(jsonify({'message': f'Init data is malformed'}), 401)
-            
+
         try:
             hash = d.pop('hash')
             auth_date = d['auth_date']
-            user_id = json.loads(d['user'])['id']
+            user = json.loads(d['user'])
         except KeyError as e:
             return make_response(jsonify({'message': f'Missing {e.args[0]} property'}), 401)
         processed_initdata = '\n'.join(sorted([f'{k}={v}' for k, v in d.items()]))
@@ -52,13 +54,18 @@ def token_required(view):
         if token_age > current_app.config.get('TOKEN_EXPIRATION'):
             return make_response(jsonify({'message': 'Init data has been expired'}), 401)
         
-        return view(**kwargs)
+        current_user = get_db().execute('SELECT * FROM user WHERE id = ?', (user['id'],)).fetchone()
+        if current_user is None:
+            get_db().execute('INSERT INTO user (id, name) VALUES (?, ?)', (user['id'], user['username']))
+            get_db().commit()
+            current_user = get_db().execute('SELECT * FROM user WHERE id = ?', (user['id'],)).fetchone()
+
+        return view(current_user, **kwargs)
 
     return wrapped_view
         
         
-@bp.route('/', methods=['POST'])
+@bp.route('/me', methods=['GET'])
 @token_required
-def index():
-    print(request.json)
-    return 'fuck'
+def get_user(current_user):
+    return jsonify(dict(current_user))

@@ -37,3 +37,7 @@ Endpoints
 ===
 
 For every request you must provide **Authorization** header which has an authorization method and a token. For now only **tma** method is supported and **init_data** from telegram stands as a token.
+
+/api
+===
+* GET **/me** - get info about current user. Returns json: {id: int, name: string, tokens: int, tons: int}
