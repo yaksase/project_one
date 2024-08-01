@@ -1,5 +1,4 @@
-import { useEffect, useState } from "react";
-import axiosInstance from "../axios";
+import { useState } from "react";
 import { Outlet } from "react-router-dom";
 import { TonConnectUIProvider } from '@tonconnect/ui-react';
 
@@ -13,15 +12,6 @@ export default function Root() {
   const [showLeaderboard, setShowLeaderboard] = useState(false);
   const [showInvite, setShowInvite] = useState(false);
   const [showWallet, setShowWallet] = useState(false);
-
-  useEffect(() => {
-    axiosInstance.post('/api/', 
-      {
-      gavno: 'eblan'
-    })
-      .then((res) => console.log(res))
-      .catch((err) => console.log(err))
-  }, [])
 
   return (
     <>
