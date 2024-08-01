@@ -27,6 +27,7 @@ Create ***config.py*** in instance folder. Required props:
 
 * **BOT_TOKEN** - required to validate authorization data from the Telegram mini app
 * **FRONTEND_URL** - required to whitelist frontend app origin
+* **TOKEN_EXPIRATION** - required to check for init data expiration
 
 **Run:**
 
