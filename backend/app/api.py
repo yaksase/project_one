@@ -69,3 +69,13 @@ def token_required(view):
 @token_required
 def get_user(current_user):
     return jsonify(dict(current_user))
+
+@bp.route('/leaderboard', methods=['GET'])
+@token_required
+def get_leaderboard(current_user):
+    leaderboard = get_db().execute('SELECT *\
+                    FROM user\
+                    ORDER BY tokens DESC, name DESC\
+                    LIMIT 100;').fetchall()
+    return jsonify([dict(user) for user in leaderboard])
+

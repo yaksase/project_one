@@ -40,4 +40,5 @@ For every request you must provide **Authorization** header which has an authori
 
 /api
 ===
-* GET **/me** - get info about current user. Returns json: {id: int, name: string, tokens: int, tons: int}
+* GET **/me** - get info about current user. Returns json: *{id: int, name: string, tokens: int, tons: int}*
+* GET **/leaderboard** - get top 100 users by token count. Sorted by token count and by username. Returns array of users *{id: int, name: string, tokens: int, tons: int}*
