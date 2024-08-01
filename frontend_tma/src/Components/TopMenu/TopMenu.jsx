@@ -57,14 +57,14 @@ export default function TopMenu({ onInviteClick, onLeaderboardClick, onWalletCli
         <li>
           <div className={s.balance_container_top_menu}>
             <div className={s.balance_top_menu}>
-              <span className="priceWrapper">
+              <span className="priceWrapper" style={{justifyContent: 'end'}}>
                 {tons}
                 <img src={TonIcon}/>
               </span>
               
             </div>
             <div className={s.balance_top_menu}>
-              <span className="priceWrapper">
+              <span className="priceWrapper" style={{justifyContent: 'end'}}>
                 {tokens}
                 <img src={TokenIcon}/>
               </span>
