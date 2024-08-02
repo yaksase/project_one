@@ -1,6 +1,6 @@
 .invitationContent {
     width: 70vw;
-    height: 27vh;
+    min-height: 27vh;
 
     display: flex;
     flex-direction: column;
@@ -24,7 +24,6 @@
     font-weight: bold;
     display: flex;
     flex-direction: row;
-    padding: 5px;
 }
 .buttonContent div {
     margin-left: 0.5em;
