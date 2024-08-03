@@ -1118,11 +1118,7 @@ export default function Market() {
             <img src={tokenImage} className={`glow-rare`}></img>
           </div>
           <span style={{ fontSize: 'x-large', textAlign: 'center' }}>Available:</span>
-          {/* <span className='priceWrapper greenHighlight' style={{ fontSize: 'x-large', justifyContent: 'center' }}>
-            1,546,234,128
-            <img src={tokenImage}></img>
-          </span> */}
-          <span className='greenHighlight'><TokenPrice amount='1,546,234,128,123,123'></TokenPrice></span>
+          <span className='greenHighlight'><TokenPrice amount='12'></TokenPrice></span>
           <br />
           <span style={{ fontSize: 'x-large', textAlign: 'center' }}>Price:</span>
           <span className='priceWrapper greenHighlight' style={{ fontSize: 'x-large', justifyContent: 'center' }}>
@@ -1142,17 +1138,19 @@ export default function Market() {
               <></> :
               <>
                 <span style={{ fontSize: 'x-large', textAlign: 'center' }}>Listing:</span>
-                <span className='priceWrapper greenHighlight' style={{ fontSize: 'x-large', justifyContent: 'center' }}>
-                  {numberWithCommas(parseFloat(tokenAmountListed))}
-                  <img src={tokenImage}></img>
-                </span><br />
+                <span className='greenHighlight'><TokenPrice max={25} amount={numberWithCommas(parseFloat(tokenAmountListed))}></TokenPrice></span>
+                <br />
                 <span style={{ fontSize: 'x-large', textAlign: 'center' }}>Price:</span>
-                <span className='priceWrapper greenHighlight' style={{ fontSize: 'x-large', justifyContent: 'center' }}>
-                  {parseFloat(tokenPrice)}
-                  <img src={tonImage} style={{ marginRight: '1rem' }}></img>
-                  for 1
-                  <img src={tokenImage}></img>
-                </span><br />
+                <span className='priceWrapper greenHighlight' style={{ fontSize: 'x-large', justifyContent: 'center', marginTop: '10px' }}>
+                  <span style={{ flex: "1", display: "flex", alignItems: "center"}}>
+                    <TokenPrice amount={parseFloat(tokenPrice).toString()} max={24} coin='ton' position='right'></TokenPrice>
+                  </span>
+                  <span style={{ flex: "1", display: "flex", alignItems: "center" }}>
+                    for 1
+                    <img src={tokenImage}></img>
+                  </span>
+                </span>
+                <br />
               </>
           }
         </div>

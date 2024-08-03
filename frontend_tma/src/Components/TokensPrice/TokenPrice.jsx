@@ -4,7 +4,8 @@ Component for writing any number of any coins that can resize itself
 max - maximum font-size in px (35)
 min - minimum font-size in px (8)
 coin - ton/token(default: token)
-width - width of the main container (100%);
+width - width of the main container (100%)
+position - position of string in container - left/right/center (center)
 */
 import PropTypes from 'prop-types';
 import { Textfit } from 'react-textfit';
@@ -19,14 +20,15 @@ TokenPrice.propTypes = {
     max: PropTypes.number,
     min: PropTypes.number,
     coin: PropTypes.string,
-    width: PropTypes.string
+    width: PropTypes.string,
+    center: PropTypes.string
 }
 
-export default function TokenPrice({amount = '13', max = 35, min = 8, coin = 'token', width = '100%'}) {
+export default function TokenPrice({amount = '13', max = 35, min = 8, coin = 'token', width = '100%', position = 'center' }) {
     let coinImage = (coin === "token" ? tokenImage : tonImage);
     return (
-        <div className={s.container} style={{ width: width }}>
-            <div className={s.textContainer}><Textfit mode='single' max={max} min={min}>{amount}<span className={s.iconContainer}><img src={coinImage} className={s.icon}></img></span></Textfit></div>
+        <div className={s.container} style={{ width: width, textAlign: position }}>
+            <div className={s.textContainer}><Textfit mode='single' max={max} min={min} style={{ textAlign: position }}>{amount}<span className={s.iconContainer}><img src={coinImage} className={s.icon}></img></span></Textfit></div>
         </div>
     )
 }
