@@ -169,7 +169,7 @@ function getPcImageComponent(rarity = null) {
       width = '70%';
       break;
   }
-  return <img src={src} style={{ width: width }}></img>
+  return <img src={src} style={{ maxWidth: width, maxHeight: '25vh', width: 'auto'}}></img>
 }
 
 export default function Home() {

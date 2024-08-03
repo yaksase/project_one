@@ -6,6 +6,8 @@ import GlowingButton from '../../Components/GlowingButton/GlowingButton';
 import PopUp from '../../Components/PopUp/PopUp';
 import PositiveNotification from '../../Components/PositiveNotification/PositiveNotification';
 import Input from '../../Components/Input/Input';
+import FitText from '../../Components/FitText/FitText'
+import TokenPrice from '../../Components/TokensPrice/TokenPrice';
 
 import getAiImage from '../../utils/getAiImage.js';
 import getPcImage from '../../utils/getPcImage.js';
@@ -1121,6 +1123,9 @@ export default function Market() {
             1,546,234,128
             <img src={tokenImage}></img>
           </span>
+          <TokenPrice></TokenPrice>
+          <span style={{ width: '80%' }} className='greenHighlight priceWrapper'><FitText text={'1,546,234,128'}/><img src={tokenImage}></img></span>
+          <span className='priceWrapper'><FitText text={'1,546,234,128'} /><img src={tokenImage}></img></span>
           <br />
           <span style={{ fontSize: 'x-large', textAlign: 'center' }}>Price:</span>
           <span className='priceWrapper greenHighlight' style={{ fontSize: 'x-large', justifyContent: 'center' }}>
