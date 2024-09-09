@@ -54,9 +54,14 @@ def token_required(view):
         if token_age > current_app.config.get('TOKEN_EXPIRATION'):
             return make_response(jsonify({'message': 'Init data has been expired'}), 401)
         
+        try:
+            last_name = user['last_name']
+        except KeyError:
+            last_name = ''
+
         current_user = get_db().execute('SELECT * FROM user WHERE id = ?', (user['id'],)).fetchone()
         if current_user is None:
-            get_db().execute('INSERT INTO user (id, name) VALUES (?, ?)', (user['id'], user['username']))
+            get_db().execute('INSERT INTO user (id, name) VALUES (?, ?)', (user['id'], f'{user['first_name']} {last_name}'))
             get_db().commit()
             current_user = get_db().execute('SELECT * FROM user WHERE id = ?', (user['id'],)).fetchone()
 
