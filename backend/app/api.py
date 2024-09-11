@@ -48,6 +48,7 @@ def token_required(view):
 
         try:
             token_age = int(time.time()) - int(auth_date)
+            print(token_age)
         except ValueError:
             return make_response(jsonify({'message': 'Auth date is incorrect'}), 401)
 
@@ -64,6 +65,10 @@ def token_required(view):
             get_db().execute('INSERT INTO user (id, name) VALUES (?, ?)', (user['id'], f'{user['first_name']} {last_name}'))
             get_db().commit()
             current_user = get_db().execute('SELECT * FROM user WHERE id = ?', (user['id'],)).fetchone()
+        # Maybe we should add token age check so that only most recent entrances are checked for updates
+        elif current_user[1] != f'{user['first_name']} {last_name}':
+            get_db().execute('UPDATE user SET name = ? WHERE id = ?', (f'{user['first_name']} {last_name}', user['id']))
+            get_db().commit()
 
         return view(current_user, **kwargs)
 
