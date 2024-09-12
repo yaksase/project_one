@@ -7,72 +7,11 @@ import json
 from urllib.parse import unquote
 
 from app.db import get_db
+from app import inventory
+from app.token_required import token_required
 
 bp = Blueprint('api', __name__, url_prefix='/api')
-
-
-def token_required(view):
-    @wraps(view)
-    def wrapped_view(**kwargs):
-        init_data = None
-        # ensure the init_data passed with the headers
-        if 'authorization' in request.headers:
-            init_data = request.headers['authorization']
-        if not init_data:
-            return make_response(jsonify({'message': 'Init data is missing'}), 401)
-        auth_data = init_data.split(' ')
-        if len(auth_data) != 2:
-            return make_response(jsonify({'message': 'Init data is incorrect'}), 401)
-        if auth_data[0] != 'tma':
-            return make_response(jsonify({'message': 'Auth method is incorrect'}), 401)
-        
-        initdata = auth_data[1]
-        try:
-            d = {k: v for k, v in map(lambda i: i.split('='), unquote(initdata).split('&'))}
-        except ValueError as e:
-            return make_response(jsonify({'message': f'Init data is malformed'}), 401)
-
-        try:
-            hash = d.pop('hash')
-            auth_date = d['auth_date']
-            user = json.loads(d['user'])
-        except KeyError as e:
-            return make_response(jsonify({'message': f'Missing {e.args[0]} property'}), 401)
-        processed_initdata = '\n'.join(sorted([f'{k}={v}' for k, v in d.items()]))
-
-        secret_key = hmac.new("WebAppData".encode(), current_app.config.get('BOT_TOKEN').encode(), hashlib.sha256).digest()
-        data_check = hmac.new(secret_key, processed_initdata.encode(), hashlib.sha256)
-
-        if data_check.hexdigest() != hash:
-            return make_response(jsonify({'message': 'Init data is not valid'}), 401)
-
-        try:
-            token_age = int(time.time()) - int(auth_date)
-            print(token_age)
-        except ValueError:
-            return make_response(jsonify({'message': 'Auth date is incorrect'}), 401)
-
-        if token_age > current_app.config.get('TOKEN_EXPIRATION'):
-            return make_response(jsonify({'message': 'Init data has been expired'}), 401)
-        
-        try:
-            last_name = user['last_name']
-        except KeyError:
-            last_name = ''
-
-        current_user = get_db().execute('SELECT * FROM user WHERE id = ?', (user['id'],)).fetchone()
-        if current_user is None:
-            get_db().execute('INSERT INTO user (id, name) VALUES (?, ?)', (user['id'], f'{user['first_name']} {last_name}'))
-            get_db().commit()
-            current_user = get_db().execute('SELECT * FROM user WHERE id = ?', (user['id'],)).fetchone()
-        # Maybe we should add token age check so that only most recent entrances are checked for updates
-        elif current_user[1] != f'{user['first_name']} {last_name}':
-            get_db().execute('UPDATE user SET name = ? WHERE id = ?', (f'{user['first_name']} {last_name}', user['id']))
-            get_db().commit()
-
-        return view(current_user, **kwargs)
-
-    return wrapped_view
+bp.register_blueprint(inventory.bp)
         
         
 @bp.route('/me', methods=['GET'])
@@ -80,12 +19,19 @@ def token_required(view):
 def get_user(current_user):
     return jsonify(dict(current_user))
 
+
 @bp.route('/leaderboard', methods=['GET'])
 @token_required
 def get_leaderboard(current_user):
     leaderboard = get_db().execute('SELECT *\
                     FROM user\
-                    ORDER BY tokens DESC, name DESC\
+                    ORDER BY tokens DESC, name ASC\
                     LIMIT 100;').fetchall()
     return jsonify([dict(user) for user in leaderboard])
 
+
+@bp.route('/free_pc', methods=['GET'])
+@token_required
+def get_free_pc_amount(current_user):
+    total_free_pcs = get_db().execute('SELECT COUNT(*) FROM pc WHERE is_free = TRUE').fetchone()[0]
+    return jsonify({'amount': current_app.config.get('MAX_FREE_PCS') - total_free_pcs})
