@@ -40,6 +40,11 @@ const router = createBrowserRouter([
 WebApp.ready();
 WebApp.setHeaderColor("#000000");
 WebApp.setBackgroundColor("#000000");
+WebApp.onEvent('popupClosed', (params) => {
+  if (params.button_id === 'popupClose') {
+    WebApp.close();
+  }
+})
 
 eruda.init();
 
