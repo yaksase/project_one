@@ -7,6 +7,7 @@ from urllib.parse import unquote
 import json
 
 from app.db import get_db
+from app.parameters import TOKEN_EXPIRATION
 
 
 def token_required(view):
@@ -50,7 +51,7 @@ def token_required(view):
         except ValueError:
             return make_response(jsonify({'message': 'Auth date is incorrect'}), 401)
 
-        if token_age > current_app.config.get('TOKEN_EXPIRATION'):
+        if token_age > TOKEN_EXPIRATION:
             return make_response(jsonify({'message': 'Init data has been expired'}), 401)
         
         try:

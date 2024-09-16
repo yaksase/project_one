@@ -1,4 +1,4 @@
-from flask import Blueprint, request, make_response, jsonify, current_app
+from flask import Blueprint, request, make_response, jsonify
 from functools import wraps
 import hmac
 import time
@@ -9,6 +9,7 @@ from urllib.parse import unquote
 from app.db import get_db
 from app import inventory
 from app.token_required import token_required
+from app.parameters import MAX_FREE_PCS
 
 bp = Blueprint('api', __name__, url_prefix='/api')
 bp.register_blueprint(inventory.bp)
@@ -34,4 +35,4 @@ def get_leaderboard(current_user):
 @token_required
 def get_free_pc_amount(current_user):
     total_free_pcs = get_db().execute('SELECT COUNT(*) FROM pc WHERE is_free = TRUE').fetchone()[0]
-    return jsonify({'amount': current_app.config.get('MAX_FREE_PCS') - total_free_pcs})
+    return jsonify({'amount': MAX_FREE_PCS - total_free_pcs})
