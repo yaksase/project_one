@@ -17,6 +17,8 @@ export default function AvailablePc({ hidden = false, children }) {
   const [width, setWidth] = useState(300);
 
   const windowElRef = useRef();
+  
+  console.log(curPage);
 
   useEffect(() => {
     const resizeHandler = () => {
@@ -43,6 +45,7 @@ export default function AvailablePc({ hidden = false, children }) {
   function handleRight() {
     setCurPage((prevPage) => {
       const newPage = Math.min(prevPage + 3, children.length - 3);
+      console.log(`newPage ${newPage}`)
       return newPage;
     });
   }
@@ -53,7 +56,7 @@ export default function AvailablePc({ hidden = false, children }) {
 
   useEffect(() => {
     setCurPage((prevPage) => {
-      return Math.min(prevPage, children.length - 3);
+      return Math.min(prevPage, children.length - 3 < 0 ? 0 : children.length - 3);
     })
   }, [children])
 
