@@ -230,7 +230,6 @@ export default function Leaderboard({ isActive, onClose }) {
     .then((res) => {
       setUsers(res.data);
     })
-    .catch((err) => console.log(err))
   }, []);
 
   return (
