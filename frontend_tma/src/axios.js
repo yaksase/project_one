@@ -20,6 +20,12 @@ axiosInstance.interceptors.response.use(
           message: 'Please reopen the app.',
           buttons: popupButtons
         })
+      } else if (error.response.status == 400) {
+        WebApp.showPopup({
+          title: "Can't do this action", 
+          message: error.response.data['message'],
+          buttons: popupButtons
+        })
       }
     }
     else {
