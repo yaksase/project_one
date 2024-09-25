@@ -23,6 +23,24 @@ def get_user(current_user):
     return jsonify(dict(current_user))
 
 
+# Rework when linked with TON
+@bp.route('/deposit', methods=['PUT'])
+@token_required
+def deposit(current_user):
+    amount = abs(request.args.get('amount', default=0, type=int))
+    update_tons(current_user['id'], amount)
+    return make_response(jsonify({'message': 'Succesful deposit'}), 200)
+
+
+# Rework when linked with TON
+@bp.route('/withdraw', methods=['PUT'])
+@token_required
+def withdraw(current_user):
+    amount = abs(request.args.get('amount', default=0, type=int))
+    update_tons(current_user['id'], -amount)
+    return make_response(jsonify({'message': 'Succesful withdraw'}), 200)
+
+
 @bp.route('/leaderboard', methods=['GET'])
 @token_required
 def get_leaderboard(current_user):
