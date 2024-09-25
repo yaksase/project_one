@@ -9,16 +9,31 @@ import Input from '../../Components/Input/Input';
 import s from './Wallet.module.css';
 
 import { PiHandArrowDownDuotone, PiHandArrowUpDuotone } from "react-icons/pi";
+import axiosInstance from '../../axios';
 
 Wallet.propTypes = {
   isActive: PropTypes.bool.isRequired,
-  onClose: PropTypes.func.isRequired
+  onClose: PropTypes.func.isRequired,
+  updatePersonalInfo: PropTypes.func.isRequired
 }
 
-export default function Wallet({ isActive, onClose }) {
+export default function Wallet({ isActive, onClose, updatePersonalInfo }) {
   const [showDepositPopup, setShowDepositPopup] = useState(false);
   const [showWithdrawPopup, setShowWithdrawPopup] = useState(false);
-  const [showWalletPopUp, setShowWalletPopUp] = useState(isActive);
+
+  const deposit = () => {
+    axiosInstance.put('/api/deposit', null, { params: {
+      amount: price
+    }})
+      .then(() => updatePersonalInfo());
+  };
+
+  const withdraw = () => {
+    axiosInstance.put('/api/withdraw', null, { params: {
+      amount: price
+    }})
+      .then(() => updatePersonalInfo());
+  };
 
   const openDepositPopup = () => {
     setShowDepositPopup(true);
@@ -28,12 +43,10 @@ export default function Wallet({ isActive, onClose }) {
   };
   const closeDepositPopup = () => {
     setShowDepositPopup(false);
-    setShowWalletPopUp(false);
     setPrice('');
   };
   const closeWithdrawPopup = () => {
     setShowWithdrawPopup(false);
-    setShowWalletPopUp(false);
     setPrice('');
   };
   const [price, setPrice] = useState('');
@@ -56,7 +69,7 @@ export default function Wallet({ isActive, onClose }) {
           <label>Amount</label>
           <Input value={price} setValue={setPrice} className={s.input}></Input>
           <div className={s.buttonContainer}>
-            <GlowingButton>
+            <GlowingButton onClick={() => deposit()}>
               <div className={s.innerButton}>Deposit<span className={`priceWrapper`}><PiHandArrowUpDuotone></PiHandArrowUpDuotone></span></div>
             </GlowingButton>
           </div>
@@ -68,7 +81,7 @@ export default function Wallet({ isActive, onClose }) {
           <label>Amount</label>
           <Input value={price} setValue={setPrice} className={s.input}></Input>
           <div className={s.buttonContainer}>
-            <GlowingButton buttonColor='red'>
+            <GlowingButton buttonColor='red' onClick={() => withdraw()}>
               <div className={s.innerButton}>Withdraw<span className={`priceWrapper`}><PiHandArrowDownDuotone></PiHandArrowDownDuotone></span></div>
             </GlowingButton>
           </div>
