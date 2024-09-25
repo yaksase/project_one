@@ -28,9 +28,17 @@
 }
 
 .popUpButtonContainer {
+  display: flex;
+  justify-content: center;
   font-size: x-large;
   position: sticky;
   bottom: 0;
+}
+
+.itemInfoContainer {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 1.5rem;
 }
 
 .imageMint {
