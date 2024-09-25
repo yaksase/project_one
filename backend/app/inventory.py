@@ -10,10 +10,36 @@ from app.parameters import (MAX_FREE_PCS, AI_DURATION, PC_LIFETIME, PC_EARNINGS,
 bp = Blueprint('inventory', __name__, url_prefix='/inventory')
 
 
+# TODO: check if offset exceeds amount of PCs
 @bp.route('/pc', methods=['GET'])
 @token_required
 @limited_response
 def get_pc(current_user, limit, offset):
+    """
+    params:
+    - is_connected <int> ()
+    - limit <int> (default: 20, min: 1, max:50)
+    - offset <int> (default: 0, min: 0)
+
+    does:
+    get PCs for current user (sorted by rarity DESC and by id ASC).
+    you can regulate whether PCs are connected, not or don't care with *is_connected*.
+    you can regulate size of PC array and offset with *limit* and *offset*.
+
+    returns:
+    - [200] array of PC(*{
+        id: int,
+        user_id: int, 
+        ai_id: int, 
+        rarity: int, 
+        is_activated: bool, 
+        health: int, 
+        is_free: bool, 
+        lifetime: unix timestamp, 
+        earnings: int,
+        slots: array of 7 int values (slots for each rarity)
+    }*)
+    """
     is_connected = request.args.get('is_connected', default=None, type=int)
     if is_connected is not None:
         if is_connected:
@@ -38,10 +64,37 @@ def get_pc(current_user, limit, offset):
     return jsonify(response_data)
 
 
+# TODO: check if offset exceeds amount of PCs
 @bp.route('/ai', methods=['GET'])
 @token_required
 @limited_response
 def get_ai(current_user, limit, offset):
+    """
+    params:
+    - limit <int> (default: 20, min: 1, max:50)
+    - offset <int> (default: 0, min: 0)
+
+    does:
+    get AIs for current user (sorted by rarity DESC and by id ASC).
+    you can regulate size of AI array and offset with *limit* and *offset*.
+
+    returns:
+    - [200] array of PC(*{
+        id: int, 
+        user_id: int, 
+        rarity: int, 
+        duration: unix timestamp, 
+        slots: array of 7 int values (slots for each rarity)),
+        slots_taken: int,
+        pcs: array of pc {
+            id: int, 
+            rarity: int, 
+            is_activated: bool, 
+            health: int, 
+            is_free: bool
+        }
+    }*)
+    """
     received_data = get_db().execute("WITH ai_and_pcs AS (\
                                       SELECT\
                                           a.id AS id,\
@@ -97,6 +150,15 @@ def get_ai(current_user, limit, offset):
 @bp.route('/free_pc', methods=['PUT'])
 @token_required
 def claim_free_pc(current_user):
+    """
+    does:
+    claims a free PC for current user if he doesn't have it.
+
+    returns:
+    - [200] if Succesfully claimed free pc
+    - [409] if User already claimed a free pc
+    - [409] if No free PCs left
+    """
     total_free_pcs = get_db().execute('SELECT COUNT(*) FROM pc WHERE is_free = TRUE').fetchone()[0]
     if MAX_FREE_PCS - total_free_pcs <= 0:
         return make_response(jsonify({'message': 'No free PCs left'}), 409)
@@ -111,6 +173,14 @@ def claim_free_pc(current_user):
 @bp.route('/free_ai', methods=['PUT'])
 @token_required
 def claim_free_ai(current_user):
+    """
+    does:
+    claims a free PC for current user if he doesn't have it.
+
+    returns:
+    - [200] if Succesfully claimed free ai
+    - [409] if User already claimed a free ai
+    """
     free_ai = get_db().execute('SELECT * FROM ai\
                                 WHERE user_id = ?', (current_user['id'],)).fetchone()
     if free_ai is not None:

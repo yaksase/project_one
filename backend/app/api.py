@@ -27,6 +27,16 @@ def get_user(current_user):
 @bp.route('/deposit', methods=['PUT'])
 @token_required
 def deposit(current_user):
+    """
+    params:
+    - amount <int>
+
+    does:
+    increase TON for current user by *amount*
+
+    returns:
+    - [200] if Succesful deposit
+    """
     amount = abs(request.args.get('amount', default=0, type=int))
     update_tons(current_user['id'], amount)
     return make_response(jsonify({'message': 'Succesful deposit'}), 200)
@@ -36,14 +46,34 @@ def deposit(current_user):
 @bp.route('/withdraw', methods=['PUT'])
 @token_required
 def withdraw(current_user):
+    """
+    params:
+    - amount <int>
+
+    does:
+    reduce TON for current user by *amount*
+
+    returns:
+    - [200] if Succesful withdrawal
+    - [400] if Not enough TON
+    """
     amount = abs(request.args.get('amount', default=0, type=int))
+    if current_user['tons'] < amount:
+        return make_response(jsonify({'message': 'Not enough TON'}), 400)
     update_tons(current_user['id'], -amount)
-    return make_response(jsonify({'message': 'Succesful withdraw'}), 200)
+    return make_response(jsonify({'message': 'Succesful withdrawal'}), 200)
 
 
 @bp.route('/leaderboard', methods=['GET'])
 @token_required
 def get_leaderboard(current_user):
+    """
+    does:
+    get top 100 users by token count. Sorted by token count (DESC) and by username (ASC)
+
+    returns:
+    - [200] array of users(*{id: int, name: string, tokens: int, tons: int}*)
+    """
     leaderboard = get_db().execute('SELECT *\
                     FROM user\
                     ORDER BY tokens DESC, name ASC\
@@ -54,5 +84,12 @@ def get_leaderboard(current_user):
 @bp.route('/free_pc', methods=['GET'])
 @token_required
 def get_free_pc_amount(current_user):
+    """
+    does:
+    get amount of free PCs that are ready to be claimed by users
+
+    returns:
+    - [200] amount *{amount: int}*
+    """
     total_free_pcs = get_db().execute('SELECT COUNT(*) FROM pc WHERE is_free = TRUE').fetchone()[0]
     return jsonify({'amount': MAX_FREE_PCS - total_free_pcs})
