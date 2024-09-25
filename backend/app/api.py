@@ -6,14 +6,16 @@ import hashlib
 import json
 from urllib.parse import unquote
 
-from app.db import get_db
-from app import inventory
+from app.db import get_db, update_tons
+from app import inventory, mint
 from app.token_required import token_required
 from app.parameters import MAX_FREE_PCS
 
 bp = Blueprint('api', __name__, url_prefix='/api')
+
 bp.register_blueprint(inventory.bp)
-        
+bp.register_blueprint(mint.bp)
+
         
 @bp.route('/me', methods=['GET'])
 @token_required
