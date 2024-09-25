@@ -6,20 +6,19 @@ import s from './AvailablePc.module.css';
 
 AvailablePc.propTypes = {
   hidden: PropTypes.bool,
+  curPage: PropTypes.number.isRequired,
+  setCurPage: PropTypes.func.isRequired,
   children: PropTypes.oneOfType([
     PropTypes.arrayOf(PropTypes.node),
     PropTypes.node
   ]).isRequired
 }
 
-export default function AvailablePc({ hidden = false, children }) {
-  const [curPage, setCurPage] = useState(0);
+export default function AvailablePc({ hidden = false, curPage, setCurPage, children }) {
   const [width, setWidth] = useState(300);
 
   const windowElRef = useRef();
   
-  console.log(curPage);
-
   useEffect(() => {
     const resizeHandler = () => {
       const _width = windowElRef.current.offsetWidth;
@@ -45,7 +44,6 @@ export default function AvailablePc({ hidden = false, children }) {
   function handleRight() {
     setCurPage((prevPage) => {
       const newPage = Math.min(prevPage + 3, children.length - 3);
-      console.log(`newPage ${newPage}`)
       return newPage;
     });
   }
