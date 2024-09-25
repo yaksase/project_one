@@ -1,0 +1,37 @@
+.image {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 1rem;
+}
+
+.image img {
+  width: 25%;
+}
+
+.centeredText {
+  width: 100%;
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
+.iconWrapper {
+  font-size: large;
+  font-weight: bold;
+  display: flex;
+}
+
+.iconWrapper svg {
+  margin-right: 0.2em;
+}
+
+.aiSlotsWrapper {
+  display: flex;
+  font-size: large;
+  font-weight: bold;
+}
+
+.aiSlotsWrapper img {
+  margin-right: 0.2em;
+  height: 1em;
+  font-size: 1em;
+}
