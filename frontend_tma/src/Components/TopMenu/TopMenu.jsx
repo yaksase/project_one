@@ -1,4 +1,3 @@
-import { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { IconContext } from "react-icons/lib";
 import { PiWalletLight, PiUserPlusLight, PiRankingLight } from "react-icons/pi";
@@ -6,28 +5,16 @@ import { PiWalletLight, PiUserPlusLight, PiRankingLight } from "react-icons/pi";
 import TonIcon from '../../assets/ton_icon.svg';
 import TokenIcon from '../../assets/token_icon.png';
 
-import axiosInstance from '../../axios';
-
 import s from './TopMenu.module.css';
 
 TopMenu.propTypes = {
   onInviteClick: PropTypes.func.isRequired,
   onLeaderboardClick: PropTypes.func.isRequired,
-  onWalletClick: PropTypes.func.isRequired
+  onWalletClick: PropTypes.func.isRequired,
+  personalInfo: PropTypes.object.isRequired
 }
 
-export default function TopMenu({ onInviteClick, onLeaderboardClick, onWalletClick}) {
-  const [tokens, setTokens] = useState(0);
-  const [tons, setTons] = useState(0);
-
-  useEffect(() => {
-    axiosInstance.get('/api/me')
-      .then((res) => {
-        setTokens(res.data['tokens']);
-        setTons(res.data['tons']);
-      })
-      .catch((err) => console.log(err))
-  }, []);
+export default function TopMenu({ onInviteClick, onLeaderboardClick, onWalletClick, personalInfo }) {
 
   const IconSize = "40";
   return (
@@ -58,14 +45,14 @@ export default function TopMenu({ onInviteClick, onLeaderboardClick, onWalletCli
           <div className={s.balance_container_top_menu}>
             <div className={s.balance_top_menu}>
               <span className="priceWrapper" style={{justifyContent: 'end'}}>
-                {tons}
+                {personalInfo['tons']}
                 <img src={TonIcon}/>
               </span>
               
             </div>
             <div className={s.balance_top_menu}>
               <span className="priceWrapper" style={{justifyContent: 'end'}}>
-                {tokens}
+                {personalInfo['tokens']}
                 <img src={TokenIcon}/>
               </span>
             </div>
