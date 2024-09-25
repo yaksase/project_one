@@ -1,10 +1,11 @@
 from flask import Blueprint, request, make_response, jsonify
 import json
 
-from app.db import get_db
+from app.db import get_db, insert_ai, insert_pc
 from app.token_required import token_required
 from app.limited_response import limited_response
-from app.parameters import MAX_FREE_PCS
+from app.parameters import (MAX_FREE_PCS, AI_DURATION, PC_LIFETIME, PC_EARNINGS,
+                            AI_PC_SLOTS, PC_AI_SLOTS)
 
 bp = Blueprint('inventory', __name__, url_prefix='/inventory')
 
@@ -13,11 +14,28 @@ bp = Blueprint('inventory', __name__, url_prefix='/inventory')
 @token_required
 @limited_response
 def get_pc(current_user, limit, offset):
-    received_data = get_db().execute('SELECT * FROM pc\
+    is_connected = request.args.get('is_connected', default=None, type=int)
+    if is_connected is not None:
+        if is_connected:
+            connection_check = 'AND ai_id IS NOT NULL'
+        else:
+            connection_check = 'AND ai_id IS NULL'
+    else:
+        connection_check = ''
+
+    received_data = get_db().execute(f'SELECT * FROM pc\
                                       WHERE user_id = ?\
+                                      {connection_check}\
                                       ORDER BY rarity DESC, id ASC\
                                       LIMIT ? OFFSET ?', (current_user['id'], limit, offset)).fetchall()
-    return jsonify([dict(pc) for pc in received_data])
+    response_data = []
+    for pc in received_data:
+        pc_cpy = dict(pc)
+        pc_cpy['lifetime'] = PC_LIFETIME[pc['rarity']]
+        pc_cpy['earnings'] = PC_EARNINGS[pc['rarity']]
+        pc_cpy['slots'] = PC_AI_SLOTS[pc['rarity']]
+        response_data.append(pc_cpy)
+    return jsonify(response_data)
 
 
 @bp.route('/ai', methods=['GET'])
@@ -65,6 +83,12 @@ def get_ai(current_user, limit, offset):
     for ai in received_data:
         ai_cpy = dict(ai)
         ai_cpy['pcs'] = json.loads(ai['pcs'])
+        ai_cpy['duration'] = AI_DURATION[ai['rarity']]
+        ai_cpy['slots'] = AI_PC_SLOTS[ai['rarity']]
+        slots_taken = 0
+        for pc in ai_cpy['pcs']:
+            slots_taken += ai_cpy['slots'][pc.rarity]
+        ai_cpy['slots_taken'] = slots_taken
         response_data.append(ai_cpy)
 
     return jsonify(response_data)
@@ -80,8 +104,7 @@ def claim_free_pc(current_user):
                                 WHERE user_id = ? AND is_free = TRUE', (current_user['id'],)).fetchone()
     if free_pc is not None:
         return make_response(jsonify({'message': 'User already claimed a free pc'}), 409)
-    get_db().execute('INSERT INTO pc (user_id, rarity, is_free) VALUES(?, ?, TRUE)', (current_user['id'], 0))
-    get_db().commit()
+    insert_pc(current_user['id'], 0, True)
     return make_response(jsonify({'message': 'Succesfully claimed free pc'}), 200)
 
 
@@ -92,6 +115,5 @@ def claim_free_ai(current_user):
                                 WHERE user_id = ?', (current_user['id'],)).fetchone()
     if free_ai is not None:
         return make_response(jsonify({'message': 'User already claimed a free ai'}), 409)
-    get_db().execute('INSERT INTO ai (user_id, rarity) VALUES(?, ?)', (current_user['id'], 0))
-    get_db().commit()
+    insert_ai(current_user['id'], 0)
     return make_response(jsonify({'message': 'Succesfully claimed free ai'}), 200)

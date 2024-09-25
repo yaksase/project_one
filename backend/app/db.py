@@ -39,3 +39,23 @@ def init_db_command():
 def init_app(app):
     app.teardown_appcontext(close_db)
     app.cli.add_command(init_db_command)
+
+
+def update_tons(user_id, amount):
+    get_db().execute('UPDATE user SET tons = tons + ? WHERE id = ?', (amount, user_id))
+    get_db().commit()
+
+
+def update_tokens(user_id, amount):
+    get_db().execute('UPDATE user SET tokens = tokens + ? WHERE id = ?', (amount, user_id))
+    get_db().commit()
+
+
+def insert_pc(user_id, rarity, is_free=False):
+    get_db().execute('INSERT INTO pc (user_id, rarity, is_free) VALUES(?, ?, ?)', (user_id, rarity, is_free))
+    get_db().commit()
+
+
+def insert_ai(user_id, rarity):
+    get_db().execute('INSERT INTO ai (user_id, rarity) VALUES(?, ?)', (user_id, rarity))
+    get_db().commit()
